@@ -1,4 +1,4 @@
-require('dotenv').config({path: './config/.env'})
+require('dotenv').config({ path: './config/.env' })
 const express = require('express')
 const path = require('path')
 const fetch = require('node-fetch')
@@ -8,11 +8,12 @@ const app = express()
 const port = 8080
 
 // const publicDirPath = path.join(__dirname, '../client/react-app/public')
-// app.use(express.static(publicDirPath))
+const publicDirPath = path.join(__dirname, '../client/react-app/build')
+app.use(express.static(publicDirPath, { extensions: ['html', 'css', 'js', 'svg'] }))
 
-app.use(express.static(path.resolve(__dirname, '../client/react-app/build')));
+// app.use(express.static(path.resolve(__dirname, '../client/react-app/build')));
 
-app.get("/api", async (req, res) => {
+app.get('/api', async (req, res) => {
     try {
         const location = req.query.q
         const units = req.query.units
@@ -27,9 +28,17 @@ app.get("/api", async (req, res) => {
     }
 })
 
-app.use(function(req, res) {
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(publicDirPath, 'index.html'))
+})
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.resolve(publicDirPath, 'html/about.html'))
+})
+
+app.use(function (req, res) {
     res.status(404).sendFile(publicDirPath + '/html/404.html');
-});
+})
 
 app.listen(port, () => {
     console.log('Server started at http://localhost:' + port)

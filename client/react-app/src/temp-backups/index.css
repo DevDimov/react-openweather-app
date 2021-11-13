@@ -1,0 +1,84 @@
+@import url("./style.css");
+
+/* Semi-bold 600, Regular 400, Light 300 */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none;
+    scrollbar-color: #F2F2F2 white;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+}
+  
+*::-webkit-scrollbar-track {
+    background: white;
+}
+  
+*::-webkit-scrollbar-thumb {
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    border: 5px solid white;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fd-column {
+    flex-direction: column;
+}
+.f-wrap {
+    flex-wrap: wrap;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.p-relative {
+    position: relative;
+}
+
+#root {
+    margin: 4rem 0;
+}
+
+.width-100pct {
+    width: 100%;
+} 

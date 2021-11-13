@@ -8,8 +8,9 @@ const app = express()
 const port = 8080
 
 // const publicDirPath = path.join(__dirname, '../client/react-app/public')
-const publicDirPath = path.join(__dirname, '../client/react-app/build')
-app.use(express.static(publicDirPath, { extensions: ['html', 'css', 'js', 'svg'] }))
+// const publicDirPath = path.join(__dirname, '../client/react-app/build')
+// , { extensions: ['html', 'css', 'js', 'svg'] })
+app.use(express.static(path.resolve(__dirname, '..client/build')))
 
 // app.use(express.static(path.resolve(__dirname, '../client/react-app/build')));
 
@@ -29,15 +30,15 @@ app.get('/api', async (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(publicDirPath, 'index.html'))
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 })
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.resolve(publicDirPath, 'html/about.html'))
+    res.sendFile(path.resolve(__dirname, '../client/build', 'about.html'))
 })
 
 app.use(function (req, res) {
-    res.status(404).sendFile(publicDirPath + '/html/404.html');
+    res.status(404).sendFile(path.resolve(__dirname, '../client/build', '404.html'))
 })
 
 app.listen(port, () => {

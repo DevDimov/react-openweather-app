@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 require('dotenv').config({ path: path.join(__dirname, './config/.env') })
 
 const app = express()
-const port = 8080
+const port = process.env.PORT || 5555
 
 // app.use('/static', express.static(path.resolve(__dirname, '../client/build'), { extensions: ['html', 'css', 'js', 'svg'] }))
 app.use(express.static(path.join(__dirname, '../client/build'), { extensions: ['html', 'css', 'js', 'svg'] }))

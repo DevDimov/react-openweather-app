@@ -122,6 +122,10 @@ p {
     margin: -1em -0.6em -1em -1em;
 }
 
+#header-current-temp {
+    margin-left: 0.5rem;
+}
+
 #temp-units-switch {
     padding: 0 1.4em 0 1.1em;
     border-radius: 10px;
@@ -410,18 +414,26 @@ input[type="radio"]:checked ~ .daytab-image:hover {
 
 /*Navigation styling*/
 
-nav {
+#header-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 4rem;
     background-color: var(--bg-grey);
     padding: 0 3rem;
     box-sizing: border-box;
 }
 
-nav > ul {
+#header-nav > ul, #footer-nav > ul {
     list-style-type: none;
 }
 
-nav > ul > li {
+#header-nav > ul {
+    display: none;
+}
+
+#header-nav > ul > li {
     display: inline;
     font-weight: 600;
     margin: 0 1.5rem;
@@ -430,27 +442,68 @@ nav > ul > li {
 li a {
     color: var(--fill-main);
     text-align: center;
-    padding: 0.9rem 1rem;
     text-decoration: none;
     border-radius: var(--border-radius);
     transition: color 0.3s ease;
+}
+
+#header-nav > li a {
+    padding: 0.9rem 1rem;
+}
+
+#footer-nav > li a {
+    padding: 0.9rem 0;
+}
+
+#footer-nav > ul {
+    padding-top: 1.5rem;
 }
   
 li a:hover {
     color: #aaa;
 }
 
-nav a.active {
+#header-nav a.active {
     color: var(--fill-highlight);
 }
 
 .logo-weather-app {
     height: 60%;
+    /* width: 16%; */
 }
 
-h3 {
-    /* font-size: 1.5rem; */
+#header-nav {
+    justify-content: center;
+}
+
+#footer-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    /* height: 14.5rem; */
+    background-color: var(--bg-grey);
+    padding: 3rem;
+    box-sizing: border-box;
+}
+
+#footer-nav > ul > li {
+    display: block;
     font-weight: 600;
+    margin: 0.5rem 0;
 }
 
-/*Navigation styling*/
+@media only screen and (min-width: 600px) {
+    
+    #header-nav {
+        justify-content: space-between;
+    }
+    
+    #header-nav > ul {
+        display: block;
+    }
+
+    #footer-nav {
+        display: none;
+    }
+}

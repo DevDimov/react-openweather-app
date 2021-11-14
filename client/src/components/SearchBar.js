@@ -1,43 +1,36 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import searchIcon from "../images/search-icon.svg"
 import StatusInfo from "./StatusInfo";
 
-const SearchBar = ({ locations, setLocations }) => {
-
-    const [searchStatus, setSearchStatus] = useState('')
-    const [state, setState] = useState()
-    
-    useEffect(() => {
-        if (locations.length >= 3) {
-            setState('disabled')
-        }
-        else {
-            setState('enabled')
-        }
-        setSearchStatus('')
-    }, [locations])
+const SearchBar = ({ locations, searchStatus, setSearchStatus, getWeather }) => {
 
     const search = () => {
-        if (state === 'disabled') {
-            setSearchStatus('Sorry, the app supports up to 3 locations only')
+        const input = document.getElementsByClassName('search-input')[0]
+        const userInput = input.value.trim().toLowerCase()
+        if (userInput.length < 3) {
+            setSearchStatus('Please enter a valid location name')
         }
         else {
-            const input = document.getElementsByClassName('search-input')[0]
-            const value = input.value.trim().toLowerCase()
-            if (value.length > 2) {
-                if (!locations.includes(value)) {
-                    setLocations([...locations, value])
-                    input.value = ''
-                    input.focus()
-                    setSearchStatus(`Loading weather data for ${value}`)
-                }
-                else {
-                    setSearchStatus('Location already exists')
-                }
+            if (locations.includes(userInput)) {
+                setSearchStatus('Location already exists')
             }
             else {
-                input.focus()
+                if (locations.length >= 3) {
+                    setSearchStatus('Sorry, the app supports up to 3 locations only')
+                }
+                else {
+                    setSearchStatus(`Loading weather data for ${userInput}`)
+                    getWeather(userInput)
+                    input.value = ''
+                    input.focus()
+                }
             }
+        }
+    }
+
+    const onKeyUp = (event) => {
+        if (event.charCode === 13 || event.keyCode === 13) {
+            document.getElementsByClassName('search-button')[0].click()
         }
     }
 
@@ -49,6 +42,7 @@ const SearchBar = ({ locations, setLocations }) => {
                     placeholder="Enter a location here"
                     className="search-input"
                     maxLength="40"
+                    onKeyUp={(event) => onKeyUp(event)}
                 >
                 </input>
                 <button

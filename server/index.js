@@ -1,24 +1,19 @@
-require('dotenv').config({ path: './config/.env' })
 const express = require('express')
 const path = require('path')
 const fetch = require('node-fetch')
-// const cors = require('cors')
+require('dotenv').config({ path: path.join(__dirname, './config/.env') })
 
 const app = express()
 const port = 8080
 
-// const publicDirPath = path.join(__dirname, '../client/react-app/public')
-// const publicDirPath = path.join(__dirname, '../client/react-app/build')
-// , { extensions: ['html', 'css', 'js', 'svg'] })
-app.use(express.static(path.resolve(__dirname, '..client/build')))
-
-// app.use(express.static(path.resolve(__dirname, '../client/react-app/build')));
+// app.use('/static', express.static(path.resolve(__dirname, '../client/build'), { extensions: ['html', 'css', 'js', 'svg'] }))
+app.use(express.static(path.join(__dirname, '../client/build'), { extensions: ['html', 'css', 'js', 'svg'] }))
 
 app.get('/api', async (req, res) => {
     try {
         const location = req.query.q
         const units = req.query.units
-        const apiKey = process.env.OWM_API_KEY
+        const apiKey = process.env.API_KEY
         const url = 'http://api.openweathermap.org/data/2.5/forecast'
         const response = await fetch(`${url}?q=${location}&units=${units}&appid=${apiKey}`)
         const data = await response.json()
@@ -34,11 +29,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'about.html'))
+    res.sendFile(path.resolve(__dirname, '../client/build/html', 'about.html'))
 })
 
 app.use(function (req, res) {
-    res.status(404).sendFile(path.resolve(__dirname, '../client/build', '404.html'))
+    res.status(404).sendFile(path.resolve(__dirname, '../client/build/html', '404.html'))
 })
 
 app.listen(port, () => {

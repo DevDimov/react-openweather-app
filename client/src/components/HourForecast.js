@@ -6,13 +6,11 @@ import { nanoid } from 'nanoid'
 const HourForecast = (props) => {
     const { hourData, activeDayTab, tempUnit } = props
     const activeDayData = hourData.filter((element) => element.weekDay === activeDayTab)[0]
-    // console.log('activeDayData', activeDayData)
 
     let lastExpanded = useRef()
 
     const expandHourBlock = (event) => {
         const element = event.currentTarget.nextSibling
-        // const container = event.currentTarget.parentNode.parentNode
         if (lastExpanded.current === null || lastExpanded.current === undefined) {
             lastExpanded.current = element
             lastExpanded.current.classList.toggle('collapsed')
@@ -29,7 +27,6 @@ const HourForecast = (props) => {
     }
 
     useEffect(() => {
-        // console.log("component updated")
         if (lastExpanded.current) {
             lastExpanded.current.classList.toggle('collapsed')
             lastExpanded.current = null
@@ -43,7 +40,7 @@ const HourForecast = (props) => {
                     activeDayData.hourly_data.map((obj, index) => {
                         return (
                             <HourBlock
-                                key={nanoid(2)}
+                                key={nanoid(3)}
                                 time={obj.time_string}
                                 icon={obj.icon}
                                 temp={obj.temp}

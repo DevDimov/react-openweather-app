@@ -9,99 +9,127 @@ const App = () => {
     const [locations, setLocations] = useState([])
     const [tempUnit, setTempUnit] = useState('C')
     const [forecast, setForecast] = useState([])
+    const [searchStatus, setSearchStatus] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
 
     useEffect(() => {
-		const locationList = JSON.parse(localStorage.getItem('weather-app-location-list'))
+        const locationList = JSON.parse(localStorage.getItem('weather-app-location-list'))
         if (locationList) {
-		    setLocations(locationList);
-		}
-	}, [])
-
-    useEffect(() => {
-        if (locations.length > 0) {
-            fetchApiData()
-            saveToLocalStorage(locations)
-        } else {
-            setForecast([])
-            setLastUpdated('')
+            loadLocations(locationList);
         }
-    }, [locations])
+    }, [])
 
     useEffect(() => {
         if (forecast.length > 0 && tempUnit === 'F') {
             const newForecast = dataToFahrenheit(forecast)
             setForecast(newForecast)
-        } else {
+        }
+        else if (forecast.length > 0 && tempUnit === 'C') {
             const newForecast = dataToCelcius(forecast)
             setForecast(newForecast)
         }
     }, [tempUnit])
 
-    const fetchApiData = async () => {
-        // const url = 'http://localhost:3000/api'
-        let units = ''
+    const loadLocations = async (locationList) => {
+        if (locationList.length > 0) {
+            const units = getTempUnits()
+            let newForecast = []
+            let data = {}
+            try {
+                for (const location of locationList) {
+                    // const response = await fetch('testData.json')
+                    const response = await fetch(`/api?q=${location}&units=${units}`)
+                    data = await response.json()
+                    
+                    const headerData = getHeaderData(data)
+                    const hourData = getHourData(data)
+                    const dayData = getDayData(hourData)
+                    let apiData = {
+                        locationName: location,
+                        tempUnit: tempUnit,
+                        headerData: headerData,
+                        hourData: hourData,
+                        dayData: dayData
+                    }
+                    newForecast.push(apiData)
+                }
+                // console.log('newForecast', newForecast)
+                setForecast(newForecast)
+                setLocations(locationList)
+                setLastUpdated(`Last updated at ${getCurrentTime()}`)
+            }
+            catch {
+                setSearchStatus(`Error: ${data.cod}, ${data.message}`)
+            }
+        }
+    }
+
+    const getTempUnits = () => {
         if (tempUnit === 'C') {
-            units='metric'
+            return 'metric'
         }
-        else {
-            units='imperial'
-        }
-        // const WS_URL = 'https://weatherstack-app.herokuapp.com/api/search?q='
-        
-        const newForecast = []
-        for (const location of locations) {
+        return 'imperial'
+    }
+
+    const getWeather = async (location) => {
+        const units = getTempUnits()
+        let data = {}
+        const newLocations = [location, ...locations]
+        try {
+            // const response = await fetch('testData.json')
             const response = await fetch(`/api?q=${location}&units=${units}`)
-            const data = await response.json()
-            // console.log('API data', data)
+            data = await response.json()
 
-            // Generate data for header
             const headerData = getHeaderData(data)
-            // console.log('headerData', headerData)
-
-            // Generate weather data by the hour
             const hourData = getHourData(data)
-            // console.log('hourData', hourData)
-
-            // Generate weather data by day
             const dayData = getDayData(hourData)
-            // console.log('dayData', dayData)
-
-            let apiData = {
+            let newForecast = {
                 locationName: location,
                 tempUnit: tempUnit,
                 headerData: headerData,
                 hourData: hourData,
                 dayData: dayData
             }
-            newForecast.push(apiData)
+            // console.log('newForecast', newForecast)
+            setForecast([newForecast, ...forecast])
+            setLocations(newLocations)
+            saveToLocalStorage(newLocations)
+            setSearchStatus('')
+            setLastUpdated(`Last updated at ${getCurrentTime()}`)
         }
-        // console.log('newForecast', newForecast)
-        setForecast(newForecast)
-        setLastUpdated(`Last updated at ${getCurrentTime()}`)
+        catch {
+            setSearchStatus(`Error: ${data.cod}, ${data.message}`)
+        }
     }
 
     const saveToLocalStorage = (items) => {
-		localStorage.setItem('weather-app-location-list', JSON.stringify(items));
-	}
-    
+        localStorage.setItem('weather-app-location-list', JSON.stringify(items));
+    }
+
     const removeLocation = (name) => {
-        console.log('Removing location', name)
         const newLocations = locations.filter((location) => (location !== name))
+        const newForecast = forecast.filter((forecast) => (forecast.locationName !== name))
         setLocations(newLocations)
+        setForecast(newForecast)
         saveToLocalStorage(newLocations)
+        setSearchStatus('')
+        if (newForecast.length === 0) {
+            setLastUpdated('')
+        }
     }
 
     const getCurrentTime = () => {
         const date = new Date().toISOString()
-        return date.split('T')[1].slice(0,5)
+        return date.split('T')[1].slice(0, 5)
     }
 
     return (
         <div className="d-flex-center fd-column">
             <SearchBar
                 locations={locations}
-                setLocations={setLocations}
+                getWeather={getWeather}
+                searchStatus={searchStatus}
+                setSearchStatus={setSearchStatus}
             />
             <div className="container d-flex-center fd-column">
                 {

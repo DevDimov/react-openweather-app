@@ -59,6 +59,10 @@ body {
     flex-wrap: wrap;
 }
 
+.font-weight-400 {
+    font-weight: 400;
+}
+
 .font-weight-600 {
     font-weight: 600;
 }
@@ -404,15 +408,22 @@ input[type="radio"]:checked ~ .daytab-image:hover {
 }
 
 #about-page-content {
-    margin: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* margin: 2rem 0; */
     width: min(90vw, 700px);
+    text-align: center;
 }
 
 #about-page-content > h3 {
-    margin: 1.5rem 0 1rem 0;
+    margin: 6rem 0 1rem 0;
 }
 
-/*Navigation styling*/
+#about-page-content > :last-child {
+    margin-bottom: 4rem;
+}
 
 #header-nav {
     display: flex;
@@ -493,6 +504,50 @@ li a:hover {
     margin: 0.5rem 0;
 }
 
+.tool-set {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 2rem;
+    justify-content: space-evenly;
+    margin: 2rem 0;
+}
+
+.tool-set > img {
+    height: 40px;
+}
+
+.html5-icon {
+    margin: 0 -8px;
+}
+
+.heroku-icon {
+    margin: 0 -4px;
+    transform: scale(1.8);
+}
+
+.app-feature-gif {
+    width: min(100%,440px);
+}
+
+#responsive-design-gif, #multiple-locations-gif {
+    margin: 1rem;
+    border: 1px solid var(--bg-grey);
+    border-top: none;
+}
+
+.app-feature-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.app-feature-container > span {
+    max-width: 195px;
+    font-weight: 300;
+}
+
 @media only screen and (min-width: 600px) {
     
     #header-nav {
@@ -505,5 +560,10 @@ li a:hover {
 
     #footer-nav {
         display: none;
+    }
+
+    .app-feature-container {
+        justify-content: space-between;
+        margin: 0 0;
     }
 }

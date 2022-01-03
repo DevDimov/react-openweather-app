@@ -1,6 +1,7 @@
 // import { useState, useEffect } from "react";
 import searchIcon from "../images/search-icon.svg"
 import StatusInfo from "./StatusInfo";
+import infoIcon from "../images/info-icon.svg"
 
 const SearchBar = ({ locations, searchStatus, setSearchStatus, getWeather }) => {
 
@@ -56,7 +57,11 @@ const SearchBar = ({ locations, searchStatus, setSearchStatus, getWeather }) => 
                     />
                 </button>
             </div>
-            <StatusInfo text={searchStatus} />
+            <StatusInfo 
+                display={searchStatus !== '' ? true : false} 
+                text={searchStatus} 
+                icon={infoIcon} 
+            />
         </div>
     )
 }

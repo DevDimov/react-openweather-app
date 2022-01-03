@@ -3,6 +3,7 @@ import Location from './components/Location'
 import SearchBar from './components/SearchBar'
 import StatusInfo from './components/StatusInfo'
 import { getHeaderData, getHourData, getDayData, dataToFahrenheit, dataToCelcius } from './js/utils'
+import lastUpdatedIcon from "./images/last-updated-icon.svg"
 
 const App = () => {
 
@@ -37,8 +38,8 @@ const App = () => {
             let data = {}
             try {
                 for (const location of locationList) {
-                    // const response = await fetch('testData.json')
-                    const response = await fetch(`/api?q=${location}&units=${units}`)
+                    const response = await fetch('testData.json')
+                    // const response = await fetch(`/api?q=${location}&units=${units}`)
                     data = await response.json()
                     
                     const headerData = getHeaderData(data)
@@ -76,8 +77,8 @@ const App = () => {
         let data = {}
         const newLocations = [location, ...locations]
         try {
-            // const response = await fetch('testData.json')
-            const response = await fetch(`/api?q=${location}&units=${units}`)
+            const response = await fetch('testData.json')
+            // const response = await fetch(`/api?q=${location}&units=${units}`)
             data = await response.json()
 
             const headerData = getHeaderData(data)
@@ -147,7 +148,11 @@ const App = () => {
                     })
                 }
             </div>
-            <StatusInfo text={lastUpdated} />
+            <StatusInfo 
+                display={lastUpdated !== '' ? true : false}
+                text={lastUpdated}
+                icon={lastUpdatedIcon} 
+            />
         </div>
     )
 }

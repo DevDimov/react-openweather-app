@@ -1,16 +1,14 @@
 import chevron from "../images/chevron-right-solid.svg"
 
 const ScrollButton = (props) => {
-    const {buttonClass, imgClass} = props
-    
-    const handleOnClick = (event) => {
-        const button = event.currentTarget
-        const element = event.currentTarget.parentElement.childNodes[0]
-        if (button.className === "scroll-button-right") {
-            element.scrollLeft += 170;
+    const {buttonClass, imgClass, scroll, direction} = props
+
+    const handleOnClick = () => {
+        if (direction === 'left') {
+            scroll(-100)
         }
-        if (button.className === "scroll-button-left") {
-            element.scrollLeft -= 170;
+        if (direction === 'right') {
+            scroll(100)
         }
     }
 

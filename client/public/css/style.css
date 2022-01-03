@@ -1,5 +1,5 @@
-/* Semi-bold 600, Regular 400, Light 300 */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+/* Nunito Semi-bold 600, Regular 400, Light 300 */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
 
 :root {
     --button-size: 42px;
@@ -12,22 +12,6 @@
 * {
     margin: 0;
     padding: 0;
-    scrollbar-width: none;
-    scrollbar-color: #F2F2F2 white;
-}
-
-*::-webkit-scrollbar {
-    width: 12px;
-}
-  
-*::-webkit-scrollbar-track {
-    background: white;
-}
-  
-*::-webkit-scrollbar-thumb {
-    background-color: #F2F2F2;
-    border-radius: 20px;
-    border: 5px solid white;
 }
 
 body {
@@ -59,12 +43,20 @@ body {
     flex-wrap: wrap;
 }
 
+.row-gap-1em {
+    row-gap: 1em;
+}
+
 .font-weight-400 {
     font-weight: 400;
 }
 
 .font-weight-600 {
     font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
 }
 
 h3 {
@@ -123,11 +115,16 @@ p {
 
 .icon {
     width: 65px;
-    margin: -1em -0.6em -1em -1em;
+    margin: -1em;
+}
+
+.daytab-icon {
+    width: 50px;
+    margin: -0.4rem 0rem -0.4rem -0.4rem;
 }
 
 #header-current-temp {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
 }
 
 #temp-units-switch {
@@ -186,21 +183,38 @@ p {
     flex-wrap: nowrap;
     overflow-x: scroll;
     align-items: center;
-    height: 150px;
+    height: 170px;
     padding: 0 1em;
     scroll-behavior: smooth;
     /* scroll-snap-type: x mandatory; */
+}
+
+/* Hide scroll bar for Chrome, Safari and Opera */
+.hourly-forecast::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hourly-forecast {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .hourly-block {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1 0 0%;
-    grid-row-gap: 1em;
+    justify-content: center;
+    grid-row-gap: 1.5em;
+    box-sizing: border-box;
     padding: 1em;
+    height: 100%;
     cursor: pointer;
-    /* transition: all 0.4s ease; */
+    transition: all 0.4s ease;
+}
+
+.hourly-block:hover {
+    background-color: #fafafa;
 }
 
 .hourly-block-container {
@@ -250,54 +264,29 @@ p {
     height: 100%;
     padding: 0.8em 0;
     cursor: pointer;
-}
-
-/* .label-radio:hover {
-    background-color: #EC6E4C;
-    color: white;
-    opacity: 0;
     transition: all 0.4s ease;
-} */
-
-input[type="radio"]:checked ~ .label-radio {
-    border-top: 5px solid var(--fill-highlight);
-    padding-top: 0.5em;
 }
 
-input[type="radio"]:checked ~ .label-radio > .week-day {
-    font-weight: 600;
+.label-radio:hover {
+    background-color: #fafafa;
+}
+
+input[type="radio"]:checked ~ .label-radio::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    width: 100%;
+    height: 5px;
+    background: var(--fill-highlight);
 }
 
 input[type="radio"]:checked ~ .label-radio:hover {
-    opacity: 1;
+    background-color: white;
 }
 
 input[type="radio"] {
     display: none;
-}
-
-.daytab-image {
-    position: absolute;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    transform: scale(0.8);
-    cursor: pointer;
-    background-color: #FFFFFF;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.daytab-image:hover {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-input[type="radio"]:checked ~ .daytab-image:hover {
-    opacity: 0;
 }
 
 .location {
@@ -311,8 +300,7 @@ input[type="radio"]:checked ~ .daytab-image:hover {
 .scroll-button-left,
 .scroll-button-right {
     position: absolute;
-    height: 150px;
-    display: flex;
+    height: 100%;
     background-color: white;
     padding: 0 0.6em;
     border: none;
@@ -404,7 +392,12 @@ input[type="radio"]:checked ~ .daytab-image:hover {
 }
 
 #status-info-paragraph {
-    text-align: center;
+    display: flex;
+}
+
+.status-info-icon {
+    width: 1rem;
+    margin-right: 0.3rem;
 }
 
 #about-page-content {

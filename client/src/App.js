@@ -54,7 +54,6 @@ const App = () => {
                     }
                     newForecast.push(apiData)
                 }
-                // console.log('newForecast', newForecast)
                 setForecast(newForecast)
                 setLocations(locationList)
                 setLastUpdated(`Last updated at ${getCurrentTime()}`)
@@ -91,7 +90,7 @@ const App = () => {
                 hourData: hourData,
                 dayData: dayData
             }
-            // console.log('newForecast', newForecast)
+            console.log('newForecast', newForecast)
             setForecast([newForecast, ...forecast])
             setLocations(newLocations)
             saveToLocalStorage(newLocations)

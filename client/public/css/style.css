@@ -86,7 +86,7 @@ p {
 }
 
 .container {
-    width: min(90vw, 470px);
+    width: min(90vw, 550px);
     grid-gap: 3rem;
     margin: 4rem 0;
 }
@@ -163,6 +163,7 @@ p {
     flex-direction: row;
     flex-wrap: nowrap;
     border-top: 1px solid var(--bg-grey);
+    overflow-x: auto;
 }
 
 .day-block {
@@ -171,6 +172,12 @@ p {
     flex-direction: column;
     align-items: center;
     flex: 1 0 0%;
+    min-width: 100px;
+    border-right: 1px solid var(--bg-grey);
+}
+
+.day-block:last-child {
+    border-right-width: 0;
 }
 
 .hourly-temp {
@@ -195,7 +202,7 @@ p {
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.hourly-forecast {
+.hourly-forecast, .daily-forecast {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
@@ -243,7 +250,8 @@ p {
     line-height: 1.8em;
 }
 
-.hour-details > * {
+.hour-details > *,
+.daytab-switch > * {
     width: 175px;
 }
 
@@ -254,6 +262,23 @@ p {
     opacity: 0;
     overflow-x: hidden;
     transition: all 0.5s ease;
+}
+
+.daytab-switch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--bg-grey);
+    padding: 0 1em;
+    height: 100%;
+    max-width: 175px;
+    line-height: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.daytab-switch:hover {
+    background-color: #fafafa; 
 }
 
 .label-radio {

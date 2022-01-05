@@ -1,15 +1,30 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import ScrollButton from "./ScrollButton"
 import HourBlock from "./HourBlock"
 import { nanoid } from 'nanoid'
+import DayTabSwitch from "./DayTabSwitch";
+import { getLongDayName, getDateOrdinal } from '../js/utils'
 
-const HourForecast = (props) => {
-    const { hourData, activeDayTab, tempUnit } = props
-    const activeDayData = hourData.filter((element) => element.weekDay === activeDayTab)[0]
+const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
+    
+    const [lastDayIndex] = useState(hourData.length - 1)
+
     const scrollRef = useRef()
 
     const scroll = (shift) => {
         scrollRef.current.scrollLeft += shift
+    }
+
+    const resetScroll = () => {
+        scrollRef.current.scrollLeft = -100
+    }
+
+    const getNextDayName = (dateString) => {
+        let d = new Date(dateString)
+        d.setDate(d.getDate() + 1)
+        const shortDayName = getLongDayName(d.getDay())
+        const dateOrdinal = getDateOrdinal(d.getDate())
+        return shortDayName + " " + dateOrdinal
     }
 
     return (
@@ -18,7 +33,7 @@ const HourForecast = (props) => {
                 className="hourly-forecast"
                 ref={scrollRef}>
                 {
-                    activeDayData.hourly_data.map((obj, index) => {
+                    hourData[activeDayTab].hourly_data.map((obj, index) => {
                         return (
                             <HourBlock
                                 key={nanoid(3)}
@@ -30,6 +45,15 @@ const HourForecast = (props) => {
                             />
                         )
                     })
+                }
+                {
+                    lastDayIndex !== activeDayTab && 
+                    <DayTabSwitch 
+                        nextDayName={getNextDayName(hourData[activeDayTab].hourly_data[0].date_string)} 
+                        activeDayTab={activeDayTab}
+                        setActiveTab={setActiveTab}
+                        resetScroll={resetScroll}
+                        />
                 }
             </div>
             <ScrollButton

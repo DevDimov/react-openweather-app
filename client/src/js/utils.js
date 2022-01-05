@@ -16,12 +16,15 @@ export const getHeaderData = function (weatherData) {
 }
 
 export const getHourData = function (weatherData) {
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    let dayName = ''
+    const lastIndex = weatherData.list.length - 1
     let hourData = {}
     let dailyData = []
     let forecast = []
+
+    // Iterate over each timestamp
     weatherData.list.forEach((item, index) => {
+
+        // Extract the hour data from each item into an hour-by-hour object
         hourData = {
             temp: Math.round(item.main.temp),
             feels_like: Math.round(item.main.feels_like),
@@ -33,27 +36,35 @@ export const getHourData = function (weatherData) {
             time_string: item.dt_txt.split(' ')[1].slice(0, 5)
         }
         hourData.description = hourData.description.charAt(0).toUpperCase() + hourData.description.slice(1)
+
+        // Check the timestamp and decide whether to push the hour object to a day-by-day array
         let currentHour = item.dt_txt.split(' ')
         if (currentHour[1] !== '06:00:00') {
             dailyData.push(hourData)
         }
         else if (currentHour[1] === '06:00:00') {
-            let currentDate = new Date(currentHour[0])
-            let currentDay = currentDate.getDay()
-            if (currentDay - 1 < 0) {
-                dayName = dayNames[dayNames.length - 1]
-            }
-            else {
-                dayName = dayNames[currentDay - 1]
-            }
             if (dailyData.length > 0) {
+                let dateString = dailyData[0].date_string
+                let currentDate = new Date(dateString)
                 forecast.push({
-                    weekDay: dayName,
+                    weekDay: getShortDayName(currentDate.getDay()),
+                    dateString: dateString,
                     hourly_data: dailyData
                 })
                 dailyData = []
             }
+            // Push any new 6am hour data to the now empty hour-by-hour array
             dailyData.push(hourData)
+        }
+        // Ensure the timestamps for the last day get pushed to the final forecast array
+        if (index === lastIndex && dailyData.length > 0) {
+            let dateString = dailyData[0].date_string
+            let currentDate = new Date(dateString)
+            forecast.push({
+                weekDay: getShortDayName(currentDate.getDay()),
+                dateString: dateString,
+                hourly_data: dailyData
+            })
         }
     })
     return forecast
@@ -142,4 +153,43 @@ const toKilometersPerHour = function () {
     let speedKMH = (speedMPH * 1.609).toFixed(0)
     speed.innerHTML = speedKMH + ' kmh'
     speed.onclick = toMilesPerHour
+}
+
+export const getShortDayName = (num) => {
+    const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    if (num < -1 || num > 7) {
+        return null
+    }
+    if (num === -1) {
+        return 'Sat'
+    }
+    return shortDayNames[num]
+}
+
+export const getLongDayName = (num) => {
+    const longDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    if (num < -1 || num > 7) {
+        return null
+    }
+    if (num === -1) {
+        return 'Sat'
+    }
+    return longDayNames[num]
+}
+
+export const getDateOrdinal = (num) => {
+    let ordinal = ''
+    if (num === 1) {
+        ordinal = 'st'
+    }
+    if (num === 2) {
+        ordinal = 'nd'
+    }
+    if (num === 3) {
+        ordinal = 'rd'
+    }
+    if (num > 3) {
+        ordinal = 'th'
+    }
+    return num + ordinal
 }

@@ -1,28 +1,19 @@
 import DayTab from "./DayTab"
 
-const DayForecast = (props) => {
-    const { dailyMax, activeDayTab, setActiveTab, locationName } = props
-
-    const handleOnChange = (event) => {
-        setActiveTab(event.target.value)
-    }
+const DayForecast = ({ dayData, activeDayTab, setActiveTab, locationName }) => {
 
     return (
         <div className="daily-forecast">
             {
-                dailyMax.map((dayTab, index) => {
-                    const style = {
-                        backgroundImage: `url(${dayTab.maxTempIcon})`
-                    }
+                dayData.map((data, index) => {
                     return (
                         <DayTab
-                            dayTab={dayTab}
+                            data={data}
                             activeDayTab={activeDayTab}
-                            handleOnChange={handleOnChange}
-                            style={style}
-                            iconURL={dayTab.maxTempIcon}
+                            setActiveTab={setActiveTab}
+                            iconURL={data.maxTempIcon}
                             key={index}
-                            index={index}
+                            tabIndex={index}
                             locationName={locationName}
                         />
                     )

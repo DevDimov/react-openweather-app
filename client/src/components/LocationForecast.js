@@ -4,7 +4,6 @@ import DayForecast from './DayForecast'
 
 const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
 
-    // const [activeDayTab, setActiveTab] = useState(dayData[0].dayName)
     const [activeDayTab, setActiveTab] = useState(0)
 
     return (

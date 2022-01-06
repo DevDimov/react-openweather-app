@@ -9,6 +9,13 @@ export const toCelcius = function (tempF) {
 export const getHeaderData = function (weatherData) {
     return {
         name: weatherData.city.name,
+        country: weatherData.city.country,
+        // timezone is an offset in seconds, hence divide by 360
+        timezone: weatherData.city.timezone / 360,
+        // add the timezone offset in seconds to get the local sunrise and sunset
+        // from the location's timezone not the user's
+        sunrise: weatherData.city.sunrise + weatherData.city.timezone,
+        sunset: weatherData.city.sunset + weatherData.city.timezone,
         icon: '/images/' + weatherData.list[0].weather[0].icon + '@2x.png',
         temp: Math.round(weatherData.list[0].main.temp),
         weather: weatherData.list[0].weather[0].main

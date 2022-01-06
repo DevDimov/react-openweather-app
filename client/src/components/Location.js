@@ -6,9 +6,6 @@ const Location = ({ location, data, tempUnit, removeLocation, setTempUnit }) => 
 
     return (
         <div className="d-flex-center fd-column p-relative width-100pct">
-            <RemoveButton
-                removeLocation={() => removeLocation(location)}
-            />
             <div className="location">
                 <LocationHeader
                     headerData={data.headerData}
@@ -22,6 +19,9 @@ const Location = ({ location, data, tempUnit, removeLocation, setTempUnit }) => 
                     tempUnit={tempUnit}
                 />
             </div>
+            <RemoveButton
+                removeLocation={() => removeLocation(location)}
+            />
         </div>
     )
 }

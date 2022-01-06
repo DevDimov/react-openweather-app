@@ -77,6 +77,10 @@ p {
     position: relative;
 }
 
+.p-absolute {
+    position: absolute;
+}
+
 #root {
     margin: 4rem 0;
 }
@@ -97,6 +101,31 @@ p {
     border-bottom: 1px solid var(--bg-grey);
     width: 100%;
     box-sizing: border-box;
+    height: 105px;
+}
+
+.header-details {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 1.5rem;
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+.scaled-down {
+    height: 50px;
+    padding: 0 1.5rem;
+    opacity: 0;
+    transition: all 0.5s ease;
 }
 
 .location-info {
@@ -341,12 +370,47 @@ input[type="radio"] {
 }
 
 .chevron-right,
-.chevron-left {
+.chevron-left,
+.chevron-down {
     width: 0.6rem;
 }
 
 .chevron-left {
     transform: rotate(180deg);
+}
+
+.chevron-down {
+    transform: rotate(90deg);
+}
+
+.chevron-down-container {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 5px;
+}
+
+.chevron-down-button {
+    width: 50px;
+    height: 20px;
+    padding-top: 2px;
+    border-radius: var(--border-radius);
+    outline: none;
+    border: none;
+    background-color: transparent;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.chevron-down-button:hover {
+    background-color: var(--bg-grey);
+    opacity: 1;
 }
 
 .search-button {
@@ -408,12 +472,12 @@ input[type="radio"] {
     outline: none;
     border: none;
     cursor: pointer;
+    transition: all 0.5s ease;
 }
 
 .remove-button:hover {
     opacity: 1;
     transform: scale(1);
-    transition: all 0.5s ease;
 }
 
 #status-info-paragraph {
@@ -584,4 +648,17 @@ li a:hover {
         justify-content: space-between;
         margin: 0 0;
     }
+}
+
+#city-data {
+    font-family: 'Nunito';
+    outline: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#city-data:hover {
+    color: var(--fill-highlight)
 }

@@ -1,38 +1,34 @@
+import { useState } from 'react'
+import CityDetails from "./CityDetails"
+import TempUnitSwitch from "./TempUnitSwitch"
+
 const LocationHeader = ({ headerData, tempUnit, setTempUnit }) => {
 
-    const switchUnits = () => {
-        const unitSwitch = document.getElementsByClassName('temp-units')
-        for (let item of unitSwitch) {
-            item.classList.toggle('slideup')
-        }   
-        setTimeout(() => {
-            if (tempUnit === 'C') {
-                setTempUnit('F')
-            }
-            else {
-                setTempUnit('C')
-            }
-        }, 1000)
-    }
+    const [showDetails, setShowDetails] = useState(false)
 
     return (
         <div className="d-flex fd-column p-relative location-header">
             <div className="d-flex f-wrap location-info">
-                <h3>{headerData.name}</h3>
+                <button id="city-data" onClick={() => setShowDetails(true)}>
+                    <h3>{headerData.name}</h3>
+                </button>
                 <div className="d-flex">
                     <div className="d-flex f-wrap icon-info">
                         <img className="icon" src={headerData.icon} alt="icon" />
                         <h3 id="header-current-temp">{headerData.temp}°</h3>
                     </div>
-                    <div id="temp-units-switch" className="d-flex fd-column overflow-y-hidden" onClick={switchUnits}>
-                        <div className={tempUnit === 'F' ? "d-flex fd-column temp-units slideup" : "d-flex fd-column temp-units"}>
-                            <span>C</span>
-                            <span>F</span>
-                        </div>
-                    </div>
+                    <TempUnitSwitch
+                        tempUnit={tempUnit}
+                        setTempUnit={setTempUnit}
+                    />
                 </div>
             </div>
             <p>{headerData.weather}</p>
+            <CityDetails 
+                display={showDetails} 
+                setShowDetails={setShowDetails} 
+                headerData={headerData}
+            />
         </div>
     )
 }

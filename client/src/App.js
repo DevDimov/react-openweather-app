@@ -38,8 +38,8 @@ const App = () => {
             let data = {}
             try {
                 for (const location of locationList) {
-                    const response = await fetch('testData.json')
-                    // const response = await fetch(`/api?q=${location}&units=${units}`)
+                    // const response = await fetch('testDataNewYork.json') // For dev only
+                    const response = await fetch(`/api?q=${location}&units=${units}`)
                     data = await response.json()
                     
                     const headerData = getHeaderData(data)
@@ -76,8 +76,8 @@ const App = () => {
         let data = {}
         const newLocations = [location, ...locations]
         try {
-            const response = await fetch('testData.json')
-            // const response = await fetch(`/api?q=${location}&units=${units}`)
+            // const response = await fetch('testDataNewYork.json') // For dev only
+            const response = await fetch(`/api?q=${location}&units=${units}`)
             data = await response.json()
 
             const headerData = getHeaderData(data)

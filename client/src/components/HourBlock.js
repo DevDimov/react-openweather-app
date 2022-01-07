@@ -1,11 +1,10 @@
-import { useState} from "react"
+import { useState } from "react"
 import HourDetails from "./HourDetails"
 
-const HourBlock = (props) => {
-    const { time, icon, temp, hourDetails, onClick, tempUnit } = props
-    
+const HourBlock = ({ time, icon, temp, hourDetails, tempUnit }) => {
+
     const [collapsed, setCollapsed] = useState(true)
-    
+
     return (
         <div className="hourly-block-container">
             <div className="hourly-block" onClick={() => setCollapsed(!collapsed)}>

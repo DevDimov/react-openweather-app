@@ -1,5 +1,5 @@
 const HourDetails = (props) => {
-    const { hourDetails, tempUnit, collapsed} = props
+    const { hourDetails, tempUnit, collapsed } = props
 
     return (
         <div className={collapsed ? "hour-details collapsed" : "hour-details"}>

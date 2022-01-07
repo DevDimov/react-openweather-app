@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import CityDetail from "./CityDetail"
 import chevron from "../images/chevron-right-solid.svg"
+import IconButton from "./IconButton"
 
 const CityDetails = ({ display, setShowDetails, headerData }) => {
 
@@ -42,9 +43,13 @@ const CityDetails = ({ display, setShowDetails, headerData }) => {
             <CityDetail title="Sunrise" value={data.sunrise} />
             <CityDetail title="Sunset" value={data.sunset} />
             <div className="chevron-down-container">
-                <button className="chevron-down-button" onClick={() => setShowDetails(false)}>
-                    <img className="chevron-down" src={chevron} alt="chevron" />
-                </button>
+                <IconButton
+                    buttonClass="chevron-down-button"
+                    onClick={() => setShowDetails(false)}
+                    iconClass="chevron-down"
+                    iconPath={chevron}
+                    altText="chevron"
+                />
             </div>
         </div>
     )

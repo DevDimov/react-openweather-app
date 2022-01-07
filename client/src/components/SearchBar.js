@@ -1,7 +1,7 @@
-// import { useState, useEffect } from "react";
 import searchIcon from "../images/search-icon.svg"
 import StatusInfo from "./StatusInfo";
 import infoIcon from "../images/info-icon.svg"
+import IconButton from "./IconButton";
 
 const SearchBar = ({ locations, searchStatus, setSearchStatus, getWeather }) => {
 
@@ -46,21 +46,18 @@ const SearchBar = ({ locations, searchStatus, setSearchStatus, getWeather }) => 
                     onKeyUp={(event) => onKeyUp(event)}
                 >
                 </input>
-                <button
-                    className="search-button"
+                <IconButton
+                    buttonClass="search-button"
                     onClick={search}
-                >
-                    <img
-                        className="search-icon"
-                        src={searchIcon}
-                        alt="search icon"
-                    />
-                </button>
+                    iconClass="search-icon"
+                    iconPath={searchIcon}
+                    altText="search icon"
+                />
             </div>
-            <StatusInfo 
-                display={searchStatus !== '' ? true : false} 
-                text={searchStatus} 
-                icon={infoIcon} 
+            <StatusInfo
+                display={searchStatus !== '' ? true : false}
+                text={searchStatus}
+                icon={infoIcon}
             />
         </div>
     )

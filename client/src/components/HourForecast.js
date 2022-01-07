@@ -1,12 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import ScrollButton from "./ScrollButton"
 import HourBlock from "./HourBlock"
 import { nanoid } from 'nanoid'
 import DayTabSwitch from "./DayTabSwitch";
 import { getLongDayName, getDateOrdinal } from '../js/utils'
+import HourDataEnd from "./HourDataEnd";
 
 const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
-    
+
     const [lastDayIndex] = useState(hourData.length - 1)
 
     const scrollRef = useRef()
@@ -47,13 +48,13 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
                     })
                 }
                 {
-                    lastDayIndex !== activeDayTab && 
-                    <DayTabSwitch 
-                        nextDayName={getNextDayName(hourData[activeDayTab].hourly_data[0].date_string)} 
+                    lastDayIndex !== activeDayTab ?
+                    <DayTabSwitch
+                        nextDayName={getNextDayName(hourData[activeDayTab].hourly_data[0].date_string)}
                         activeDayTab={activeDayTab}
                         setActiveTab={setActiveTab}
                         resetScroll={resetScroll}
-                        />
+                    /> : <HourDataEnd />
                 }
             </div>
             <ScrollButton

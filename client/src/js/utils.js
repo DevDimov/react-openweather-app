@@ -10,8 +10,8 @@ export const getHeaderData = function (weatherData) {
     return {
         name: weatherData.city.name,
         country: weatherData.city.country,
-        // timezone is an offset in seconds, hence divide by 360
-        timezone: weatherData.city.timezone / 360,
+        // timezone is an offset in seconds, hence divide by 3600
+        timezone: weatherData.city.timezone / 3600,
         // add the timezone offset in seconds to get the local sunrise and sunset
         // from the location's timezone not the user's
         sunrise: weatherData.city.sunrise + weatherData.city.timezone,
@@ -80,7 +80,7 @@ export const getHourData = function (weatherData) {
 export const getDayData = function (forecast) {
     let dayData = []
     forecast.forEach((obj) => {
-        let maxTemp = 0
+        let maxTemp = -999
         let maxTempIcon = ''
         let dayName = obj.weekDay
         obj.hourly_data.forEach((hourlyBlock) => {
@@ -97,17 +97,6 @@ export const getDayData = function (forecast) {
         })
     })
     return dayData
-}
-
-export const fetchApiData = async () => {
-    // const WS_URL = 'http://localhost:3000/api/search?q='
-    // const WS_URL = 'https://weatherstack-app.herokuapp.com/api/search?q='
-
-    const url = 'data.json'
-    const response = await fetch(url)
-    const data = await response.json()
-    // console.log(data)
-    return data
 }
 
 export const dataToFahrenheit = (array) => {

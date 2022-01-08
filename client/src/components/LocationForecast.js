@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HourForecast from './HourForecast'
 import DayForecast from './DayForecast'
 
 const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
 
     const [activeDayTab, setActiveTab] = useState(0)
+
+    useEffect(()=>{
+        setActiveTab(0)
+    }, [locationName])
 
     return (
         <div>

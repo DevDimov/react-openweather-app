@@ -37,20 +37,21 @@ const CityDetails = ({ display, setShowDetails, headerData }) => {
     }
 
     return (
-        <div className={display ? "header-details" : "header-details scaled-down"}>
-            <CityDetail title="Country" value={data.country} />
-            <CityDetail title="Local time" value={localTime} />
-            <CityDetail title="Sunrise" value={data.sunrise} />
-            <CityDetail title="Sunset" value={data.sunset} />
-            <div className="chevron-down-container">
-                <IconButton
-                    buttonClass="chevron-down-button"
-                    onClick={() => setShowDetails(false)}
-                    iconClass="chevron-down"
-                    iconPath={chevron}
-                    altText="chevron"
-                />
+        <div className={display ? "header-details-container" : "header-details-container scaled-down"}>
+            <div className="header-details">
+                <CityDetail title="Country" value={data.country} />
+                <CityDetail title="Local time" value={localTime} />
+                <CityDetail title="Sunrise" value={data.sunrise} />
+                <CityDetail title="Sunset" value={data.sunset} />
             </div>
+            <IconButton
+                buttonClass="chevron-down-button"
+                onClick={() => setShowDetails(false)}
+                iconClass="chevron-down"
+                iconPath={chevron}
+                altText="chevron"
+            />
+
         </div>
     )
 }

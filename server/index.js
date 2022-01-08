@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const fetch = require('node-fetch')
-require('dotenv').config({ path: path.join(__dirname, './config/.env') })
+require('dotenv').config({ path: path.join(__dirname, 'config/.env') })
 
 const app = express()
 const port = process.env.PORT || 5555

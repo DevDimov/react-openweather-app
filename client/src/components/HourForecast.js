@@ -17,7 +17,7 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
     }
 
     const resetScroll = () => {
-        scrollRef.current.scrollLeft = -100
+        scrollRef.current.scrollLeft = 0
     }
 
     const getNextDayName = (dateString) => {

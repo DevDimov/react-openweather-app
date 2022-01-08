@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CityDetails from "./CityDetails"
 import TempUnitSwitch from "./TempUnitSwitch"
 
 const LocationHeader = ({ headerData, tempUnit, setTempUnit }) => {
 
     const [showDetails, setShowDetails] = useState(false)
+
+    useEffect(()=>{
+        setShowDetails(false)
+    }, [headerData])
 
     return (
         <div className="d-flex fd-column p-relative location-header">

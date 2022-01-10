@@ -2,22 +2,24 @@ import { useState, useEffect } from "react"
 import CityDetail from "./CityDetail"
 import chevron from "../images/chevron-right-solid.svg"
 import IconButton from "./IconButton"
+import type { CityDetailsProps, CityDetailsData } from "../typescript/ComponentTypes"
 
-const CityDetails = ({ display, setShowDetails, headerData }) => {
+const CityDetails = ({ display, setShowDetails, headerData }: CityDetailsProps) => {
 
-    const [data, setData] = useState({})
-    const [localTime, setLocalTime] = useState('')
+    const getTime = (unix: number) => {
+        let date = new Date(unix * 1000)
+        return date.toTimeString().slice(0, 5)
+    }
 
-    useEffect(() => {
-        setData(
-            {
-                country: headerData.country,
-                timezone: headerData.timezone,
-                sunrise: getTime(headerData.sunrise),
-                sunset: getTime(headerData.sunset),
-            }
-        )
-    }, [headerData])
+    const [data, setData] = useState<CityDetailsData>(
+        {
+            country: headerData.country,
+            timezone: headerData.timezone,
+            sunrise: getTime(headerData.sunrise),
+            sunset: getTime(headerData.sunset),
+        }
+    )
+    const [localTime, setLocalTime] = useState<string>('')
 
     useEffect(() => {
         if (display) {
@@ -25,14 +27,9 @@ const CityDetails = ({ display, setShowDetails, headerData }) => {
         }
     }, [display])
 
-    const getLocalTime = (timezone) => {
+    const getLocalTime = (timezone: number) => {
         let date = new Date()
         date.setHours(date.getHours() + timezone)
-        return date.toTimeString().slice(0, 5)
-    }
-
-    const getTime = (unix) => {
-        let date = new Date(unix * 1000)
         return date.toTimeString().slice(0, 5)
     }
 
@@ -51,7 +48,6 @@ const CityDetails = ({ display, setShowDetails, headerData }) => {
                 iconPath={chevron}
                 altText="chevron"
             />
-
         </div>
     )
 }

@@ -1,12 +1,14 @@
-export const toFahrenheit = function (tempC) {
+import { ApiData, HeaderData, HourData, Forecast, DayData, WeatherData } from '../typescript/ApiTypes'
+
+export const toFahrenheit = function (tempC: number): number {
     return Math.round((tempC * 9 / 5) + 32)
 }
 
-export const toCelcius = function (tempF) {
+export const toCelcius = function (tempF: number): number {
     return Math.round((tempF - 32) * 5 / 9)
 }
 
-export const getHeaderData = function (weatherData) {
+export const getHeaderData = function (weatherData: ApiData): HeaderData {
     return {
         name: weatherData.city.name,
         country: weatherData.city.country,
@@ -22,11 +24,11 @@ export const getHeaderData = function (weatherData) {
     }
 }
 
-export const getHourData = function (weatherData) {
-    const lastIndex = weatherData.list.length - 1
-    let hourData = {}
-    let dailyData = []
-    let forecast = []
+export const getHourData = function (weatherData: ApiData): Forecast[] {
+    const lastIndex: number = weatherData.list.length - 1
+    let hourData: HourData
+    let dailyData: HourData[] = []
+    let forecast: Forecast[] = []
 
     // Iterate over each timestamp
     weatherData.list.forEach((item, index) => {
@@ -77,12 +79,12 @@ export const getHourData = function (weatherData) {
     return forecast
 }
 
-export const getDayData = function (forecast) {
-    let dayData = []
+export const getDayData = function (forecast: Forecast[]): DayData[] {
+    let dayData: DayData[] = []
     forecast.forEach((obj) => {
-        let maxTemp = -999
-        let maxTempIcon = ''
-        let dayName = obj.weekDay
+        let maxTemp: number = -999
+        let maxTempIcon: string = ''
+        let dayName: string = obj.weekDay
         obj.hourly_data.forEach((hourlyBlock) => {
             let temp = hourlyBlock.temp
             if (temp > maxTemp) {
@@ -99,8 +101,8 @@ export const getDayData = function (forecast) {
     return dayData
 }
 
-export const dataToFahrenheit = (array) => {
-    const newData = array.map((obj) => {
+export const dataToFahrenheit = (array: WeatherData[]): WeatherData[] => {
+    const newData = array.map((obj: WeatherData) => {
         obj.headerData.temp = toFahrenheit(obj.headerData.temp)
         obj.hourData.forEach((day) => {
             day.hourly_data.forEach((hour) => {
@@ -116,7 +118,7 @@ export const dataToFahrenheit = (array) => {
     return newData
 }
 
-export const dataToCelcius = (array) => {
+export const dataToCelcius = (array: WeatherData[]): WeatherData[] => {
     const newData = array.map((obj) => {
         obj.headerData.temp = toCelcius(obj.headerData.temp)
         obj.hourData.forEach((day) => {
@@ -133,28 +135,28 @@ export const dataToCelcius = (array) => {
     return newData
 }
 
-const toMilesPerHour = function () {
-    let speed = window.event.target;
-    let len = speed.innerHTML.length
-    let speedKMH = Number(speed.innerHTML.substring(0, len - 4))
-    let speedMPH = (speedKMH / 1.609).toFixed(0)
-    speed.innerHTML = speedMPH + ' mph'
-    speed.onclick = toKilometersPerHour
-}
+// const toMilesPerHour = function () {
+//     let speed = window.event.target;
+//     let len = speed.innerHTML.length
+//     let speedKMH = Number(speed.innerHTML.substring(0, len - 4))
+//     let speedMPH = (speedKMH / 1.609).toFixed(0)
+//     speed.innerHTML = speedMPH + ' mph'
+//     speed.onclick = toKilometersPerHour
+// }
 
-const toKilometersPerHour = function () {
-    let speed = window.event.target;
-    let len = speed.innerHTML.length
-    let speedMPH = Number(speed.innerHTML.substring(0, len - 4))
-    let speedKMH = (speedMPH * 1.609).toFixed(0)
-    speed.innerHTML = speedKMH + ' kmh'
-    speed.onclick = toMilesPerHour
-}
+// const toKilometersPerHour = function () {
+//     let speed = window.event.target;
+//     let len = speed.innerHTML.length
+//     let speedMPH = Number(speed.innerHTML.substring(0, len - 4))
+//     let speedKMH = (speedMPH * 1.609).toFixed(0)
+//     speed.innerHTML = speedKMH + ' kmh'
+//     speed.onclick = toMilesPerHour
+// }
 
-export const getShortDayName = (num) => {
-    const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+export const getShortDayName = (num: number): string => {
+    const shortDayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     if (num < -1 || num > 7) {
-        return null
+        return 'Error'
     }
     if (num === -1) {
         return 'Sat'
@@ -162,10 +164,10 @@ export const getShortDayName = (num) => {
     return shortDayNames[num]
 }
 
-export const getLongDayName = (num) => {
-    const longDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+export const getLongDayName = (num: number): string => {
+    const longDayNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     if (num < -1 || num > 7) {
-        return null
+        return 'Error'
     }
     if (num === -1) {
         return 'Sat'
@@ -173,8 +175,8 @@ export const getLongDayName = (num) => {
     return longDayNames[num]
 }
 
-export const getDateOrdinal = (num) => {
-    let ordinal = ''
+export const getDateOrdinal = (num: number): string => {
+    let ordinal: string = ''
     if (num === 1) {
         ordinal = 'st'
     }

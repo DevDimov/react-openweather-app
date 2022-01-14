@@ -9,10 +9,10 @@ const DayForecast = ({ dayData, activeDayTab, setActiveTab, locationName }) => {
                     return (
                         <DayTab
                             data={data}
-                            activeDayTab={activeDayTab}
+                            selected={activeDayTab === index ? true : false}
                             setActiveTab={setActiveTab}
                             iconURL={data.maxTempIcon}
-                            key={index}
+                            key={data.dateString}
                             tabIndex={index}
                             locationName={locationName}
                         />

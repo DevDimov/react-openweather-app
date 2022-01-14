@@ -56,6 +56,7 @@ export type ApiData = {
 }
 
 export type HeaderData = {
+    id: number,
     name: string,
     country: string,
     timezone: number,
@@ -85,6 +86,7 @@ export type Forecast = {
 
 export type DayData = {
     dayName: string,
+    dateString: string,
     maxTemp: number,
     maxTempIcon: string
 }

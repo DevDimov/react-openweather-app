@@ -10,7 +10,7 @@ const App = () => {
     const [locations, setLocations] = useState([])
     const [tempUnit, setTempUnit] = useState('C')
     const [forecast, setForecast] = useState([])
-    const [searchStatus, setSearchStatus] = useState('')
+    const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
 
     useEffect(() => {
@@ -31,35 +31,60 @@ const App = () => {
         }
     }, [tempUnit])
 
+    useEffect(() => {
+        if (locations.length === 0) {
+            setLastUpdated('')
+        }
+        else {
+            setLastUpdated(`Last updated at ${getCurrentTime()}`)
+        }
+    }, [locations])
+
+    // const loadLocations = async (locationList) => {
+    //     if (locationList.length > 0) {
+    //         const units = getTempUnits()
+    //         let newForecast = []
+    //         let data = {}
+    //         try {
+    //             for (const location of locationList) {
+    //                 const response = await fetch('testDataNewYork.json') // For dev only
+    //                 // const response = await fetch(`/api?q=${location}&units=${units}`)
+    //                 data = await response.json()
+    //                 const headerData = getHeaderData(data)
+    //                 const hourData = getHourData(data)
+    //                 const dayData = getDayData(hourData)
+    //                 let apiData = {
+    //                     locationName: location,
+    //                     tempUnit: tempUnit,
+    //                     headerData: headerData,
+    //                     hourData: hourData,
+    //                     dayData: dayData
+    //                 }
+    //                 newForecast.push(apiData)
+    //             }
+    //             setForecast(newForecast)
+    //             setLocations(locationList)
+    //         }
+    //         catch {
+    //             setSearchError(`${data.message}. Error: ${data.cod}`)
+    //         }
+    //     }
+    // }
+
     const loadLocations = async (locationList) => {
         if (locationList.length > 0) {
-            const units = getTempUnits()
             let newForecast = []
             let data = {}
             try {
                 for (const location of locationList) {
-                    const response = await fetch('testDataNewYork.json') // For dev only
-                    // const response = await fetch(`/api?q=${location}&units=${units}`)
-                    data = await response.json()
-
-                    const headerData = getHeaderData(data)
-                    const hourData = getHourData(data)
-                    const dayData = getDayData(hourData)
-                    let apiData = {
-                        locationName: location,
-                        tempUnit: tempUnit,
-                        headerData: headerData,
-                        hourData: hourData,
-                        dayData: dayData
-                    }
-                    newForecast.push(apiData)
+                    data = await getWeather(location)
+                    newForecast.push(data)
                 }
                 setForecast(newForecast)
                 setLocations(locationList)
-                setLastUpdated(`Last updated at ${getCurrentTime()}`)
             }
             catch {
-                setSearchStatus(`Error: ${data.cod}, ${data.message}`)
+                setSearchError(`${data.message}. Error: ${data.cod}`)
             }
         }
     }
@@ -74,16 +99,15 @@ const App = () => {
     const getWeather = async (location) => {
         const units = getTempUnits()
         let data = {}
-        const newLocations = [location, ...locations]
+        let newForecast = {}
         try {
-            const response = await fetch('testDataNewYork.json') // For dev only
-            // const response = await fetch(`/api?q=${location}&units=${units}`)
+            // const response = await fetch('testDataNewYork.json') // For dev only
+            const response = await fetch(`/api?q=${location}&units=${units}`)
             data = await response.json()
-
             const headerData = getHeaderData(data)
             const hourData = getHourData(data)
             const dayData = getDayData(hourData)
-            let newForecast = {
+            newForecast = {
                 locationName: location,
                 tempUnit: tempUnit,
                 headerData: headerData,
@@ -91,19 +115,52 @@ const App = () => {
                 dayData: dayData
             }
             // console.log('newForecast', newForecast)
-            setForecast([newForecast, ...forecast])
-            setLocations(newLocations)
-            saveToLocalStorage(newLocations)
-            setSearchStatus('')
-            setLastUpdated(`Last updated at ${getCurrentTime()}`)
         }
         catch {
-            setSearchStatus(`Error: ${data.cod}, ${data.message}`)
+            return data
         }
+        return newForecast
     }
+
+    const updateForecast = (location, newForecast) => {
+        addLocation(location)
+        setForecast([newForecast, ...forecast])
+    }
+
+    // const getWeather = async (location) => {
+    //     const units = getTempUnits()
+    //     let data = {}
+    //     try {
+    //         const response = await fetch('testDataNewYork.json') // For dev only
+    //         // const response = await fetch(`/api?q=${location}&units=${units}`)
+    //         data = await response.json()
+    //         const headerData = getHeaderData(data)
+    //         const hourData = getHourData(data)
+    //         const dayData = getDayData(hourData)
+    //         let newForecast = {
+    //             locationName: location,
+    //             tempUnit: tempUnit,
+    //             headerData: headerData,
+    //             hourData: hourData,
+    //             dayData: dayData
+    //         }
+    //         // console.log('newForecast', newForecast)
+    //         setForecast([newForecast, ...forecast])
+    //         addLocation(location)
+    //     }
+    //     catch {
+    //         setSearchError(`${data.message}. Error: ${data.cod}`)
+    //     }
+    // }
 
     const saveToLocalStorage = (items) => {
         localStorage.setItem('weather-app-location-list', JSON.stringify(items));
+    }
+
+    const addLocation = (location) => {
+        const newLocations = [location, ...locations]
+        setLocations(newLocations)
+        saveToLocalStorage(newLocations)
     }
 
     const removeLocation = (name) => {
@@ -112,10 +169,6 @@ const App = () => {
         setLocations(newLocations)
         setForecast(newForecast)
         saveToLocalStorage(newLocations)
-        setSearchStatus('')
-        if (newForecast.length === 0) {
-            setLastUpdated('')
-        }
     }
 
     const getCurrentTime = () => {
@@ -128,8 +181,8 @@ const App = () => {
             <SearchBar
                 locations={locations}
                 getWeather={getWeather}
-                searchStatus={searchStatus}
-                setSearchStatus={setSearchStatus}
+                searchError={searchError}
+                updateForecast={updateForecast}
                 suggestions={[
                     "Abu Dhabi, United Arab Emirates",
                     "Abuja, Nigeria",
@@ -331,27 +384,32 @@ const App = () => {
                     "Zagreb, Croatia"
                 ]}
             />
-            <div className="container d-flex-center fd-column">
-                {
-                    forecast.map((obj, index) => {
-                        return (
-                            <Location
-                                key={index}
-                                location={obj.locationName}
-                                data={obj}
-                                tempUnit={tempUnit}
-                                setTempUnit={setTempUnit}
-                                removeLocation={removeLocation}
-                            />
-                        )
-                    })
-                }
-            </div>
-            <StatusInfo
-                display={lastUpdated !== '' ? true : false}
-                text={lastUpdated}
-                icon={lastUpdatedIcon}
-            />
+            {
+                forecast.length > 0 &&
+                <div className="container d-flex-center fd-column">
+                    {
+                        forecast.map((obj) => {
+                            return (
+                                <Location
+                                    key={obj.headerData.id}
+                                    location={obj.locationName}
+                                    data={obj}
+                                    tempUnit={tempUnit}
+                                    setTempUnit={setTempUnit}
+                                    removeLocation={removeLocation}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            }
+            {
+                lastUpdated &&
+                <StatusInfo
+                    text={lastUpdated}
+                    icon={lastUpdatedIcon}
+                />
+            }
         </div>
     )
 }

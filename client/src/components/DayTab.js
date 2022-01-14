@@ -1,4 +1,4 @@
-const DayTab = ({ data, activeDayTab, iconURL, setActiveTab, tabIndex, locationName }) => {
+const DayTab = ({ data, iconURL, setActiveTab, tabIndex, locationName, selected }) => {
     
     const id = 'tab' + tabIndex + '_' + locationName
 
@@ -7,7 +7,7 @@ const DayTab = ({ data, activeDayTab, iconURL, setActiveTab, tabIndex, locationN
             <input
                 type="radio"
                 id={id}
-                checked={activeDayTab === tabIndex}
+                checked={selected}
                 value={data.dayName}
                 onChange={() => setActiveTab(tabIndex)}
             />

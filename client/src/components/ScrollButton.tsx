@@ -1,6 +1,13 @@
 import chevron from "../images/chevron-right-solid.svg"
 
-const ScrollButton = ({ buttonClass, imgClass, scroll, direction }) => {
+type ScrollButtonProps = {
+    buttonClass: string,
+    imgClass: string,
+    scroll: (shift: number) => void,
+    direction: string
+}
+
+const ScrollButton = ({ buttonClass, imgClass, scroll, direction }: ScrollButtonProps) => {
 
     const handleOnClick = () => {
         if (direction === 'left') {

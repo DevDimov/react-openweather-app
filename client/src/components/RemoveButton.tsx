@@ -1,7 +1,11 @@
 import IconButton from "./IconButton"
 import removeButton from "../images/remove-button.svg"
 
-const RemoveButton = ({ removeLocation }) => {
+type RemoveButtonProps = {
+    removeLocation: (name: string) => void
+}
+
+const RemoveButton = ({ removeLocation }: RemoveButtonProps) => {
     return (
         <IconButton
             buttonClass="remove-button"

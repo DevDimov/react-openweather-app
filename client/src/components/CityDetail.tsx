@@ -1,7 +1,9 @@
-import type { CityDetailProps } from "../typescript/ComponentTypes"
+type CityDetailProps = {
+    title: string,
+    value: string
+}
 
 const CityDetail = ({ title, value }: CityDetailProps) => {
-
     return (
         <div>
             <p>{title}</p>

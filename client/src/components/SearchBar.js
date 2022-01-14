@@ -1,24 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import searchIcon from "../images/search-icon.svg"
 import StatusInfo from "./StatusInfo";
 import infoIcon from "../images/info-icon.svg"
 import IconButton from "./IconButton";
 import { SearchSuggestions } from "./SearchSuggestions";
 
-const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getWeather }) => {
+const SearchBar = ({ locations, suggestions, searchError, getWeather, updateForecast }) => {
 
     const [state, setState] = useState({
-        userInput: "",
+        userInput: '',
         filteredSuggestions: [],
         activeSuggestion: 0,
         showSuggestions: false
     })
+    const [searchStatus, setSearchStatus] = useState(searchError)
+    const inputRef = useRef()
+
+    useEffect(() => {
+        setSearchStatus('')
+    }, [locations])
 
     const onChange = (e) => {
         const userInput = e.currentTarget.value;
         let re = new RegExp(userInput, 'i');
         let matches = suggestions.filter((city) => (city.search(re) > -1))
-
         setState({
             userInput: userInput,
             filteredSuggestions: matches,
@@ -27,21 +32,11 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
         })
     }
 
-    const onClick = (e) => {
-        setState({
-            userInput: e.currentTarget.innerText,
-            filteredSuggestions: [],
-            activeSuggestion: 0,
-            showSuggestions: false,
-        })
-        document.querySelector('.search-input').focus()
-    }
-
     const onKeyDown = (e) => {
         const { activeSuggestion, filteredSuggestions } = state
         // User pressed the enter key
         if (e.keyCode === 13) {
-            if (state.showSuggestions) {
+            if (filteredSuggestions.length) {
                 setState({
                     userInput: filteredSuggestions[activeSuggestion],
                     filteredSuggestions: [],
@@ -50,7 +45,7 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
                 })
             }
             else {
-                document.querySelector('.search-button').click()
+                search()
             }
         }
         // User pressed the up arrow
@@ -69,13 +64,15 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
         }
     }
 
-    const search = () => {
-        const userInput = state.userInput.toLowerCase()
+    const search = async () => {
+        const userInput = state.userInput.trim()
         if (userInput.length < 3) {
             setSearchStatus('Please enter a valid location name')
         }
         else {
-            if (locations.includes(userInput)) {
+            const re = new RegExp(userInput, 'i')
+            let matches = locations.filter((city) => (city.search(re) > -1))
+            if (matches.length) {
                 setSearchStatus('Location already exists')
             }
             else {
@@ -84,8 +81,11 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
                 }
                 else {
                     setSearchStatus(`Loading weather data for ${state.userInput}`)
-                    getWeather(userInput)
-                    setState({ userInput: '' })
+                    const newForecast = await getWeather(userInput)
+                    if (newForecast.locationName) {
+                        updateForecast(userInput, newForecast)
+                        setState({ ...state, userInput: '' })
+                    }
                 }
             }
         }
@@ -95,6 +95,7 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
         <div className="d-flex-center fd-column">
             <div className="search-bar d-flex">
                 <input
+                    ref={inputRef}
                     type="text"
                     placeholder="Enter a location here"
                     className="search-input"
@@ -116,15 +117,15 @@ const SearchBar = ({ suggestions, locations, searchStatus, setSearchStatus, getW
                     <SearchSuggestions
                         filteredSuggestions={state.filteredSuggestions}
                         activeSuggestion={state.activeSuggestion}
-                        onClick={onClick}
+                        setState={setState}
+                        inputRef={inputRef}
                     />
                 }
             </div>
-            <StatusInfo
-                display={searchStatus !== '' ? true : false}
+            {searchStatus && <StatusInfo
                 text={searchStatus}
                 icon={infoIcon}
-            />
+            />}
         </div>
     )
 }

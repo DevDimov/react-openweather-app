@@ -2,7 +2,20 @@ import { useState, useEffect } from "react"
 import CityDetail from "./CityDetail"
 import chevron from "../images/chevron-right-solid.svg"
 import IconButton from "./IconButton"
-import type { CityDetailsProps, CityDetailsData } from "../typescript/ComponentTypes"
+import type { HeaderData } from "../typescript/ApiTypes"
+
+type CityDetailsProps = {
+    display: boolean, 
+    setShowDetails: (a: boolean) => void,
+    headerData: HeaderData
+}
+
+type CityDetailsData = {
+    country: string,
+    timezone: number,
+    sunrise: string,
+    sunset: string,
+}
 
 const CityDetails = ({ display, setShowDetails, headerData }: CityDetailsProps) => {
 
@@ -11,7 +24,7 @@ const CityDetails = ({ display, setShowDetails, headerData }: CityDetailsProps) 
         return date.toTimeString().slice(0, 5)
     }
 
-    const [data, setData] = useState<CityDetailsData>(
+    const [data] = useState<CityDetailsData>(
         {
             country: headerData.country,
             timezone: headerData.timezone,

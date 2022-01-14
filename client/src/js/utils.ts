@@ -10,6 +10,7 @@ export const toCelcius = function (tempF: number): number {
 
 export const getHeaderData = function (weatherData: ApiData): HeaderData {
     return {
+        id: weatherData.city.id,
         name: weatherData.city.name,
         country: weatherData.city.country,
         // timezone is an offset in seconds, hence divide by 3600
@@ -85,6 +86,7 @@ export const getDayData = function (forecast: Forecast[]): DayData[] {
         let maxTemp: number = -999
         let maxTempIcon: string = ''
         let dayName: string = obj.weekDay
+        let dateString: string = obj.dateString
         obj.hourly_data.forEach((hourlyBlock) => {
             let temp = hourlyBlock.temp
             if (temp > maxTemp) {
@@ -94,6 +96,7 @@ export const getDayData = function (forecast: Forecast[]): DayData[] {
         })
         dayData.push({
             dayName: dayName,
+            dateString: dateString,
             maxTemp: maxTemp,
             maxTempIcon: maxTempIcon
         })

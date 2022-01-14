@@ -6,7 +6,7 @@ const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
 
     const [activeDayTab, setActiveTab] = useState(0)
 
-    useEffect(()=>{
+    useEffect(() => {
         setActiveTab(0)
     }, [locationName])
 

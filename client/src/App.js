@@ -40,37 +40,6 @@ const App = () => {
         }
     }, [locations])
 
-    // const loadLocations = async (locationList) => {
-    //     if (locationList.length > 0) {
-    //         const units = getTempUnits()
-    //         let newForecast = []
-    //         let data = {}
-    //         try {
-    //             for (const location of locationList) {
-    //                 const response = await fetch('testDataNewYork.json') // For dev only
-    //                 // const response = await fetch(`/api?q=${location}&units=${units}`)
-    //                 data = await response.json()
-    //                 const headerData = getHeaderData(data)
-    //                 const hourData = getHourData(data)
-    //                 const dayData = getDayData(hourData)
-    //                 let apiData = {
-    //                     locationName: location,
-    //                     tempUnit: tempUnit,
-    //                     headerData: headerData,
-    //                     hourData: hourData,
-    //                     dayData: dayData
-    //                 }
-    //                 newForecast.push(apiData)
-    //             }
-    //             setForecast(newForecast)
-    //             setLocations(locationList)
-    //         }
-    //         catch {
-    //             setSearchError(`${data.message}. Error: ${data.cod}`)
-    //         }
-    //     }
-    // }
-
     const loadLocations = async (locationList) => {
         if (locationList.length > 0) {
             let newForecast = []
@@ -126,32 +95,6 @@ const App = () => {
         addLocation(location)
         setForecast([newForecast, ...forecast])
     }
-
-    // const getWeather = async (location) => {
-    //     const units = getTempUnits()
-    //     let data = {}
-    //     try {
-    //         const response = await fetch('testDataNewYork.json') // For dev only
-    //         // const response = await fetch(`/api?q=${location}&units=${units}`)
-    //         data = await response.json()
-    //         const headerData = getHeaderData(data)
-    //         const hourData = getHourData(data)
-    //         const dayData = getDayData(hourData)
-    //         let newForecast = {
-    //             locationName: location,
-    //             tempUnit: tempUnit,
-    //             headerData: headerData,
-    //             hourData: hourData,
-    //             dayData: dayData
-    //         }
-    //         // console.log('newForecast', newForecast)
-    //         setForecast([newForecast, ...forecast])
-    //         addLocation(location)
-    //     }
-    //     catch {
-    //         setSearchError(`${data.message}. Error: ${data.cod}`)
-    //     }
-    // }
 
     const saveToLocalStorage = (items) => {
         localStorage.setItem('weather-app-location-list', JSON.stringify(items));

@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 require('dotenv').config({ path: path.join(__dirname, 'config/.env') })
 
 const app = express()
-const port = process.env.PORT || 5555
+const port = process.env.PORT || 8080
 
 app.use(express.static(path.join(__dirname, '../client/build'), { extensions: ['html', 'css', 'js', 'svg'] }))
 
@@ -14,11 +14,12 @@ app.get('/api', async (req, res) => {
         const units = req.query.units
         const apiKey = process.env.API_KEY
         const url = 'http://api.openweathermap.org/data/2.5/forecast'
+        // const url = 'http://api.openweathermap.org/errorURLforDevEnv'
         const response = await fetch(`${url}?q=${location}&units=${units}&appid=${apiKey}`)
         const data = await response.json()
         return res.status(200).json(data)
     } catch (err) {
-        console.log(err)
+        console.log(err.message)
         return res.status(500).json(err.message)
     }
 })

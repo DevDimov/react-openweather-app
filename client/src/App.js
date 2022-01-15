@@ -67,28 +67,39 @@ const App = () => {
 
     const getWeather = async (location) => {
         const units = getTempUnits()
-        let data = {}
-        let newForecast = {}
-        try {
-            // const response = await fetch('testDataNewYork.json') // For dev only
-            const response = await fetch(`/api?q=${location}&units=${units}`)
-            data = await response.json()
-            const headerData = getHeaderData(data)
-            const hourData = getHourData(data)
-            const dayData = getDayData(hourData)
-            newForecast = {
-                locationName: location,
-                tempUnit: tempUnit,
-                headerData: headerData,
-                hourData: hourData,
-                dayData: dayData
+        // const response = await fetch('testDataNewYork.json') // For dev only
+        const response = await fetch(`/api?q=${location}&units=${units}`)
+        if (response.status >= 200 && response.status <= 299) {
+            const data = await response.json()
+            if (data.cnt > 0) {
+                const headerData = getHeaderData(data)
+                const hourData = getHourData(data)
+                const dayData = getDayData(hourData)
+                const newForecast = {
+                    locationName: location,
+                    tempUnit: tempUnit,
+                    headerData: headerData,
+                    hourData: hourData,
+                    dayData: dayData
+                }
+                // console.log('newForecast', newForecast)
+                return newForecast
             }
-            // console.log('newForecast', newForecast)
+            else {
+                // console.log(data)
+                return {
+                    status: data.cod,
+                    statusText: data.message
+                }
+            }
+        } else {
+            // console.log(response.status, response.statusText)
+            return {
+                status: 500,
+                statusText: 'Internal server error'
+            }
         }
-        catch {
-            return data
-        }
-        return newForecast
+
     }
 
     const updateForecast = (location, newForecast) => {

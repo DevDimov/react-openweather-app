@@ -86,6 +86,9 @@ const SearchBar = ({ locations, suggestions, searchError, getWeather, updateFore
                         updateForecast(userInput, newForecast)
                         setState({ ...state, userInput: '' })
                     }
+                    else {
+                        setSearchStatus(`${newForecast.statusText}, ${newForecast.status}`)
+                    }
                 }
             }
         }

@@ -28,6 +28,7 @@ Jan 7, 2022
 ![Local time, sunrise and sunset](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/location-details.gif "Local time, sunrise and sunset")
 ### Secondary button for showing next day's weather
 ![Secondary button for next day's weather](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/daytab-increment-button.gif "Secondary button for next day's weather")
+
 Nov 15, 2021
 ### 5-day weather forecast with 3-hour intervals
 ![5-day forecast](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/5-day-forecast.gif "5-day forecast")

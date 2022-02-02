@@ -4,11 +4,11 @@ A feature-rich browser app built with React, Node, Express and a little bit of T
 
 ## Table of contents
 
-- #### [Demo](https://github.com/DevDimov/react-openweather-app#demo)
-- #### [Motivation](https://github.com/DevDimov/react-openweather-app#motivation)
-- #### [Languages and tools used](https://github.com/DevDimov/react-openweather-app#languages-and-tools-used)
+- #### [Demo](https://github.com/DevDimov/react-openweather-app#demo-1)
+- #### [Motivation](https://github.com/DevDimov/react-openweather-app#motivation-1)
+- #### [Languages and tools used](https://github.com/DevDimov/react-openweather-app#languages-and-tools-used-1)
     #### App features
-    - #### [Overview of features](https://github.com/DevDimov/react-openweather-app#overview-of-features)
+    - #### [Overview of features](https://github.com/DevDimov/react-openweather-app#overview-of-features-1)
     - #### [Features with examples](https://github.com/DevDimov/react-openweather-app#features-with-examples)
 
 ## Demo
@@ -53,7 +53,7 @@ Nov 15, 2021
 - Support for multiple locations
 - Mobile-friendly design
 
-## App features with examples
+## Features with examples
 
 ### Automatic suggestions for capital cities
 

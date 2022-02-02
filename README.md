@@ -10,6 +10,7 @@ A feature-rich browser app built with React, Node, Express and a little bit of T
     #### App features
     - #### [App features overview](https://github.com/DevDimov/react-openweather-app#app-features-overview)
     - #### [App features with examples](https://github.com/DevDimov/react-openweather-app#app-features-with-examples)
+- #### [Languages and tools used](https://github.com/DevDimov/react-openweather-app#languages-and-tools-used)
 
 ## Demo
 

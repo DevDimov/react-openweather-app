@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem 1rem 0.3rem;
+    grid-column-gap: 1.5rem;
+    overflow-x: scroll;
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container::-webkit-scrollbar { /* Chrome */
+    display: none;
+}

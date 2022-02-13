@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import HourForecast from './HourForecast'
 import DayForecast from './DayForecast'
+import styles from './LocationForecast.module.css'
 
 const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
 
@@ -11,7 +12,7 @@ const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
     }, [locationName])
 
     return (
-        <div>
+        <div className={styles.visible}>
             <HourForecast
                 hourData={hourData}
                 activeDayTab={activeDayTab}

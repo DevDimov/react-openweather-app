@@ -21,7 +21,7 @@ const Location = ({ location, data, tempUnit, removeLocation, setTempUnit }) => 
 
     return (
         <div className="d-flex-center fd-column p-relative width-100pct">
-            <div className={state.view === 'detailed' ? styles.location : `${styles.location} ${styles.compact}`}>
+            <div className={styles.location}>
                 <LocationControls
                     locationState={state}
                     setLocationState={setState}

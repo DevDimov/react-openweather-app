@@ -208,10 +208,10 @@ p {
     flex-direction: row;
     flex-wrap: nowrap;
     border-top: 1px solid var(--bg-grey);
-    overflow-x: scroll;
+    overflow-x: hidden;
 }
 
-.day-block {
+/* .day-block {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -223,7 +223,7 @@ p {
 
 .day-block:last-child {
     border-right-width: 0;
-}
+} */
 
 .hourly-temp {
     font-weight: 600;

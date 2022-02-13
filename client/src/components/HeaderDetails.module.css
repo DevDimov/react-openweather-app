@@ -1,11 +1,10 @@
 .container {
     display: flex;
     justify-content: space-between;
-    /* padding: 1rem 1.5rem;
-    height: 1.5rem;
-    border-bottom: 1px solid var(--bg-grey); */
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--bg-grey);
     overflow: hidden;
-    animation: expand 0.5s ease-in-out 0s 1 normal forwards;
+    animation: opacity 0.5s ease-in-out 0s 1 normal forwards;
 }
 
 .container > div {
@@ -19,26 +18,11 @@
     margin: 0 0.2rem 0.2rem 0;
 }
 
-@keyframes expand {
-    0% {
-        height: 0rem;
-        padding: 0 1.5rem;
-        border-bottom: 0px solid var(--bg-grey);
-    }
-    100% {
-        padding: 1rem 1.5rem;
-        height: 1.5rem;
-        border-bottom: 1px solid var(--bg-grey);
-    }
-}
-
-/* @keyframes show-up {
+@keyframes opacity {
     0% {
         opacity: 0;
-        transform: translateY(50px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
     }
-} */
+}

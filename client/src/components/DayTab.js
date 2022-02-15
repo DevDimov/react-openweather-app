@@ -1,7 +1,21 @@
+import { useState, useEffect } from 'react'
+import { toFahrenheit } from '../js/utils'
 import globalStyles from '../css/global.module.css'
 import styles from './DayTab.module.css'
 
-const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected }) => {
+const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected, tempUnit }) => {
+    
+    const [state, setState] = useState({})
+
+    useEffect(() => {
+        if (tempUnit === 'C') {
+            setState({ ...state, maxTemp: data.maxTemp })
+        }
+        if (tempUnit === 'F') {
+            const tempF = toFahrenheit(data.maxTemp)
+            setState({ ...state, maxTemp: tempF })
+        }
+    }, [data, tempUnit])
 
     return (
         <button
@@ -15,7 +29,7 @@ const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected }) => {
                     src={iconURL}
                     alt="DayTab Icon"
                 />
-                <span className={globalStyles['font-weight-400']}>{`${data.maxTemp}°`}</span>
+                <span className={globalStyles['font-weight-400']}>{`${state.maxTemp}°`}</span>
             </div>
         </button>
     )

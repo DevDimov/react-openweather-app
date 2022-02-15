@@ -17,17 +17,19 @@ const HeaderDetails = ({ sunrise, sunset }) => {
                 <img
                     className={styles.icon}
                     src={sunriseIcon}
-                    alt="" />
+                    alt=""
+                />
                 <span className={globalStyles['font-weight-600']}>Sunrise</span>
-                <span>{getTime(sunrise)}</span>
+                <span className={globalStyles['font-weight-300']}>{getTime(sunrise)}</span>
             </div>
             <div>
                 <img
                     className={styles.icon}
                     src={sunsetIcon}
-                    alt="" />
-                    <span className={globalStyles['font-weight-600']}>Sunset</span>
-                    <span>{getTime(sunset)}</span>
+                    alt=""
+                />
+                <span className={globalStyles['font-weight-600']}>Sunset</span>
+                <span className={globalStyles['font-weight-300']}>{getTime(sunset)}</span>
             </div>
         </div>
     )

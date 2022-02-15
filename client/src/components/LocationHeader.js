@@ -1,38 +1,63 @@
 import { useState, useEffect } from 'react'
+import { toFahrenheit } from '../js/utils'
 import CityDetails from "./CityDetails"
 import TempUnitSwitch from "./TempUnitSwitch"
+import styles from './LocationHeader.module.css'
 
-const LocationHeader = ({ headerData, tempUnit, setTempUnit }) => {
+const LocationHeader = ({ changeTempUnit, icon, name, temp, tempUnit, weather }) => {
 
-    const [showDetails, setShowDetails] = useState(false)
+    const [state, setState] = useState({})
 
-    useEffect(()=>{
-        setShowDetails(false)
-    }, [headerData])
+    useEffect(() => {
+        if (tempUnit === 'C') {
+            setState({ ...state, temp: temp })
+        }
+        if (tempUnit === 'F') {
+            const tempF = toFahrenheit(temp)
+            setState({ ...state, temp: tempF })
+        }
+    }, [temp, tempUnit])
+
+    // const [showDetails, setShowDetails] = useState(false)
+
+    // useEffect(() => {
+    //     setShowDetails(false)
+    // }, [headerData])
 
     return (
-        <div className="d-flex fd-column p-relative location-header">
-            <div className="d-flex f-wrap location-info">
-                <button id="city-data" onClick={() => setShowDetails(true)}>
-                    <h3>{headerData.name}</h3>
+        <div className={styles.container}>
+            <div>
+                <button
+                    id={styles['city-data']}
+                // onClick={() => setShowDetails(true)}
+                >
+                    <h3>{name}</h3>
                 </button>
+                <p>{weather}</p>
+            </div>
+            <div className={styles['right-column']}>
                 <div className="d-flex">
                     <div className="d-flex f-wrap icon-info">
-                        <img className="icon" src={headerData.icon} alt="icon" />
-                        <h3 id="header-current-temp">{headerData.temp}°</h3>
+                        <img
+                            className={styles.icon}
+                            src={icon}
+                            alt="icon"
+                        />
+                        <h3 id={styles.temp}>{state.temp}°</h3>
                     </div>
                     <TempUnitSwitch
                         tempUnit={tempUnit}
-                        setTempUnit={setTempUnit}
+                        changeTempUnit={changeTempUnit}
                     />
                 </div>
+                <p>Currently</p>
             </div>
-            <p>{headerData.weather}</p>
-            <CityDetails 
-                display={showDetails} 
-                setShowDetails={setShowDetails} 
+
+            {/* <CityDetails
+                display={showDetails}
+                setShowDetails={setShowDetails}
                 headerData={headerData}
-            />
+            /> */}
         </div>
     )
 }

@@ -23,6 +23,7 @@ const LocationForecast = ({ hourData, dayData, locationName, tempUnit }) => {
                 dayData={dayData}
                 activeDayTab={activeDayTab}
                 setActiveTab={setActiveTab}
+                tempUnit={tempUnit}
             />
         </div>
     )

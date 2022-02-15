@@ -7,7 +7,7 @@ import LocationForecastCompact from './LocationForecastCompact';
 
 import styles from './Location.module.css'
 
-const Location = ({ location, data, tempUnit, removeLocation, setTempUnit }) => {
+const Location = ({ location, data, tempUnit, removeLocation }) => {
 
     const [state, setState] = useState({
         globalTempUnit: tempUnit,
@@ -16,22 +16,46 @@ const Location = ({ location, data, tempUnit, removeLocation, setTempUnit }) => 
     })
 
     useEffect(() => {
-        setState({...state, localTempUnit: tempUnit})
+        setState({ ...state, localTempUnit: tempUnit })
     }, [tempUnit])
 
+    const changeTempUnit = () => {
+        if (state.localTempUnit === 'C') {
+            setState({ ...state, localTempUnit: 'F' })
+        }
+
+        if (state.localTempUnit === 'F') {
+            setState({ ...state, localTempUnit: 'C' })
+        }
+    }
+
+    const changeView = () => {
+        if (state.view === 'detailed') {
+            setState({ ...state, view: 'compact' })
+        }
+
+        if (state.view === 'compact') {
+            setState({ ...state, view: 'detailed' })
+        }
+    }
+
     return (
-        <div className="d-flex-center fd-column p-relative width-100pct">
+        <div className={styles.container}>
             <div className={styles.location}>
                 <LocationControls
                     locationState={state}
-                    setLocationState={setState}
+                    changeTempUnit={changeTempUnit}
+                    changeView={changeView}
                     location={location}
                     removeLocation={removeLocation}
                 />
                 <LocationHeader
-                    headerData={data.headerData}
-                    tempUnit={tempUnit}
-                    setTempUnit={setTempUnit}
+                    changeTempUnit={changeTempUnit}
+                    icon={data.headerData.icon}
+                    name={data.headerData.name}
+                    temp={data.headerData.temp}
+                    tempUnit={state.localTempUnit}
+                    weather={data.headerData.weather}
                 />
                 {state.view === 'detailed' &&
                     <HeaderDetails

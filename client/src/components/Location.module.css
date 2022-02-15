@@ -1,3 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    /* d-flex-center fd-column p-relative width-100pct */
+}
+
 .location {
     border: 1px solid var(--bg-grey);
     border-radius: 1rem;

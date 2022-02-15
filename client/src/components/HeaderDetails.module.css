@@ -3,8 +3,11 @@
     justify-content: space-between;
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--bg-grey);
-    overflow: hidden;
+    overflow-x: scroll;
+    column-gap: 3rem;
     animation: opacity 0.5s ease-in-out 0s 1 normal forwards;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .container > div {

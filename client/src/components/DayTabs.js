@@ -1,7 +1,7 @@
 import styles from './DayTabs.module.css'
 import DayTab from "./DayTab"
 
-const DayTabs = ({ dayData, activeDayTab, setActiveTab }) => {
+const DayTabs = ({ dayData, activeDayTab, setActiveTab, tempUnit }) => {
 
     return (
         <div className={styles.container}>
@@ -15,6 +15,7 @@ const DayTabs = ({ dayData, activeDayTab, setActiveTab }) => {
                             iconURL={data.maxTempIcon}
                             key={data.dateString}
                             tabIndex={index}
+                            tempUnit={tempUnit}
                         />
                     )
                 })

@@ -19,45 +19,45 @@ import lastUpdatedIcon from "./images/last-updated-icon.svg"
 const App = () => {
 
     const [state, setState] = useState({
+        forecast: [],
+        globalTempUnit: 'C',
         lastUpdated: '',
         locations: [],
-        data: [],
+        view: 'detailed',
     })
 
-    const [globalSettings, setGlobalSettings] = useState({})
+    const [locations, setLocations] = useState([])
+    const [tempUnit, setTempUnit] = useState('C')
+    const [forecast, setForecast] = useState([])
     const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
 
     useEffect(() => {
-        const settings = JSON.parse(localStorage.getItem('weather-app-global-settings'))
-        if (settings) {
-            setGlobalSettings(settings)
-        }
-        const localSettings = JSON.parse(localStorage.getItem('weather-app-local-settings'))
-        if (!localSettings) {
-            const newSettings = {
-                tempUnit: 'C',
-                view: 'detailed'
-            }
-            setGlobalSettings(newSettings)
-            saveGlobalSettings(newSettings)
-        }
-
         const locationList = JSON.parse(localStorage.getItem('weather-app-location-list'))
         if (locationList) {
             loadLocations(locationList);
         }
-
     }, [])
 
     useEffect(() => {
-        if (state.data.length === 0) {
+        if (forecast.length > 0 && tempUnit === 'F') {
+            const newForecast = dataToFahrenheit(forecast)
+            setForecast(newForecast)
+        }
+        else if (forecast.length > 0 && tempUnit === 'C') {
+            const newForecast = dataToCelcius(forecast)
+            setForecast(newForecast)
+        }
+    }, [tempUnit])
+
+    useEffect(() => {
+        if (locations.length === 0) {
             setLastUpdated('')
         }
         else {
             setLastUpdated(`Last updated at ${getCurrentTime()}`)
         }
-    }, [state.data])
+    }, [locations])
 
     const loadLocations = async (locationList) => {
         if (locationList.length > 0) {
@@ -68,7 +68,8 @@ const App = () => {
                     data = await getWeather(location)
                     newForecast.push(data)
                 }
-                setState({ ...state, data: newForecast, locations: locationList })
+                setForecast(newForecast)
+                setLocations(locationList)
             }
             catch {
                 setSearchError(`${data.message}. Error: ${data.cod}`)
@@ -76,21 +77,39 @@ const App = () => {
         }
     }
 
+    const getTempUnits = () => {
+        if (tempUnit === 'C') {
+            return 'metric'
+        }
+        return 'imperial'
+    }
+
     const getWeather = async (location) => {
+        const units = getTempUnits()
+        
         let response = ''
         if (process.env.NODE_ENV === 'production') {
-            // response = await fetch(`/api?q=${location}&units=${units}`)
-            response = await fetch(`/api?q=${location}`)
+            response = await fetch(`/api?q=${location}&units=${units}`)
         }
         else {
             response = await fetch('testDataNewYork.json') // For dev only
         }
-
+        
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()
             if (data.cnt > 0) {
-                // console.log(data)
-                return data
+                const headerData = getHeaderData(data)
+                const hourData = getHourData(data)
+                const dayData = getDayData(hourData)
+                const newForecast = {
+                    locationName: location,
+                    tempUnit: tempUnit,
+                    headerData: headerData,
+                    hourData: hourData,
+                    dayData: dayData
+                }
+                // console.log('newForecast', newForecast)
+                return newForecast
             }
             else {
                 // console.log(data)
@@ -106,27 +125,29 @@ const App = () => {
                 statusText: 'Internal server error'
             }
         }
+
     }
 
-    const setData = (obj) => {
-        const newData = [obj, ...state.data]
-        const newLocations = [obj.city.name, ...state.locations]
-        setState({ ...state, data: newData, locations: newLocations })
-        saveToLocalStorage(newLocations)
+    const updateForecast = (location, newForecast) => {
+        addLocation(location)
+        setForecast([newForecast, ...forecast])
     }
 
     const saveToLocalStorage = (items) => {
         localStorage.setItem('weather-app-location-list', JSON.stringify(items));
     }
 
-    const saveGlobalSettings = (obj) => {
-        localStorage.setItem('weather-app-global-settings', JSON.stringify(obj));
+    const addLocation = (location) => {
+        const newLocations = [location, ...locations]
+        setLocations(newLocations)
+        saveToLocalStorage(newLocations)
     }
 
     const removeLocation = (name) => {
-        const newLocations = state.locations.filter((location) => (location !== name))
-        const newData = state.data.filter((obj) => (obj.city.name !== name))
-        setState({ ...state, locations: newLocations, data: newData })
+        const newLocations = locations.filter((location) => (location !== name))
+        const newForecast = forecast.filter((forecast) => (forecast.locationName !== name))
+        setLocations(newLocations)
+        setForecast(newForecast)
         saveToLocalStorage(newLocations)
     }
 
@@ -135,41 +156,27 @@ const App = () => {
         return date.split('T')[1].slice(0, 5)
     }
 
-    // const changeGlobalTempUnit = () => {
-    //     let newUnit = ''
-    //     if (state.globalTempUnit === 'C') {
-    //         newUnit = 'F'
-    //     }
-    //     if (state.globalTempUnit === 'F') {
-    //         newUnit = 'C'
-    //     }
-    //     let newSettings = settings
-    //     newSettings.global.tempUnit = newUnit
-    //     setSettings(newSettings)
-    //     saveSettings(newSettings)
-    // }
-
     return (
-        <div className={styles['main-container']}>
+        <div className="d-flex-center fd-column">
             <SearchBar
-                locations={state.locations}
+                locations={locations}
                 getWeather={getWeather}
                 searchError={searchError}
-                setData={setData}
+                updateForecast={updateForecast}
                 suggestions={capitals}
             />
             {
-                state.data.length > 0 &&
+                forecast.length > 0 &&
                 <div className={styles.container}>
                     {
-                        state.data.map((obj, index) => {
+                        forecast.map((obj) => {
                             return (
                                 <Location
+                                    key={obj.headerData.id}
+                                    location={obj.locationName}
                                     data={obj}
-                                    globalSettings={globalSettings}
-                                    index={index}
-                                    location={obj.city.name}
-                                    key={obj.city.id}
+                                    tempUnit={tempUnit}
+                                    setTempUnit={setTempUnit}
                                     removeLocation={removeLocation}
                                 />
                             )

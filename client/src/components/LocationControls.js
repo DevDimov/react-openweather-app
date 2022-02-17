@@ -27,7 +27,7 @@ import styles from './LocationControls.module.css'
 //     setLocationState: (obj: LocationStateObj) => void,
 // }
 
-const LocationControls = ({ locationState, changeTempUnit, changeView, location, removeLocation }) => {
+const LocationControls = ({ localTempUnit, localView, changeTempUnit, changeView, location, removeLocation }) => {
 
     return (
         <div className={styles['location-controls']}>
@@ -39,18 +39,18 @@ const LocationControls = ({ locationState, changeTempUnit, changeView, location,
             >
                 <img
                     className={styles.icon}
-                    src={locationState.localTempUnit === 'C' ? tempIconC : tempIconF}
+                    src={localTempUnit === 'C' ? tempIconC : tempIconF}
                     alt="" />
             </button>
 
             <button
-                id="change-view"
+                name="change-view"
                 className={styles.button}
                 onClick={() => changeView()}
             >
                 <img
                     className={styles.icon}
-                    src={locationState.view === 'detailed' ? expandButton : compressButton}
+                    src={localView === 'detailed' ? expandButton : compressButton}
                     alt="" />
             </button>
 

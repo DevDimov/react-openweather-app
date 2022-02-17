@@ -5,7 +5,7 @@ import infoIcon from "../images/info-icon.svg"
 import IconButton from "./IconButton";
 import { SearchSuggestions } from "./SearchSuggestions";
 
-const SearchBar = ({ getWeather, locations, suggestions, searchError, setData }) => {
+const SearchBar = ({ locations, suggestions, searchError, getWeather, updateForecast }) => {
 
     const [state, setState] = useState({
         userInput: '',
@@ -18,7 +18,6 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
 
     useEffect(() => {
         setSearchStatus('')
-        setState({ ...state, userInput: '' })
     }, [locations])
 
     const onChange = (e) => {
@@ -65,6 +64,38 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
         }
     }
 
+    const getWeather = async (location) => {
+        let response = ''
+        if (process.env.NODE_ENV === 'production') {
+            // response = await fetch(`/api?q=${location}&units=${units}`)
+            response = await fetch(`/api?q=${location}`)
+        }
+        else {
+            response = await fetch('testDataNewYork.json') // For dev only
+        }
+
+        if (response.status >= 200 && response.status <= 299) {
+            const data = await response.json()
+            if (data.cnt > 0) {
+                // console.log('newForecast', newForecast)
+                return data
+            }
+            else {
+                // console.log(data)
+                return {
+                    status: data.cod,
+                    statusText: data.message
+                }
+            }
+        } else {
+            // console.log(response.status, response.statusText)
+            return {
+                status: 500,
+                statusText: 'Internal server error'
+            }
+        }
+    }
+
     const search = async () => {
         const userInput = state.userInput.trim()
         if (userInput.length < 3) {
@@ -82,13 +113,13 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
                 }
                 else {
                     setSearchStatus(`Loading weather data for ${state.userInput}`)
-                    const data = await getWeather(userInput)
-                    if (data.cnt > 0) {
-                        setData(data)
-                    
+                    const newForecast = await getWeather(userInput)
+                    if (newForecast.locationName) {
+                        updateForecast(userInput, newForecast)
+                        setState({ ...state, userInput: '' })
                     }
                     else {
-                        setSearchStatus(`${data.statusText}, ${data.status}`)
+                        setSearchStatus(`${newForecast.statusText}, ${newForecast.status}`)
                     }
                 }
             }

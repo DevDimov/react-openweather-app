@@ -4,46 +4,59 @@ import LocationHeader from './LocationHeader'
 import HeaderDetails from './HeaderDetails'
 import LocationForecast from './LocationForecast'
 import LocationForecastCompact from './LocationForecastCompact';
+import { getHeaderData, getHourData, getDayData, getAllData } from '../js/utils'
 
 import styles from './Location.module.css'
 
-const Location = ({ location, data, tempUnit, removeLocation }) => {
+const Location = ({ data, globalSettings, location, removeLocation }) => {
 
-    const [state, setState] = useState({
-        globalTempUnit: tempUnit,
-        localTempUnit: 'C',
-        view: 'detailed',
-    })
+    const [state, setState] = useState(getAllData(data))
 
     useEffect(() => {
-        setState({ ...state, localTempUnit: tempUnit })
-    }, [tempUnit])
+        if (globalSettings) {
+            setState({
+                ...state,
+                localTempUnit: globalSettings.tempUnit,
+                localView: globalSettings.view,
+            })
+        } else {
+            setState({
+                ...state,
+                localTempUnit: 'C',
+                localView: 'detailed',
+            })
+        }
+    }, [globalSettings])
 
     const changeTempUnit = () => {
+        let newUnit = ''
         if (state.localTempUnit === 'C') {
-            setState({ ...state, localTempUnit: 'F' })
+            newUnit = 'F'
         }
-
         if (state.localTempUnit === 'F') {
-            setState({ ...state, localTempUnit: 'C' })
+            newUnit = 'C'
         }
+        setState({ ...state, localTempUnit: newUnit })
     }
 
     const changeView = () => {
-        if (state.view === 'detailed') {
-            setState({ ...state, view: 'compact' })
+        let newView = ''
+        if (state.localView === 'detailed') {
+            newView = 'compact'
         }
 
-        if (state.view === 'compact') {
-            setState({ ...state, view: 'detailed' })
+        if (state.localView === 'compact') {
+            newView = 'detailed'
         }
+        setState({ ...state, localView: newView })
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.location}>
                 <LocationControls
-                    locationState={state}
+                    localTempUnit={state.localTempUnit}
+                    localView={state.localView}
                     changeTempUnit={changeTempUnit}
                     changeView={changeView}
                     location={location}
@@ -51,25 +64,26 @@ const Location = ({ location, data, tempUnit, removeLocation }) => {
                 />
                 <LocationHeader
                     changeTempUnit={changeTempUnit}
-                    icon={data.headerData.icon}
-                    name={data.headerData.name}
-                    temp={data.headerData.temp}
+                    headerData={state.headerData}
+                    icon={state.headerData.icon}
+                    name={state.headerData.name}
+                    temp={state.headerData.temp}
                     tempUnit={state.localTempUnit}
-                    weather={data.headerData.weather}
+                    weather={state.headerData.weather}
                 />
-                {state.view === 'detailed' &&
+                {state.localView === 'detailed' &&
                     <HeaderDetails
-                        sunrise={data.headerData.sunrise}
-                        sunset={data.headerData.sunset}
+                        sunrise={state.headerData.sunrise}
+                        sunset={state.headerData.sunset}
                     />}
-                {state.view === 'detailed' && <LocationForecast
-                    hourData={data.hourData}
-                    dayData={data.dayData}
+                {state.localView === 'detailed' && <LocationForecast
+                    hourData={state.hourData}
+                    dayData={state.dayData}
                     locationName={location}
                     tempUnit={state.localTempUnit}
                 />}
-                {state.view === 'compact' && <LocationForecastCompact
-                    hourData={data.hourData}
+                {state.localView === 'compact' && <LocationForecastCompact
+                    hourData={state.hourData}
                     tempUnit={state.localTempUnit}
                 />}
             </div>

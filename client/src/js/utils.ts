@@ -104,6 +104,24 @@ export const getDayData = function (forecast: Forecast[]): DayData[] {
     return dayData
 }
 
+type AllData = {
+    headerData: HeaderData,
+    hourData: Forecast[],
+    dayData: DayData[]
+}
+
+export const getAllData = (weatherData: ApiData): AllData => {
+    const headerData = getHeaderData(weatherData)
+    const hourData = getHourData(weatherData)
+    const dayData = getDayData(hourData)
+    const allData = {
+        headerData,
+        hourData,
+        dayData
+    }
+    return allData
+}
+
 export const dataToFahrenheit = (array: WeatherData[]): WeatherData[] => {
     const newData = array.map((obj: WeatherData) => {
         obj.headerData.temp = toFahrenheit(obj.headerData.temp)

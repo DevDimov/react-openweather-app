@@ -16,6 +16,10 @@
     grid-column-gap: 0.3rem;
 }
 
+.container::-webkit-scrollbar {
+    display: none;
+}
+
 .icon {
     height: 0.8rem;
     margin: 0 0.2rem 0.2rem 0;

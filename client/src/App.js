@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 
 // Import functions
-import { getHeaderData, getHourData, getDayData, dataToFahrenheit, dataToCelcius } from './js/utils'
+// import { getHeaderData, getHourData, getDayData, dataToFahrenheit, dataToCelcius } from './js/utils'
+import { processData } from './js/utils'
+import defaultSettings from './js/settings'
 import capitals from './js/capitals'
 
 // Import components
 import Location from './components/Location'
 import SearchBar from './components/SearchBar'
 import StatusInfo from './components/StatusInfo'
+import Settings from './components/Settings'
 
 // Import CSS
 import globalStyles from './css/global.module.css'
@@ -18,37 +21,40 @@ import lastUpdatedIcon from "./images/last-updated-icon.svg"
 
 const App = () => {
 
+    const [settings, setSettings] = useState({
+        useGlobal: true,
+        default: defaultSettings,
+        global: defaultSettings,
+        local: {}
+    })
     const [state, setState] = useState({
-        lastUpdated: '',
         locations: [],
         data: [],
     })
-
-    const [globalSettings, setGlobalSettings] = useState({})
+    // const [locations, setLocations] = useState([])
     const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
 
     useEffect(() => {
-        const settings = JSON.parse(localStorage.getItem('weather-app-global-settings'))
-        if (settings) {
-            setGlobalSettings(settings)
-        }
-        const localSettings = JSON.parse(localStorage.getItem('weather-app-local-settings'))
-        if (!localSettings) {
-            const newSettings = {
-                tempUnit: 'C',
-                view: 'detailed'
-            }
-            setGlobalSettings(newSettings)
-            saveGlobalSettings(newSettings)
+        const lastSettings = JSON.parse(localStorage.getItem('vd-weatherapp-settings'))
+        if (lastSettings) {
+            setSettings(lastSettings)
         }
 
-        const locationList = JSON.parse(localStorage.getItem('weather-app-location-list'))
-        if (locationList) {
-            loadLocations(locationList);
+        const locations = JSON.parse(localStorage.getItem('vd-weatherapp-locations'))
+        if (locations) {
+            loadLocations(locations);
         }
 
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('vd-weatherapp-settings', JSON.stringify(settings))
+    }, [settings])
+
+    useEffect(() => {
+        localStorage.setItem('vd-weatherapp-locations', JSON.stringify(state.locations))
+    }, [state.locations])
 
     useEffect(() => {
         if (state.data.length === 0) {
@@ -59,19 +65,19 @@ const App = () => {
         }
     }, [state.data])
 
-    const loadLocations = async (locationList) => {
-        if (locationList.length > 0) {
-            let newForecast = []
-            let data = {}
+    const loadLocations = async (locations) => {
+        if (locations.length > 0) {
+            let locationData = {}
+            let locationsData = []
             try {
-                for (const location of locationList) {
-                    data = await getWeather(location)
-                    newForecast.push(data)
+                for (const location of locations) {
+                    locationData = await getWeather(location.id)
+                    locationsData.push(locationData)
                 }
-                setState({ ...state, data: newForecast, locations: locationList })
+                setState({ data: locationsData, locations: locations })
             }
             catch {
-                setSearchError(`${data.message}. Error: ${data.cod}`)
+                setSearchError(`${locationData.message}. Error: ${locationData.cod}`)
             }
         }
     }
@@ -89,8 +95,7 @@ const App = () => {
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()
             if (data.cnt > 0) {
-                // console.log(data)
-                return data
+                return processData(data)
             }
             else {
                 // console.log(data)
@@ -109,25 +114,27 @@ const App = () => {
     }
 
     const setData = (obj) => {
-        const newData = [obj, ...state.data]
-        const newLocations = [obj.city.name, ...state.locations]
-        setState({ ...state, data: newData, locations: newLocations })
-        saveToLocalStorage(newLocations)
+        const newData = [...state.data, obj]
+        const newLocations = [...state.locations, { name: obj.headerData.name, id: obj.headerData.id }]
+        setState({ data: newData, locations: newLocations })
     }
 
-    const saveToLocalStorage = (items) => {
-        localStorage.setItem('weather-app-location-list', JSON.stringify(items));
-    }
+    const removeLocation = (id) => {
+        const newData = state.data.filter(obj => obj.headerData.id !== id)
+        const newLocations = state.locations.filter(obj => obj.id !== id)
+        setState({ data: newData, locations: newLocations })
 
-    const saveGlobalSettings = (obj) => {
-        localStorage.setItem('weather-app-global-settings', JSON.stringify(obj));
-    }
-
-    const removeLocation = (name) => {
-        const newLocations = state.locations.filter((location) => (location !== name))
-        const newData = state.data.filter((obj) => (obj.city.name !== name))
-        setState({ ...state, locations: newLocations, data: newData })
-        saveToLocalStorage(newLocations)
+        let newSettings = {}
+        if (newLocations.length === 0) {
+            newSettings = {
+                ...settings,
+                local: {}
+            }
+        }
+        else if (settings.local) {
+            newSettings = settings
+            delete newSettings.local[id]
+        }
     }
 
     const getCurrentTime = () => {
@@ -158,25 +165,25 @@ const App = () => {
                 setData={setData}
                 suggestions={capitals}
             />
-            {
+            {/* {
                 state.data.length > 0 &&
                 <div className={styles.container}>
                     {
-                        state.data.map((obj, index) => {
+                        state.data.map((obj) => {
                             return (
                                 <Location
                                     data={obj}
-                                    globalSettings={globalSettings}
-                                    index={index}
-                                    location={obj.city.name}
-                                    key={obj.city.id}
+                                    id={obj.headerData.id}
+                                    settings={settings}
+                                    setSettings={setSettings}
+                                    key={obj.headerData.id}
                                     removeLocation={removeLocation}
                                 />
                             )
                         })
                     }
                 </div>
-            }
+            } */}
             {
                 lastUpdated &&
                 <StatusInfo
@@ -184,6 +191,9 @@ const App = () => {
                     icon={lastUpdatedIcon}
                 />
             }
+            <Settings 
+                settings={settings.global}
+            />
         </div>
     )
 }

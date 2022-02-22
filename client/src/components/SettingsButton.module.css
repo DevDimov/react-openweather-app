@@ -1,0 +1,28 @@
+.button {
+    display: flex;
+    align-items: center;
+    grid-column-gap: 0.5rem;
+    font-family: 'Nunito';
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.icon {
+    height: 1.6rem;
+    content: url('../images/setting-cog.svg');
+    padding: 0.6rem;
+    background-color: var(--bg-grey);
+    border-radius: var(--border-radius);
+}
+
+.icon:hover {
+    cursor: pointer;
+    background-color: var(--grey-hover);
+}

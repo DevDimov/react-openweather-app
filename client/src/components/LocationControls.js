@@ -1,36 +1,9 @@
-import { useState, useRef } from 'react'
-
-import tempIconC from '../images/temp-icon-c.svg'
-import tempIconF from '../images/temp-icon-f.svg'
-import expandButton from '../images/expand-button.svg'
-import compressButton from '../images/compress-button.svg'
-import removeButton from '../images/remove-button.svg'
-
 import styles from './LocationControls.module.css'
 
-// type LocationStateObj = {
-//     temp: string,
-//     view: string
-// }
-
-// type LocationControlsProps = {
-//     locationState: LocationStateObj,
-//     setLocationState: (obj: LocationStateObj) => void,
-//     location: string,
-//     removeLocation: (name: string) => void
-// }
-
-// type ChangeViewParams = {
-//     state: ,
-//     setState: ,
-//     locationState: LocationStateObj,
-//     setLocationState: (obj: LocationStateObj) => void,
-// }
-
-const LocationControls = ({ localTempUnit, localView, changeTempUnit, changeView, location, removeLocation }) => {
+const LocationControls = ({ tempUnit, view, changeTempUnit, changeView, locationID, removeLocation }) => {
 
     return (
-        <div className={styles['location-controls']}>
+        <div className={styles.locationControls}>
 
             <button
                 name="temp-switch"
@@ -38,9 +11,9 @@ const LocationControls = ({ localTempUnit, localView, changeTempUnit, changeView
                 onClick={() => changeTempUnit()}
             >
                 <img
-                    className={styles.icon}
-                    src={localTempUnit === 'C' ? tempIconC : tempIconF}
-                    alt="" />
+                    className={tempUnit === 'F' ? styles.tempUnitF : styles.tempUnitC}
+                    alt=""
+                />
             </button>
 
             <button
@@ -49,19 +22,17 @@ const LocationControls = ({ localTempUnit, localView, changeTempUnit, changeView
                 onClick={() => changeView()}
             >
                 <img
-                    className={styles.icon}
-                    src={localView === 'detailed' ? expandButton : compressButton}
+                    className={view === 'compact' ? styles.compressButton : styles.expandButton}
                     alt="" />
             </button>
 
             <button
                 name="remove-location"
                 className={styles.button}
-                onClick={() => removeLocation(location)}
+                onClick={() => removeLocation(locationID)}
             >
                 <img
-                    className={styles.icon}
-                    src={removeButton}
+                    className={styles.removeButton}
                     alt="" />
             </button>
         </div>

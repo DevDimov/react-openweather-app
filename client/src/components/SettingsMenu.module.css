@@ -1,0 +1,60 @@
+.container{
+    border: 1px solid var(--bg-grey);
+    width: min(80vw, 380px);
+    border-radius: 1rem;
+    justify-content: center;
+    align-items:center;
+    /* box-shadow: 0 5px 10px rgba(0,0,0,0.10); */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--bg-grey);
+}
+
+button {
+    outline: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.closeButton {
+    background-color: transparent;
+}
+
+.updateButton {
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.5rem;
+    color: white;
+    background-color: var(--fill-highlight);
+    margin: auto;
+}
+
+.updateButton:disabled {
+    cursor: auto;
+    background-color: var(--bg-grey);
+    transition: background-color 0.3s ease;
+}
+
+img.removeButton {
+    height: var(--icon-height);
+    content: url("../images/remove-button.svg");
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+img.removeButton:hover {
+    background-color: var(--bg-grey);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 1.5rem;
+    padding: 1.5rem;
+}

@@ -72,7 +72,7 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
         }
         else {
             const re = new RegExp(userInput, 'i')
-            let matches = locations.filter((city) => (city.search(re) > -1))
+            let matches = locations.filter((city) => (city.name.search(re) > -1))
             if (matches.length) {
                 setSearchStatus('Location already exists')
             }
@@ -83,10 +83,9 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
                 else {
                     setSearchStatus(`Loading weather data for ${state.userInput}`)
                     const data = await getWeather(userInput)
-                    if (data.cnt > 0) {
+                    if (data.hourData) {
                         setData(data)
-                    
-                    }
+                                        }
                     else {
                         setSearchStatus(`${data.statusText}, ${data.status}`)
                     }

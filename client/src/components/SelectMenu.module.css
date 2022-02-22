@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+}
+
+.selectMenu {
+    width: 50%;
+    padding: 0.5rem;
+    border: 1px solid var(--bg-grey);
+    border-radius: 0.5rem;
+    background-color: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.5s ease;
+}
+
+.selectMenu:hover {
+    border-color: var(--fill-main);
+    transition: border-color 0.5s ease;
+}
+
+.selectMenu:focus {
+    border-color: var(--fill-highlight);
+    transition: border-color 0.5s ease;
+}
+
+.selectMenu option {
+    font-family: 'Nunito', sans-serif;
+}

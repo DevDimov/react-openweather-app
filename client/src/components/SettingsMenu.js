@@ -1,24 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { SelectMenu } from './SelectMenu'
 import styles from './SettingsMenu.module.css'
 
-const SettingsMenu = ({ showSettings, settings }) => {
+const SettingsMenu = ({ showSettings, setShowSettings, settings, setSettings }) => {
 
     const [globalSettings, setGlobalSettings] = useState({
-        tempUnit: settings.tempUnit || 'mixed',
-        view: settings.view || 'mixed',
-        windSpeed: settings.windSpeed || 'mixed'
+        // tempUnit: settings.global.tempUnit || 'mixed',
+        // view: settings.global.view || 'mixed',
+        // windSpeed: settings.global.windSpeed || 'mixed'
     })
+
     const [updateDisabled, setUpdateDisabled] = useState(true)
 
-    // useEffect(()=>{
-    //     let newSettings = {}
-    //     if (!settings.global) {
-    //         newSettings = {
+    useEffect(() => {
+        setGlobalSettings({
+            tempUnit: settings.global.tempUnit,
+            view: settings.global.view,
+            windSpeed: settings.global.windSpeed
+        })
+        setUpdateDisabled(true)
+    }, [settings])
 
-    //         }
-    //     }
-    // }, [settings])
+    const tempUnitRef = useRef()
+    const viewRef = useRef()
+    const windSpeedRef = useRef()
+
+    const handleOnClick = () => {
+        let newSettings = {
+            tempUnit: tempUnitRef.current.value,
+            view: viewRef.current.value,
+            windSpeed: windSpeedRef.current.value
+        }
+        setSettings({ ...settings, useGlobal: true, global: newSettings })
+        setShowSettings(false)
+        console.log(newSettings)
+    }
 
     return (
         <div className={styles.container}>
@@ -47,6 +63,8 @@ const SettingsMenu = ({ showSettings, settings }) => {
                         'F': 'Fahrenheit',
                         'mixed': 'Mixed'
                     }}
+                    forwardRef={tempUnitRef}
+                    setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
@@ -61,6 +79,8 @@ const SettingsMenu = ({ showSettings, settings }) => {
                         'detailed': 'Detailed',
                         'mixed': 'Mixed'
                     }}
+                    forwardRef={viewRef}
+                    setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
@@ -69,18 +89,22 @@ const SettingsMenu = ({ showSettings, settings }) => {
                     options={[
                         { value: 'kmh', text: 'Kilometers / hour' },
                         { value: 'mph', text: 'Miles / hour' },
+                        { value: 'ms', text: 'Meters / second' },
                     ]}
                     optionsText={{
                         'kmh': 'Kilometers / hour',
                         'mph': 'Miles / hour',
+                        'ms': 'Meters / second',
                         'mixed': 'Mixed'
                     }}
+                    forwardRef={windSpeedRef}
+                    setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <button
                     disabled={updateDisabled}
                     className={styles.updateButton}
-                // onClick={() => onClick}
+                    onClick={() => handleOnClick()}
                 >
                     Update
                 </button>

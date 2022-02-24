@@ -69,11 +69,11 @@ export type HeaderData = {
 
 export type HourData = {
     temp: number,
-    feels_like: number,
+    feelsLike: number,
     description: string,
     icon: string,
     cloudiness: number,
-    wind_speed: number,
+    windSpeed: number,
     date_string: string,
     time_string: string
 }

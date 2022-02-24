@@ -1,6 +1,7 @@
 const defaultSettings = {
         tempUnit: 'C',
-        view: 'detailed'
+        view: 'detailed',
+        windSpeed: 'ms'
 }
 
 export default defaultSettings

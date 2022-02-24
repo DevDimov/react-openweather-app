@@ -5,7 +5,7 @@ import HourDataEnd from "./HourDataEnd"
 import ScrollRightButton from "./ScrollRightButton"
 import ScrollLeftButton from "./ScrollLeftButton";
 
-const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
+const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpeedUnit }) => {
 
     const [lastDayIndex] = useState(hourData.length - 1)
 
@@ -21,11 +21,9 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit }) => {
                         return (
                             <HourBlock
                                 key={obj.time_string}
-                                time={obj.time_string}
-                                icon={obj.icon}
-                                temp={obj.temp}
+                                hourData={obj}
                                 tempUnit={tempUnit}
-                                hourDetails={obj}
+                                windSpeedUnit={windSpeedUnit}
                             />
                         )
                     })

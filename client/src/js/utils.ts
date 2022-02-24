@@ -8,6 +8,14 @@ export const toCelcius = function (tempF: number): number {
     return Math.round((tempF - 32) * 5 / 9)
 }
 
+export const fromMStoKMH = function (speed: number): number {
+    return Math.round(speed * 3.6)
+}
+
+export const fromMStoMPH = function (speed: number): number {
+    return Math.round(speed * 2.23)
+}
+
 export const getHeaderData = function (weatherData: ApiData): HeaderData {
     return {
         id: weatherData.city.id,
@@ -37,11 +45,11 @@ export const getHourData = function (weatherData: ApiData): Forecast[] {
         // Extract the hour data from each item into an hour-by-hour object
         hourData = {
             temp: Math.round(item.main.temp),
-            feels_like: Math.round(item.main.feels_like),
+            feelsLike: Math.round(item.main.feels_like),
             description: item.weather[0].description,
             icon: '/images/' + item.weather[0].icon + '@2x.png',
             cloudiness: item.clouds.all,
-            wind_speed: item.wind.speed,
+            windSpeed: item.wind.speed,
             date_string: item.dt_txt.split(' ')[0],
             time_string: item.dt_txt.split(' ')[1].slice(0, 5)
         }
@@ -121,58 +129,6 @@ export const processData = (weatherData: ApiData): ProcessedData => {
     }
     return processedData
 }
-
-export const dataToFahrenheit = (array: WeatherData[]): WeatherData[] => {
-    const newData = array.map((obj: WeatherData) => {
-        obj.headerData.temp = toFahrenheit(obj.headerData.temp)
-        obj.hourData.forEach((day) => {
-            day.hourly_data.forEach((hour) => {
-                hour.temp = toFahrenheit(hour.temp)
-                hour.feels_like = toFahrenheit(hour.feels_like)
-            })
-        })
-        obj.dayData.forEach((day) => {
-            day.maxTemp = toFahrenheit(day.maxTemp)
-        })
-        return obj
-    })
-    return newData
-}
-
-export const dataToCelcius = (array: WeatherData[]): WeatherData[] => {
-    const newData = array.map((obj) => {
-        obj.headerData.temp = toCelcius(obj.headerData.temp)
-        obj.hourData.forEach((day) => {
-            day.hourly_data.forEach((hour) => {
-                hour.temp = toCelcius(hour.temp)
-                hour.feels_like = toCelcius(hour.feels_like)
-            })
-        })
-        obj.dayData.forEach((day) => {
-            day.maxTemp = toCelcius(day.maxTemp)
-        })
-        return obj
-    })
-    return newData
-}
-
-// const toMilesPerHour = function () {
-//     let speed = window.event.target;
-//     let len = speed.innerHTML.length
-//     let speedKMH = Number(speed.innerHTML.substring(0, len - 4))
-//     let speedMPH = (speedKMH / 1.609).toFixed(0)
-//     speed.innerHTML = speedMPH + ' mph'
-//     speed.onclick = toKilometersPerHour
-// }
-
-// const toKilometersPerHour = function () {
-//     let speed = window.event.target;
-//     let len = speed.innerHTML.length
-//     let speedMPH = Number(speed.innerHTML.substring(0, len - 4))
-//     let speedKMH = (speedMPH * 1.609).toFixed(0)
-//     speed.innerHTML = speedKMH + ' kmh'
-//     speed.onclick = toMilesPerHour
-// }
 
 export const getShortDayName = (num: number): string => {
     const shortDayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']

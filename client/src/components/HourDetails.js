@@ -1,28 +1,41 @@
 import { useState, useEffect } from 'react'
-import { toFahrenheit } from '../js/utils'
+import { fromMStoKMH, fromMStoMPH } from '../js/utils'
 
 const HourDetails = (props) => {
-    const { hourDetails, tempUnit, collapsed } = props
+    const {
+        cloudiness,
+        collapsed,
+        description,
+        feelsLike,
+        tempUnit,
+        windSpeed,
+        windSpeedUnit } = props
 
     const [state, setState] = useState({})
 
     useEffect(() => {
-        if (tempUnit === 'C') {
-            setState({ ...state, feelsLike: hourDetails.feels_like })
+        let newWindSpeed
+        if (windSpeedUnit === 'ms') {
+            newWindSpeed = windSpeed.toFixed()
         }
-        if (tempUnit === 'F') {
-            const tempF = toFahrenheit(hourDetails.feels_like)
-            setState({ ...state, feelsLike: tempF })
+        if (windSpeedUnit === 'kmh') {
+            newWindSpeed = fromMStoKMH(windSpeed)
         }
-    }, [hourDetails, tempUnit])
+        if (windSpeedUnit === 'mph') {
+            newWindSpeed = fromMStoMPH(windSpeed)
+        }
+        setState({ ...state, windSpeed: newWindSpeed })
+    }, [windSpeed, windSpeedUnit])
 
 
     return (
-        <div className={collapsed ? "hour-details collapsed" : "hour-details"}>
-            <p className="font-weight-600">{hourDetails.description}</p>
-            <p>Feels like <span>{state.feelsLike}°{tempUnit}</span></p>
-            <p>Cloudiness <span>{hourDetails.cloudiness}%</span></p>
-            <p>Wind speed <span>{hourDetails.wind_speed} m/s</span></p>
+        <div
+            id="HourDetails"
+            className={collapsed ? "hour-details collapsed" : "hour-details"}>
+            <p className="font-weight-600">{description}</p>
+            <p>Feels like <span>{feelsLike}°{tempUnit}</span></p>
+            <p>Cloudiness <span>{cloudiness}%</span></p>
+            <p>Wind speed <span>{state.windSpeed} {windSpeedUnit}</span></p>
         </div>
     )
 }

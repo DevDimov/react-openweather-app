@@ -2,21 +2,21 @@ import { useState } from "react"
 import SettingsButton from "./SettingsButton"
 import SettingsMenu from "./SettingsMenu"
 
-const Settings = ({settings}) => {
+const Settings = ({ settings, setSettings }) => {
 
     const [showSettings, setShowSettings] = useState(false)
 
     return (
-        <div>
+        showSettings ?
+            <SettingsMenu
+                showSettings={setShowSettings}
+                setShowSettings={setShowSettings}
+                settings={settings}
+                setSettings={setSettings}
+            /> :
             <SettingsButton
                 showSettings={setShowSettings}
             />
-            {showSettings &&
-                <SettingsMenu
-                    showSettings={setShowSettings}
-                    settings={settings}
-                />}
-        </div>
     )
 }
 

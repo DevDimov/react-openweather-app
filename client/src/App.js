@@ -13,8 +13,8 @@ import StatusInfo from './components/StatusInfo'
 import Settings from './components/Settings'
 
 // Import CSS
-import globalStyles from './css/global.module.css'
-import styles from './App.module.css'
+import './App.css'
+import './css/global.css'
 
 // Import SVGs and images
 import lastUpdatedIcon from "./images/last-updated-icon.svg"
@@ -27,11 +27,12 @@ const App = () => {
         global: defaultSettings,
         local: {}
     })
+
     const [state, setState] = useState({
         locations: [],
         data: [],
     })
-    // const [locations, setLocations] = useState([])
+
     const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
 
@@ -135,6 +136,7 @@ const App = () => {
             newSettings = settings
             delete newSettings.local[id]
         }
+        setSettings(newSettings)
     }
 
     const getCurrentTime = () => {
@@ -157,7 +159,7 @@ const App = () => {
     // }
 
     return (
-        <div className={styles['main-container']}>
+        <div id='App'>
             <SearchBar
                 locations={state.locations}
                 getWeather={getWeather}
@@ -165,25 +167,20 @@ const App = () => {
                 setData={setData}
                 suggestions={capitals}
             />
-            {/* {
-                state.data.length > 0 &&
-                <div className={styles.container}>
-                    {
-                        state.data.map((obj) => {
-                            return (
-                                <Location
-                                    data={obj}
-                                    id={obj.headerData.id}
-                                    settings={settings}
-                                    setSettings={setSettings}
-                                    key={obj.headerData.id}
-                                    removeLocation={removeLocation}
-                                />
-                            )
-                        })
-                    }
-                </div>
-            } */}
+            {
+                state.data.length > 0 && state.data.map((obj) => {
+                    return (
+                        <Location
+                            key={obj.headerData.id}
+                            id={obj.headerData.id}
+                            data={obj}
+                            settings={settings}
+                            setSettings={setSettings}
+                            removeLocation={removeLocation}
+                        />
+                    )
+                })
+            }
             {
                 lastUpdated &&
                 <StatusInfo
@@ -191,8 +188,9 @@ const App = () => {
                     icon={lastUpdatedIcon}
                 />
             }
-            <Settings 
-                settings={settings.global}
+            <Settings
+                settings={settings}
+                setSettings={setSettings}
             />
         </div>
     )

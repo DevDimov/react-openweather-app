@@ -13,13 +13,17 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
         activeSuggestion: 0,
         showSuggestions: false
     })
-    const [searchStatus, setSearchStatus] = useState(searchError)
+    const [searchStatus, setSearchStatus] = useState('')
     const inputRef = useRef()
 
     useEffect(() => {
         setSearchStatus('')
         setState({ ...state, userInput: '' })
     }, [locations])
+
+    useEffect(() => {
+        setSearchStatus(searchError)
+    }, [searchError])
 
     const onChange = (e) => {
         const userInput = e.currentTarget.value;

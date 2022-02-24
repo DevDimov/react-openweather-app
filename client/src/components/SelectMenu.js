@@ -1,12 +1,11 @@
-import { useState } from "react"
 import styles from './SelectMenu.module.css'
 
-export const SelectMenu = ({ label, options, optionsText, selected }) => {
+export const SelectMenu = ({ label, options, optionsText, selected, forwardRef, setUpdateDisabled }) => {
 
     const handleOnChange = (e) => {
         let selectedOption = e.target.value
         if (selectedOption !== selected) {
-
+            setUpdateDisabled(false)
         }
     }
 
@@ -18,8 +17,9 @@ export const SelectMenu = ({ label, options, optionsText, selected }) => {
             <select
                 name={label}
                 id={label}
+                ref={forwardRef}
                 className={styles.selectMenu}
-                onChange={(e) => { console.log(e.target.value) }}
+                onChange={(e) => handleOnChange(e)}
             >
                 <option defaultValue hidden value={selected}>
                     {optionsText[selected]}

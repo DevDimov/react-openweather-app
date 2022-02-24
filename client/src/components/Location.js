@@ -9,44 +9,48 @@ import styles from './Location.module.css'
 
 const Location = ({ data, settings, setSettings, id, removeLocation }) => {
 
-    const [state, setState] = useState({
-        localTempUnit: '',
-        localView: '',
-    })
+    const [state, setState] = useState({})
 
     useEffect(() => {
         if (settings.useGlobal) {
-            setState({
-                localTempUnit: settings.global.tempUnit,
-                localView: settings.global.view,
-            })
+            setState(settings.global)
         }
-        else if (settings.local[id]) {
-            setState({
-                localTempUnit: settings.local[id].tempUnit,
-                localView: settings.local[id].view,
-            })
-        }
-        else {
-            setState({
-                localTempUnit: settings.default.tempUnit,
-                localView: settings.default.view,
-            })
+        if (!settings.useGlobal) {
+            let newLocalSettings = {}
+            for (const property in settings.global) {
+                const propertyValue = settings.global[property]
+                if (propertyValue !== 'mixed') {
+                    newLocalSettings[property] = propertyValue
+                }
+                else {
+                    if (settings.local[id]) {
+                        newLocalSettings[property] = settings.local[id][property]
+                    }
+                    else {
+                        newLocalSettings[property] = settings.default[property]
+                    }
+                }
+            }
+            setState(
+                newLocalSettings
+            )
         }
 
     }, [settings])
 
     const changeTempUnit = () => {
         let newUnit = ''
-        if (state.localTempUnit === 'C') {
+        if (state.tempUnit === 'C') {
             newUnit = 'F'
         }
-        if (state.localTempUnit === 'F') {
+        if (state.tempUnit === 'F') {
             newUnit = 'C'
         }
-        let obj = { tempUnit: newUnit, view: state.localView }
+        let obj = { ...state, tempUnit: newUnit }
         let newSettings = {
+            ...settings,
             useGlobal: false,
+            global: { ...settings.global, tempUnit: 'mixed' },
             local: { ...settings.local, [id]: obj }
         }
         setSettings(newSettings)
@@ -54,16 +58,18 @@ const Location = ({ data, settings, setSettings, id, removeLocation }) => {
 
     const changeView = () => {
         let newView = ''
-        if (state.localView === 'detailed') {
+        if (state.view === 'detailed') {
             newView = 'compact'
         }
 
-        if (state.localView === 'compact') {
+        if (state.view === 'compact') {
             newView = 'detailed'
         }
-        let obj = { tempUnit: state.localTempUnit, view: newView }
+        let obj = { ...state, view: newView }
         let newSettings = {
+            ...settings,
             useGlobal: false,
+            global: { ...settings.global, view: 'mixed' },
             local: { ...settings.local, [id]: obj }
         }
         setSettings(newSettings)
@@ -73,36 +79,37 @@ const Location = ({ data, settings, setSettings, id, removeLocation }) => {
         <div className={styles.container}>
             <div className={styles.location}>
                 <LocationControls
-                    tempUnit={state.localTempUnit}
-                    view={state.localView}
+                    tempUnit={state.tempUnit}
+                    view={state.view}
                     changeTempUnit={changeTempUnit}
                     changeView={changeView}
                     locationID={id}
                     removeLocation={removeLocation}
                 />
                 <LocationHeader
-                    changeTempUnit={changeTempUnit}
                     headerData={data.headerData}
                     icon={data.headerData.icon}
                     name={data.headerData.name}
                     temp={data.headerData.temp}
-                    tempUnit={state.localTempUnit}
                     weather={data.headerData.weather}
+                    tempUnit={state.tempUnit}
+                    changeTempUnit={changeTempUnit}
                 />
-                {state.localView === 'detailed' &&
+                {state.view === 'detailed' &&
                     <HeaderDetails
                         sunrise={data.headerData.sunrise}
                         sunset={data.headerData.sunset}
                     />}
-                {state.localView === 'detailed' && <LocationForecast
+                {state.view === 'detailed' && <LocationForecast
                     hourData={data.hourData}
                     dayData={data.dayData}
                     locationName={data.headerData.name}
-                    tempUnit={state.localTempUnit}
+                    tempUnit={state.tempUnit}
+                    windSpeedUnit={state.windSpeed}
                 />}
-                {state.localView === 'compact' && <LocationForecastCompact
+                {state.view === 'compact' && <LocationForecastCompact
                     hourData={data.hourData}
-                    tempUnit={state.localTempUnit}
+                    tempUnit={state.tempUnit}
                 />}
             </div>
         </div>

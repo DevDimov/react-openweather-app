@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import CityDetail from "./CityDetail"
 import chevron from "../images/chevron-right-solid.svg"
-import IconButton from "./IconButton"
-import type { HeaderData } from "../typescript/ApiTypes"
+import IconButton from "../IconButton"
+import type { HeaderData } from "../../typescript/ApiTypes"
 
 type CityDetailsProps = {
     display: boolean, 

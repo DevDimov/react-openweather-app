@@ -1,0 +1,20 @@
+.DayTabSwitch > * {
+    width: 195px;
+}
+
+.DayTabSwitch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--bg-grey);
+    padding: 0 1em;
+    height: 100%;
+    max-width: 157px;
+    line-height: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.DayTabSwitch:hover {
+    background-color: var(--light-grey); 
+}

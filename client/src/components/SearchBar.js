@@ -99,8 +99,8 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
     }
 
     return (
-        <div className="d-flex-center fd-column">
-            <div className="search-bar d-flex">
+        <div className="flex-center-column">
+            <div className="search-bar display-flex">
                 <input
                     ref={inputRef}
                     type="text"

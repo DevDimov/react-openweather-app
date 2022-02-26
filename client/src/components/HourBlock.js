@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { toFahrenheit } from '../js/utils'
 import HourDetails from "./HourDetails"
+import './HourBlock.css'
 
 const HourBlock = ({ hourData, tempUnit, windSpeedUnit }) => {
 
@@ -22,14 +23,17 @@ const HourBlock = ({ hourData, tempUnit, windSpeedUnit }) => {
     const [collapsed, setCollapsed] = useState(true)
 
     return (
-        <div className="hourly-block-container">
-            <div className="hourly-block" onClick={() => setCollapsed(!collapsed)}>
+        <div className="display-flex">
+            <div
+                className="HourBlock"
+                onClick={() => setCollapsed(!collapsed)}
+            >
                 <p>{hourData.time_string}</p>
-                <img 
-                    className="icon"
+                <img
+                    className="HourBlock-icon"
                     src={hourData.icon}
-                    alt="icon" />
-                <p className="hourly-temp">{state.temp}°</p>
+                    alt="" />
+                <p className="font-weight-600">{state.temp}°</p>
             </div>
             <HourDetails
                 collapsed={collapsed}

@@ -1,0 +1,115 @@
+:root {
+    --button-size: 42px;
+    --border-radius: 0.8rem;
+    --bg-grey: #F2F2F1;
+    --grey-hover: #E2E2E1;
+    --light-grey:#FAFAFA;
+    --fill-main: #48484A;
+    --fill-highlight: #EC6E4C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-center-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flex-center-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.font-weight-300 {
+    font-weight: 300;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.d-flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fd-column {
+    flex-direction: column;
+}
+.f-wrap {
+    flex-wrap: wrap;
+}
+
+.row-gap-1em {
+    row-gap: 1em;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+#root {
+    margin: 4rem 0;
+}
+
+.width-100pct {
+    width: 100%;
+}

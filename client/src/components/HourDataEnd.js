@@ -1,6 +1,8 @@
+import './HourDataEnd.css'
+
 const HourDataEnd = () => {
     return (
-        <div className="hourdata-end">
+        <div className="HourDataEnd">
             <p>No more weather to show</p>
         </div>
     )

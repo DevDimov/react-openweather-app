@@ -1,49 +1,38 @@
 import { useState, useEffect } from 'react'
 import { toFahrenheit } from '../js/utils'
-import CityDetails from "./CityDetails"
 import TempUnitSwitch from "./TempUnitSwitch"
-import styles from './LocationHeader.module.css'
+import './LocationHeader.css'
 
 const LocationHeader = ({ changeTempUnit, icon, name, temp, tempUnit, weather }) => {
 
     const [state, setState] = useState({})
 
     useEffect(() => {
+        let newTemp
         if (tempUnit === 'C') {
-            setState({ ...state, temp: temp })
+            newTemp = temp
         }
         if (tempUnit === 'F') {
-            const tempF = toFahrenheit(temp)
-            setState({ ...state, temp: tempF })
+            newTemp = toFahrenheit(temp)
         }
+        setState({ ...state, temp: newTemp })
     }, [temp, tempUnit])
 
-    // const [showDetails, setShowDetails] = useState(false)
-
-    // useEffect(() => {
-    //     setShowDetails(false)
-    // }, [headerData])
-
     return (
-        <div className={styles.container}>
+        <div id='LocationHeader'>
             <div>
-                <button
-                    id={styles['city-data']}
-                // onClick={() => setShowDetails(true)}
-                >
-                    <h3>{name}</h3>
-                </button>
+                <h3>{name}</h3>
                 <p>{weather}</p>
             </div>
-            <div className={styles['right-column']}>
-                <div className="d-flex">
-                    <div className="d-flex f-wrap icon-info">
+            <div className='right-column'>
+                <div className="display-flex">
+                    <div className="icon-info">
                         <img
-                            className={styles.icon}
+                            id='LocationHeader-icon'
                             src={icon}
                             alt="icon"
                         />
-                        <h3 id={styles.temp}>{state.temp}°</h3>
+                        <h3 id='LocationHeader-temp'>{state.temp}°</h3>
                     </div>
                     <TempUnitSwitch
                         tempUnit={tempUnit}
@@ -52,12 +41,6 @@ const LocationHeader = ({ changeTempUnit, icon, name, temp, tempUnit, weather })
                 </div>
                 <p>Currently</p>
             </div>
-
-            {/* <CityDetails
-                display={showDetails}
-                setShowDetails={setShowDetails}
-                headerData={headerData}
-            /> */}
         </div>
     )
 }

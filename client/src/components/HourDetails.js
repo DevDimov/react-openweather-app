@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fromMStoKMH, fromMStoMPH } from '../js/utils'
+import './HourDetails.css'
 
 const HourDetails = (props) => {
     const {
@@ -30,8 +31,7 @@ const HourDetails = (props) => {
 
     return (
         <div
-            id="HourDetails"
-            className={collapsed ? "hour-details collapsed" : "hour-details"}>
+            className={collapsed ? "HourDetails collapsed" : "HourDetails"}>
             <p className="font-weight-600">{description}</p>
             <p>Feels like <span>{feelsLike}°{tempUnit}</span></p>
             <p>Cloudiness <span>{cloudiness}%</span></p>

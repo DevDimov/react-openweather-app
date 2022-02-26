@@ -1,5 +1,4 @@
-import styles from './HeaderDetails.module.css'
-import globalStyles from '../css/global.module.css'
+import './HeaderDetails.css'
 import sunriseIcon from '../images/sunrise-icon.svg'
 import sunsetIcon from '../images/sunset-icon.svg'
 
@@ -12,24 +11,24 @@ const HeaderDetails = ({ sunrise, sunset }) => {
     }
 
     return (
-        <div className={styles.container}>
+        <div className='HeaderDetails'>
             <div>
                 <img
-                    className={styles.icon}
+                    className='HeaderDetails-icon'
                     src={sunriseIcon}
                     alt=""
                 />
-                <span className={globalStyles['font-weight-600']}>Sunrise</span>
-                <span className={globalStyles['font-weight-300']}>{getTime(sunrise)}</span>
+                <span className='font-weight-600'>Sunrise</span>
+                <span className='font-weight-300'>{getTime(sunrise)}</span>
             </div>
             <div>
                 <img
-                    className={styles.icon}
+                    className='HeaderDetails-icon'
                     src={sunsetIcon}
                     alt=""
                 />
-                <span className={globalStyles['font-weight-600']}>Sunset</span>
-                <span className={globalStyles['font-weight-300']}>{getTime(sunset)}</span>
+                <span className='font-weight-600'>Sunset</span>
+                <span className='font-weight-300'>{getTime(sunset)}</span>
             </div>
         </div>
     )

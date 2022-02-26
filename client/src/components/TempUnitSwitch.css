@@ -1,0 +1,30 @@
+#temp-units-switch {
+    padding: 0 1.4em 0 1.1em;
+    border-radius: 10px;
+    height: 2em;
+    width: 2em;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #FFF;
+    transition: all 0.3s ease;
+    margin-left: -1rem;
+}
+
+#temp-units-switch:hover {
+    background-color: var(--bg-grey);
+    transition: all 0.3s ease;
+}
+
+#temp-units-switch span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.temp-units {
+    transition: all 0.5s ease;
+}
+
+.temp-units.slideup {
+    transform: translateY(-2em);
+    transition: all 0.5s ease;
+}

@@ -1,0 +1,27 @@
+.HourDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--bg-grey);
+    background-color: var(--light-grey);
+    padding: 0 1em;
+    height: 100%;
+    flex: 1 0 auto;
+    max-width: 195px;
+    transition: all 0.5s ease;
+    overflow-x: hidden;
+    line-height: 1.8em;
+}
+
+.collapsed {
+    max-width: 0;
+    padding: 0 0;
+    border: 0px solid var(--bg-grey);
+    opacity: 0;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+}
+
+.HourDetails > * {
+    width: 195px;
+}

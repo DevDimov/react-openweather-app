@@ -14,7 +14,6 @@ import Settings from './components/Settings'
 
 // Import CSS
 import './App.css'
-import './css/global.css'
 
 // Import SVGs and images
 import lastUpdatedIcon from "./images/last-updated-icon.svg"
@@ -143,20 +142,6 @@ const App = () => {
         const date = new Date().toISOString()
         return date.split('T')[1].slice(0, 5)
     }
-
-    // const changeGlobalTempUnit = () => {
-    //     let newUnit = ''
-    //     if (state.globalTempUnit === 'C') {
-    //         newUnit = 'F'
-    //     }
-    //     if (state.globalTempUnit === 'F') {
-    //         newUnit = 'C'
-    //     }
-    //     let newSettings = settings
-    //     newSettings.global.tempUnit = newUnit
-    //     setSettings(newSettings)
-    //     saveSettings(newSettings)
-    // }
 
     return (
         <div id='App'>

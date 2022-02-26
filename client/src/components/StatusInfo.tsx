@@ -1,4 +1,3 @@
-import globalStyles from '../css/global.module.css'
 import styles from './StatusInfo.module.css'
 
 type StatusInfoProps = {
@@ -8,7 +7,7 @@ type StatusInfoProps = {
 
 const StatusInfo = ({ text, icon }: StatusInfoProps) => {
     return (
-        <p className={globalStyles['display-flex']}>
+        <p className='display-flex'>
             <img
                 // icons must be the same height for the style.icon class to work
                 className={styles.icon}

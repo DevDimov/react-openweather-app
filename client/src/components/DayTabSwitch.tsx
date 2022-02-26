@@ -1,5 +1,6 @@
 import { MutableRefObject } from "react"
 import { getLongDayName, getDateOrdinal } from '../js/utils'
+import './DayTabSwitch.css'
 
 type DayTabSwitchProps = {
     activeDayTab: number,
@@ -24,7 +25,9 @@ const DayTabSwitch = ({ activeDayTab, setActiveTab, scrollRef, dayTabDate }: Day
     }
 
     return (
-        <div className="daytab-switch" onClick={handleOnClick}>
+        <div 
+            className="DayTabSwitch" 
+            onClick={handleOnClick}>
             <p>See the weather for</p>
             <p className="font-weight-600">{getNextDayName(dayTabDate)}</p>
         </div>

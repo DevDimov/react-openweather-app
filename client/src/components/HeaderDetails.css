@@ -1,4 +1,4 @@
-.container {
+.HeaderDetails {
     display: flex;
     justify-content: space-between;
     padding: 1rem 1.5rem;
@@ -10,17 +10,17 @@
     scrollbar-width: none;
 }
 
-.container > div {
+.HeaderDetails > div {
     display: flex;
     align-items: center;
     grid-column-gap: 0.3rem;
 }
 
-.container::-webkit-scrollbar {
+.HeaderDetails::-webkit-scrollbar {
     display: none;
 }
 
-.icon {
+.HeaderDetails-icon {
     height: 0.8rem;
     margin: 0 0.2rem 0.2rem 0;
 }

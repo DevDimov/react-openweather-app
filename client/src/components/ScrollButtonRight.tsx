@@ -5,7 +5,7 @@ type ScrollRightButtonProps = {
     scrollRef: MutableRefObject<HTMLDivElement>
 }
 
-const ScrollRightButton = ({ scrollRef }: ScrollRightButtonProps) => {
+const ScrollButtonRight = ({ scrollRef }: ScrollRightButtonProps) => {
 
     const scroll = (shift: number) => {
         scrollRef.current.scrollLeft += shift
@@ -18,4 +18,4 @@ const ScrollRightButton = ({ scrollRef }: ScrollRightButtonProps) => {
     )
 }
 
-export default ScrollRightButton
+export default ScrollButtonRight

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import CityDetail from "./CityDetail"
 import chevron from "../images/chevron-right-solid.svg"
-import IconButton from "../IconButton"
 import type { HeaderData } from "../../typescript/ApiTypes"
 
 type CityDetailsProps = {
@@ -54,13 +53,13 @@ const CityDetails = ({ display, setShowDetails, headerData }: CityDetailsProps) 
                 <CityDetail title="Sunrise" value={data.sunrise} />
                 <CityDetail title="Sunset" value={data.sunset} />
             </div>
-            <IconButton
+            {/* <IconButton
                 buttonClass="chevron-down-button"
                 onClick={() => setShowDetails(false)}
                 iconClass="chevron-down"
                 iconPath={chevron}
                 altText="chevron"
-            />
+            /> */}
         </div>
     )
 }

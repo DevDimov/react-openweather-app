@@ -5,4 +5,10 @@
     width: 100%;
     padding: 0 1.5em;
     scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.HourForecast::-webkit-scrollbar {
+    display: none;
 }

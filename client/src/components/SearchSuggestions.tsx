@@ -1,4 +1,5 @@
 import { MouseEvent, MutableRefObject } from 'react'
+import './SearchSuggestions.css'
 
 type SearchBarState = {
     userInput: string,
@@ -27,7 +28,7 @@ export const SearchSuggestions = ({ filteredSuggestions, activeSuggestion, setSt
     }
 
     return (
-        <ul id="search-suggestions">
+        <ul id="SearchSuggestions">
             {
                 filteredSuggestions.map((suggestion, index) => {
                     let className: string = '';

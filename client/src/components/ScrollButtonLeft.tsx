@@ -1,11 +1,12 @@
 import { MutableRefObject } from "react"
+import './ScrollButtons.css'
 import chevron from "../images/chevron-right-solid.svg"
 
 type ScrollLeftButtonProps = {
     scrollRef: MutableRefObject<HTMLDivElement>
 }
 
-const ScrollLeftButton = ({ scrollRef }: ScrollLeftButtonProps) => {
+const ScrollButtonLeft = ({ scrollRef }: ScrollLeftButtonProps) => {
 
     const scroll = (shift: number) => {
         scrollRef.current.scrollLeft += shift
@@ -18,4 +19,4 @@ const ScrollLeftButton = ({ scrollRef }: ScrollLeftButtonProps) => {
     )
 }
 
-export default ScrollLeftButton
+export default ScrollButtonLeft

@@ -2,8 +2,8 @@ import { useRef, useState } from "react"
 import HourBlock from "./HourBlock"
 import DayTabSwitch from "./DayTabSwitch"
 import HourDataEnd from "./HourDataEnd"
-import ScrollRightButton from "./ScrollRightButton"
-import ScrollLeftButton from "./ScrollLeftButton";
+import ScrollButtonRight from "./ScrollButtonRight"
+import ScrollButtonLeft from "./ScrollButtonLeft";
 import './HourForecast.css'
 
 const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpeedUnit }) => {
@@ -39,8 +39,8 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpee
                         /> : <HourDataEnd />
                 }
             </div>
-            <ScrollLeftButton scrollRef={scrollRef} />
-            <ScrollRightButton scrollRef={scrollRef} />
+            <ScrollButtonLeft scrollRef={scrollRef} />
+            <ScrollButtonRight scrollRef={scrollRef} />
         </div>
     )
 }

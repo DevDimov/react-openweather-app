@@ -1,0 +1,92 @@
+#header-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+    background-color: var(--bg-grey);
+    padding: 0 3rem;
+    box-sizing: border-box;
+}
+
+#header-nav > ul, #footer-nav > ul {
+    list-style-type: none;
+}
+
+#header-nav > ul {
+    display: none;
+}
+
+#header-nav > ul > li {
+    display: inline;
+    font-weight: 600;
+    margin: 0 1.5rem;
+}
+
+li a {
+    color: var(--fill-main);
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: color 0.3s ease;
+}
+
+#header-nav > li a {
+    padding: 0.9rem 1rem;
+}
+
+#footer-nav > li a {
+    padding: 0.9rem 0;
+}
+
+#footer-nav > ul {
+    padding-top: 1.5rem;
+}
+  
+li a:hover {
+    color: #aaa;
+}
+
+#header-nav a.active {
+    color: var(--fill-highlight);
+}
+
+.logo-weather-app {
+    height: 60%;
+}
+
+#header-nav {
+    justify-content: center;
+}
+
+#footer-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: var(--bg-grey);
+    padding: 3rem;
+    box-sizing: border-box;
+}
+
+#footer-nav > ul > li {
+    display: block;
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+@media only screen and (min-width: 600px) {
+    
+    #header-nav {
+        justify-content: space-between;
+    }
+    
+    #header-nav > ul {
+        display: block;
+    }
+
+    #footer-nav {
+        display: none;
+    }
+
+}

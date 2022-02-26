@@ -1,3 +1,6 @@
+/* Nunito Semi-bold 600, Regular 400, Light 300 */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap');
+
 :root {
     --button-size: 42px;
     --border-radius: 0.8rem;

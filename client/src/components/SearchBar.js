@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
+import './SearchBar.css'
 import searchIcon from "../images/search-icon.svg"
 import StatusInfo from "./StatusInfo";
 import infoIcon from "../images/info-icon.svg"
-import IconButton from "./IconButton";
 import { SearchSuggestions } from "./SearchSuggestions";
 
 const SearchBar = ({ getWeather, locations, suggestions, searchError, setData }) => {
@@ -89,7 +89,7 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
                     const data = await getWeather(userInput)
                     if (data.hourData) {
                         setData(data)
-                                        }
+                    }
                     else {
                         setSearchStatus(`${data.statusText}, ${data.status}`)
                     }
@@ -100,25 +100,25 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
 
     return (
         <div className="flex-center-column">
-            <div className="search-bar display-flex">
+            <div className="SearchBar">
                 <input
                     ref={inputRef}
                     type="text"
                     placeholder="Enter a location here"
-                    className="search-input"
+                    className="SearchBar-input"
                     maxLength="40"
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     value={state.userInput}
                 >
                 </input>
-                <IconButton
-                    buttonClass="search-button"
-                    onClick={search}
-                    iconClass="search-icon"
-                    iconPath={searchIcon}
-                    altText="search icon"
-                />
+                <button className="SearchBar-button" onClick={search}>
+                    <img
+                        className="SearchBar-icon"
+                        src={searchIcon}
+                        alt=""
+                    />
+                </button>
                 {
                     state.showSuggestions && state.userInput && state.filteredSuggestions &&
                     <SearchSuggestions

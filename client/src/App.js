@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 // Import functions
 // import { getHeaderData, getHourData, getDayData, dataToFahrenheit, dataToCelcius } from './js/utils'
 import { processData } from './js/utils'
-import defaultSettings from './js/settings'
 import capitals from './js/capitals'
+import defaultSettings from './js/settings'
+import languages from './js/languages'
 
 // Import components
 import Location from './components/Location'
@@ -34,6 +35,7 @@ const App = () => {
 
     const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
+    const [lang, setLang] = useState(languages['en'])
 
     useEffect(() => {
         const lastSettings = JSON.parse(localStorage.getItem('vd-weatherapp-settings'))
@@ -61,9 +63,14 @@ const App = () => {
             setLastUpdated('')
         }
         else {
-            setLastUpdated(`Last updated at ${getCurrentTime()}`)
+            setLastUpdated(`${lang.lastUpdated} ${getCurrentTime()}`)
         }
     }, [state.data])
+
+    useEffect(() => {
+        setLang(languages[settings.global.lang])
+        setLastUpdated('')
+    }, [settings.global.lang])
 
     const loadLocations = async (locations) => {
         if (locations.length > 0) {
@@ -77,16 +84,17 @@ const App = () => {
                 setState({ data: locationsData, locations: locations })
             }
             catch {
-                setSearchError(`${locationData.message}. Error: ${locationData.cod}`)
+                setSearchError(`${locationData.message}, ${locationData.cod}`)
             }
         }
     }
 
-    const getWeather = async (location) => {
+    const getWeather = async (location, lang) => {
         let response = ''
         if (process.env.NODE_ENV === 'production') {
             // response = await fetch(`/api?q=${location}&units=${units}`)
-            response = await fetch(`/api?q=${location}`)
+            // response = await fetch(`/api?q=${location}`)
+            response = await fetch(`/api?q=${location}&lang=${lang}`)
         }
         else {
             response = await fetch('testDataNewYork.json') // For dev only
@@ -108,7 +116,7 @@ const App = () => {
             // console.log(response.status, response.statusText)
             return {
                 status: 500,
-                statusText: 'Internal server error'
+                statusText: lang.serverError
             }
         }
     }
@@ -146,6 +154,7 @@ const App = () => {
     return (
         <div id='App'>
             <SearchBar
+                lang={lang}
                 locations={state.locations}
                 getWeather={getWeather}
                 searchError={searchError}
@@ -156,6 +165,7 @@ const App = () => {
                 state.data.length > 0 && state.data.map((obj) => {
                     return (
                         <Location
+                            lang={lang}
                             key={obj.headerData.id}
                             id={obj.headerData.id}
                             data={obj}
@@ -174,6 +184,7 @@ const App = () => {
                 />
             }
             <Settings
+                lang={lang}
                 settings={settings}
                 setSettings={setSettings}
             />

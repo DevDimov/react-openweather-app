@@ -35,7 +35,13 @@ I built this project for the purpose of learning React, working with API data, a
 
 ## Overview of features
 
-Newly added
+Newly added (Feb 27, 2022)
+
+- Two display modes, detailed and compact
+- Header controls specific to each location
+- Settings panel with drop-down menus for applying preferences globally
+
+Jan 15, 2022
 
 - Automatic suggestions for capital cities
 

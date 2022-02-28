@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import searchIcon from "../images/search-icon.svg"
-import StatusInfo from "./StatusInfo";
+import StatusInfo from "../StatusInfo";
 import infoIcon from "../images/info-icon.svg"
-import { SearchSuggestions } from "./SearchSuggestions";
+import { SearchSuggestions } from "../SearchSuggestions";
 
 const SearchBar = ({ locations, suggestions, searchError, getWeather, updateForecast }) => {
 

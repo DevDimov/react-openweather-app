@@ -29,7 +29,7 @@ const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected, tempUnit }) =
                     src={iconURL}
                     alt="DayTab Icon"
                 />
-                <span className='font-weight-400'>{`${state.maxTemp}°`}</span>
+                <span className='font-weight-400'>{state.maxTemp}°</span>
             </div>
         </button>
     )

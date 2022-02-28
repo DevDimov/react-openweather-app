@@ -3,7 +3,7 @@ import { toFahrenheit } from '../js/utils'
 import TempUnitSwitch from "./TempUnitSwitch"
 import './LocationHeader.css'
 
-const LocationHeader = ({ changeTempUnit, icon, name, temp, tempUnit, weather }) => {
+const LocationHeader = ({ changeTempUnit, icon, name, country, temp, tempUnit, weather }) => {
 
     const [state, setState] = useState({})
 
@@ -21,9 +21,17 @@ const LocationHeader = ({ changeTempUnit, icon, name, temp, tempUnit, weather })
     return (
         <div id='LocationHeader'>
             <div>
-                <h3>{name}</h3>
+                {/* <span */}
+                    {/* className="location-name"> */}
+                    <h3>{`${name}, ${country}`}</h3>
+                {/* </span> */}
+                {/* <span
+                    className="country-code">
+                    {', ' + country}
+                </span> */}
                 <p>{weather}</p>
             </div>
+
             <div className='right-column'>
                 <div className="display-flex">
                     <div className="icon-info">

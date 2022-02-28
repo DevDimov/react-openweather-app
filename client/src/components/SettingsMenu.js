@@ -2,18 +2,15 @@ import { useEffect, useState, useRef } from 'react'
 import { SelectMenu } from './SelectMenu'
 import styles from './SettingsMenu.module.css'
 
-const SettingsMenu = ({ showSettings, setShowSettings, settings, setSettings }) => {
+const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettings }) => {
 
-    const [globalSettings, setGlobalSettings] = useState({
-        // tempUnit: settings.global.tempUnit || 'mixed',
-        // view: settings.global.view || 'mixed',
-        // windSpeed: settings.global.windSpeed || 'mixed'
-    })
+    const [globalSettings, setGlobalSettings] = useState({})
 
     const [updateDisabled, setUpdateDisabled] = useState(true)
 
     useEffect(() => {
         setGlobalSettings({
+            lang: settings.global.lang,
             tempUnit: settings.global.tempUnit,
             view: settings.global.view,
             windSpeed: settings.global.windSpeed
@@ -21,26 +18,28 @@ const SettingsMenu = ({ showSettings, setShowSettings, settings, setSettings }) 
         setUpdateDisabled(true)
     }, [settings])
 
+    const langRef = useRef()
     const tempUnitRef = useRef()
     const viewRef = useRef()
     const windSpeedRef = useRef()
 
     const handleOnClick = () => {
         let newSettings = {
+            lang: langRef.current.value,
             tempUnit: tempUnitRef.current.value,
             view: viewRef.current.value,
             windSpeed: windSpeedRef.current.value
         }
         setSettings({ ...settings, useGlobal: true, global: newSettings })
         setShowSettings(false)
-        console.log(newSettings)
+        // console.log(newSettings)
     }
 
     return (
         <div className={styles.container}>
 
             <div className={styles.header}>
-                <h3>Settings</h3>
+                <h3>{lang.settings.settings}</h3>
                 <button
                     className={styles.closeButton}
                     onClick={() => showSettings(false)}
@@ -52,50 +51,66 @@ const SettingsMenu = ({ showSettings, setShowSettings, settings, setSettings }) 
             <div className={styles.content}>
 
                 <SelectMenu
-                    label='Temperature'
-                    selected={globalSettings.tempUnit}
+                    label={lang.settings.lang}
+                    selected={globalSettings.lang}
                     options={[
-                        { value: 'C', text: 'Celcius' },
-                        { value: 'F', text: 'Fahrenheit' },
+                        { value: 'bg', text: lang.settings.options.lang.bg },
+                        { value: 'de', text: lang.settings.options.lang.de },
+                        { value: 'en', text: lang.settings.options.lang.en },
                     ]}
                     optionsText={{
-                        'C': 'Celcius',
-                        'F': 'Fahrenheit',
-                        'mixed': 'Mixed'
+                        'bg': lang.settings.options.lang.bg,
+                        'de': lang.settings.options.lang.de,
+                        'en': lang.settings.options.lang.en,
+                    }}
+                    forwardRef={langRef}
+                    setUpdateDisabled={setUpdateDisabled}
+                />
+
+                <SelectMenu
+                    label={lang.settings.temp}
+                    selected={globalSettings.tempUnit}
+                    options={[
+                        { value: 'C', text: lang.settings.options.temp.C },
+                        { value: 'F', text: lang.settings.options.temp.F },
+                    ]}
+                    optionsText={{
+                        'C': lang.settings.options.temp.C,
+                        'F': lang.settings.options.temp.F,
+                        'mixed': lang.settings.options.temp.mixed
                     }}
                     forwardRef={tempUnitRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
-                    label='View'
+                    label={lang.settings.view}
                     selected={globalSettings.view}
                     options={[
-                        { value: 'compact', text: 'Compact' },
-                        { value: 'detailed', text: 'Detailed' },
+                        { value: 'compact', text: lang.settings.options.view.compact },
+                        { value: 'detailed', text: lang.settings.options.view.detailed },
                     ]}
                     optionsText={{
-                        'compact': 'Compact',
-                        'detailed': 'Detailed',
-                        'mixed': 'Mixed'
+                        'compact': lang.settings.options.view.compact,
+                        'detailed': lang.settings.options.view.detailed,
+                        'mixed': lang.settings.options.view.mixed
                     }}
                     forwardRef={viewRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
-                    label='Wind speed'
+                    label={lang.settings.windSpeed}
                     selected={globalSettings.windSpeed}
                     options={[
-                        { value: 'kmh', text: 'Kilometers / hour' },
-                        { value: 'mph', text: 'Miles / hour' },
-                        { value: 'ms', text: 'Meters / second' },
+                        { value: 'kmh', text: lang.settings.options.windSpeed.kmh },
+                        { value: 'mph', text: lang.settings.options.windSpeed.mph },
+                        { value: 'ms', text: lang.settings.options.windSpeed.ms },
                     ]}
                     optionsText={{
-                        'kmh': 'Kilometers / hour',
-                        'mph': 'Miles / hour',
-                        'ms': 'Meters / second',
-                        'mixed': 'Mixed'
+                        'kmh': lang.settings.options.windSpeed.kmh,
+                        'mph': lang.settings.options.windSpeed.mph,
+                        'ms': lang.settings.options.windSpeed.ms,
                     }}
                     forwardRef={windSpeedRef}
                     setUpdateDisabled={setUpdateDisabled}
@@ -106,7 +121,7 @@ const SettingsMenu = ({ showSettings, setShowSettings, settings, setSettings }) 
                     className={styles.updateButton}
                     onClick={() => handleOnClick()}
                 >
-                    Update
+                    {lang.settings.update}
                 </button>
             </div>
         </div>

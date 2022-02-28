@@ -36,7 +36,7 @@ const Location = ({ data, settings, setSettings, id, removeLocation }) => {
             )
         }
 
-    }, [settings])
+    }, [settings, id])
 
     const changeTempUnit = () => {
         let newUnit = ''
@@ -90,6 +90,7 @@ const Location = ({ data, settings, setSettings, id, removeLocation }) => {
                     headerData={data.headerData}
                     icon={data.headerData.icon}
                     name={data.headerData.name}
+                    country={data.headerData.country}
                     temp={data.headerData.temp}
                     weather={data.headerData.weather}
                     tempUnit={state.tempUnit}

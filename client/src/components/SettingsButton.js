@@ -1,13 +1,13 @@
 import styles from './SettingsButton.module.css'
 
-const SettingsButton = ({showSettings}) => {
+const SettingsButton = ({lang, showSettings}) => {
     
     return (
         <button 
             className={styles.button} 
             onClick={() => showSettings(true)}
             >
-            <span>Settings</span>
+            <span>{lang.settings.settings}</span>
             <img
                 className={styles.icon}
                 alt=""

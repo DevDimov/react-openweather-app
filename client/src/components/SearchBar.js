@@ -5,7 +5,7 @@ import StatusInfo from "./StatusInfo";
 import infoIcon from "../images/info-icon.svg"
 import { SearchSuggestions } from "./SearchSuggestions";
 
-const SearchBar = ({ getWeather, locations, suggestions, searchError, setData }) => {
+const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setData }) => {
 
     const [state, setState] = useState({
         userInput: '',
@@ -72,20 +72,20 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
     const search = async () => {
         const userInput = state.userInput.trim()
         if (userInput.length < 3) {
-            setSearchStatus('Please enter a valid location name')
+            setSearchStatus(lang.search.invalidInput)
         }
         else {
             const re = new RegExp(userInput, 'i')
             let matches = locations.filter((city) => (city.name.search(re) > -1))
             if (matches.length) {
-                setSearchStatus('Location already exists')
+                setSearchStatus(lang.search.duplicate)
             }
             else {
                 if (locations.length >= 3) {
-                    setSearchStatus('Sorry, the app supports up to 3 locations only')
+                    setSearchStatus(lang.search.limit)
                 }
                 else {
-                    setSearchStatus(`Loading weather data for ${state.userInput}`)
+                    setSearchStatus(`${lang.search.load} ${state.userInput}`)
                     const data = await getWeather(userInput)
                     if (data.hourData) {
                         setData(data)
@@ -104,7 +104,7 @@ const SearchBar = ({ getWeather, locations, suggestions, searchError, setData })
                 <input
                     ref={inputRef}
                     type="text"
-                    placeholder="Enter a location here"
+                    placeholder={lang.search.placeholder}
                     className="SearchBar-input"
                     maxLength="40"
                     onChange={onChange}

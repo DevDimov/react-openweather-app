@@ -4,6 +4,7 @@ import './HourDetails.css'
 
 const HourDetails = (props) => {
     const {
+        lang,
         cloudiness,
         collapsed,
         description,
@@ -33,9 +34,18 @@ const HourDetails = (props) => {
         <div
             className={collapsed ? "HourDetails collapsed" : "HourDetails"}>
             <p className="font-weight-600">{description}</p>
-            <p>Feels like <span>{feelsLike}°{tempUnit}</span></p>
-            <p>Cloudiness <span>{cloudiness}%</span></p>
-            <p>Wind speed <span>{state.windSpeed} {windSpeedUnit}</span></p>
+            
+            <p>
+                {lang.feelsLike} <span>{feelsLike}°{tempUnit}</span>
+            </p>
+            
+            <p>
+                {lang.cloudiness} <span>{cloudiness}%</span>
+            </p>
+            
+            <p>
+                {lang.windSpeed} <span>{state.windSpeed} {windSpeedUnit}</span>
+            </p>
         </div>
     )
 }

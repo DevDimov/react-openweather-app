@@ -3,7 +3,7 @@ import HourForecast from './HourForecast'
 import DayTabs from './DayTabs'
 import styles from './LocationForecast.module.css'
 
-const LocationForecast = ({ hourData, dayData, locationName, tempUnit, windSpeedUnit }) => {
+const LocationForecast = ({ lang, hourData, dayData, locationName, tempUnit, windSpeedUnit }) => {
 
     const [activeDayTab, setActiveTab] = useState(0)
 
@@ -14,6 +14,7 @@ const LocationForecast = ({ hourData, dayData, locationName, tempUnit, windSpeed
     return (
         <div className={styles.visible}>
             <HourForecast
+                lang={lang}
                 hourData={hourData}
                 activeDayTab={activeDayTab}
                 setActiveTab={setActiveTab}
@@ -21,6 +22,7 @@ const LocationForecast = ({ hourData, dayData, locationName, tempUnit, windSpeed
                 windSpeedUnit={windSpeedUnit}
             />
             <DayTabs
+                lang={lang}
                 dayData={dayData}
                 activeDayTab={activeDayTab}
                 setActiveTab={setActiveTab}

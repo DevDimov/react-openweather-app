@@ -79,13 +79,15 @@ export type HourData = {
 }
 
 export type Forecast = {
-    weekDay: string,
+    dayName: string,
+    dayIndex: number,
     dateString: string,
     hourly_data: HourData[]
 }
 
 export type DayData = {
     dayName: string,
+    dayIndex: number,
     dateString: string,
     maxTemp: number,
     maxTempIcon: string
@@ -97,4 +99,79 @@ export type WeatherData = {
     headerData: HeaderData,
     hourData: Forecast[],
     dayData: DayData[]
+}
+
+export type Language = {
+    celsius: string,
+    cloudiness: string,
+    compact: string,
+    currently: string,
+    detailed: string,
+    fahrenheit: string,
+    feelsLike: string,
+    hourDataEnd: string,
+    kmh: string,
+    lang: {
+        bg: string,
+        de: string,
+        en: string
+    },
+    language: string,
+    lastUpdated: string,
+    longDays: string[],
+    mixed: string,
+    mph: string,
+    ms: string,
+    nextDayButton: string,
+    ordinal: Ordinal,
+    search: {
+        duplicate: string,
+        invalidInput: string,
+        limit: string,
+        load: string,
+        placeholder: string
+    },
+    serverError: string,
+    settings: string,
+    shortDays: string[],
+    sunrise: string,
+    sunset: string,
+    temperature: string,
+    update: string,
+    view: string,
+    windSpeed: string
+}
+
+export type Ordinal = {
+    1: string,
+    2: string,
+    3: string,
+    4: string,
+    5: string,
+    6: string,
+    7: string,
+    8: string,
+    9: string,
+    10: string,
+    11: string,
+    12: string,
+    13: string,
+    14: string,
+    15: string,
+    16: string,
+    17: string,
+    18: string,
+    19: string,
+    20: string,
+    21: string,
+    22: string,
+    23: string,
+    24: string,
+    25: string,
+    26: string,
+    27: string,
+    28: string,
+    29: string,
+    30: string,
+    31: string,
 }

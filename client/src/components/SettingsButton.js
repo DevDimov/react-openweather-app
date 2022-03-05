@@ -7,7 +7,7 @@ const SettingsButton = ({lang, showSettings}) => {
             className={styles.button} 
             onClick={() => showSettings(true)}
             >
-            <span>{lang.settings.settings}</span>
+            <span>{lang.settings}</span>
             <img
                 className={styles.icon}
                 alt=""

@@ -35,7 +35,7 @@ const App = () => {
 
     const [searchError, setSearchError] = useState('')
     const [lastUpdated, setLastUpdated] = useState('')
-    const [lang, setLang] = useState(languages['en'])
+    const [lang, setLang] = useState(languages[settings.global.lang])
 
     useEffect(() => {
         const lastSettings = JSON.parse(localStorage.getItem('vd-weatherapp-settings'))

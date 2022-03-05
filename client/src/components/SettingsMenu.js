@@ -4,17 +4,9 @@ import styles from './SettingsMenu.module.css'
 
 const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettings }) => {
 
-    const [globalSettings, setGlobalSettings] = useState({})
-
     const [updateDisabled, setUpdateDisabled] = useState(true)
 
     useEffect(() => {
-        setGlobalSettings({
-            lang: settings.global.lang,
-            tempUnit: settings.global.tempUnit,
-            view: settings.global.view,
-            windSpeed: settings.global.windSpeed
-        })
         setUpdateDisabled(true)
     }, [settings])
 
@@ -39,7 +31,7 @@ const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettin
         <div className={styles.container}>
 
             <div className={styles.header}>
-                <h3>{lang.settings.settings}</h3>
+                <h3>{lang.settings}</h3>
                 <button
                     className={styles.closeButton}
                     onClick={() => showSettings(false)}
@@ -51,67 +43,49 @@ const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettin
             <div className={styles.content}>
 
                 <SelectMenu
-                    label={lang.settings.lang}
-                    selected={globalSettings.lang}
+                    label={lang.language}
+                    selected={settings.global.lang}
                     options={[
-                        { value: 'bg', text: lang.settings.options.lang.bg },
-                        { value: 'de', text: lang.settings.options.lang.de },
-                        { value: 'en', text: lang.settings.options.lang.en },
+                        { value: 'bg', text: lang.lang.bg },
+                        { value: 'de', text: lang.lang.de },
+                        { value: 'en', text: lang.lang.en },
                     ]}
-                    optionsText={{
-                        'bg': lang.settings.options.lang.bg,
-                        'de': lang.settings.options.lang.de,
-                        'en': lang.settings.options.lang.en,
-                    }}
                     forwardRef={langRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
-                    label={lang.settings.temp}
-                    selected={globalSettings.tempUnit}
+                    label={lang.temperature}
+                    selected={settings.global.tempUnit}
                     options={[
-                        { value: 'C', text: lang.settings.options.temp.C },
-                        { value: 'F', text: lang.settings.options.temp.F },
+                        { value: 'C', text: lang.celsius },
+                        { value: 'F', text: lang.fahrenheit },
+                        { value: 'mixed', text: lang.mixed }
                     ]}
-                    optionsText={{
-                        'C': lang.settings.options.temp.C,
-                        'F': lang.settings.options.temp.F,
-                        'mixed': lang.settings.options.temp.mixed
-                    }}
                     forwardRef={tempUnitRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
-                    label={lang.settings.view}
-                    selected={globalSettings.view}
+                    label={lang.view}
+                    selected={settings.global.view}
                     options={[
-                        { value: 'compact', text: lang.settings.options.view.compact },
-                        { value: 'detailed', text: lang.settings.options.view.detailed },
+                        { value: 'compact', text: lang.compact },
+                        { value: 'detailed', text: lang.detailed },
+                        { value: 'mixed', text: lang.mixed }
                     ]}
-                    optionsText={{
-                        'compact': lang.settings.options.view.compact,
-                        'detailed': lang.settings.options.view.detailed,
-                        'mixed': lang.settings.options.view.mixed
-                    }}
                     forwardRef={viewRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
 
                 <SelectMenu
-                    label={lang.settings.windSpeed}
-                    selected={globalSettings.windSpeed}
+                    label={lang.windSpeed}
+                    selected={settings.global.windSpeed}
                     options={[
-                        { value: 'kmh', text: lang.settings.options.windSpeed.kmh },
-                        { value: 'mph', text: lang.settings.options.windSpeed.mph },
-                        { value: 'ms', text: lang.settings.options.windSpeed.ms },
+                        { value: 'kmh', text: lang.kmh },
+                        { value: 'mph', text: lang.mph },
+                        { value: 'ms', text: lang.ms },
                     ]}
-                    optionsText={{
-                        'kmh': lang.settings.options.windSpeed.kmh,
-                        'mph': lang.settings.options.windSpeed.mph,
-                        'ms': lang.settings.options.windSpeed.ms,
-                    }}
                     forwardRef={windSpeedRef}
                     setUpdateDisabled={setUpdateDisabled}
                 />
@@ -121,7 +95,7 @@ const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettin
                     className={styles.updateButton}
                     onClick={() => handleOnClick()}
                 >
-                    {lang.settings.update}
+                    {lang.update}
                 </button>
             </div>
         </div>

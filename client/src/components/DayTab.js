@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { toFahrenheit } from '../js/utils'
 import styles from './DayTab.module.css'
 
-const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected, tempUnit }) => {
+const DayTab = ({ lang, data, iconURL, setActiveTab, tabIndex, selected, tempUnit }) => {
 
     const [state, setState] = useState({})
 
@@ -22,7 +22,7 @@ const DayTab = ({ data, iconURL, setActiveTab, tabIndex, selected, tempUnit }) =
             className={selected ? `${styles.button} ${styles.selected}` : styles.button}
             onClick={() => setActiveTab(tabIndex)}
         >
-            <p className='font-weight-600'>{data.dayName}</p>
+            <p className='font-weight-600'>{lang.shortDays[data.dayIndex]}</p>
             <div className='flex-center'>
                 <img
                     className={styles.icon}

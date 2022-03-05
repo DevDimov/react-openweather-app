@@ -3,7 +3,7 @@ import { toFahrenheit } from '../js/utils'
 import HourDetails from "./HourDetails"
 import './HourBlock.css'
 
-const HourBlock = ({ hourData, tempUnit, windSpeedUnit }) => {
+const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
 
     const [state, setState] = useState({})
 
@@ -36,6 +36,7 @@ const HourBlock = ({ hourData, tempUnit, windSpeedUnit }) => {
                 <p className="font-weight-600">{state.temp}°</p>
             </div>
             <HourDetails
+                lang={lang}
                 collapsed={collapsed}
                 cloudiness={hourData.cloudiness}
                 description={hourData.description}

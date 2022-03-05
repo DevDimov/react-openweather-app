@@ -65,7 +65,8 @@ export const getHourData = function (weatherData: ApiData): Forecast[] {
                 let dateString = dailyData[0].date_string
                 let currentDate = new Date(dateString)
                 forecast.push({
-                    weekDay: getShortDayName(currentDate.getDay()),
+                    dayName: getShortDayName(currentDate.getDay()),
+                    dayIndex: currentDate.getDay(),
                     dateString: dateString,
                     hourly_data: dailyData
                 })
@@ -79,7 +80,8 @@ export const getHourData = function (weatherData: ApiData): Forecast[] {
             let dateString = dailyData[0].date_string
             let currentDate = new Date(dateString)
             forecast.push({
-                weekDay: getShortDayName(currentDate.getDay()),
+                dayName: getShortDayName(currentDate.getDay()),
+                dayIndex: currentDate.getDay(),
                 dateString: dateString,
                 hourly_data: dailyData
             })
@@ -93,7 +95,8 @@ export const getDayData = function (forecast: Forecast[]): DayData[] {
     forecast.forEach((obj) => {
         let maxTemp: number = -999
         let maxTempIcon: string = ''
-        let dayName: string = obj.weekDay
+        let dayName: string = obj.dayName
+        let dayIndex: number = obj.dayIndex
         let dateString: string = obj.dateString
         obj.hourly_data.forEach((hourlyBlock) => {
             let temp = hourlyBlock.temp
@@ -104,6 +107,7 @@ export const getDayData = function (forecast: Forecast[]): DayData[] {
         })
         dayData.push({
             dayName: dayName,
+            dayIndex: dayIndex,
             dateString: dateString,
             maxTemp: maxTemp,
             maxTempIcon: maxTempIcon
@@ -141,30 +145,30 @@ export const getShortDayName = (num: number): string => {
     return shortDayNames[num]
 }
 
-export const getLongDayName = (num: number): string => {
-    const longDayNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    if (num < -1 || num > 7) {
-        return 'Error'
-    }
-    if (num === -1) {
-        return 'Sat'
-    }
-    return longDayNames[num]
-}
+// export const getLongDayName = (num: number): string => {
+//     const longDayNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+//     if (num < -1 || num > 7) {
+//         return 'Error'
+//     }
+//     if (num === -1) {
+//         return 'Sat'
+//     }
+//     return longDayNames[num]
+// }
 
-export const getDateOrdinal = (num: number): string => {
-    let ordinal: string = ''
-    if (num === 1) {
-        ordinal = 'st'
-    }
-    if (num === 2) {
-        ordinal = 'nd'
-    }
-    if (num === 3) {
-        ordinal = 'rd'
-    }
-    if (num > 3) {
-        ordinal = 'th'
-    }
-    return num + ordinal
-}
+// export const getDateOrdinal = (num: number, lang: string): string => {
+//     let ordinal: string = ''
+//     if (num === 1) {
+//         ordinal = 'st'
+//     }
+//     if (num === 2) {
+//         ordinal = 'nd'
+//     }
+//     if (num === 3) {
+//         ordinal = 'rd'
+//     }
+//     if (num > 3) {
+//         ordinal = 'th'
+//     }
+//     return num + ordinal
+// }

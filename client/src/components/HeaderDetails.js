@@ -3,7 +3,7 @@ import sunriseIcon from '../images/sunrise-icon.svg'
 import sunsetIcon from '../images/sunset-icon.svg'
 
 
-const HeaderDetails = ({ sunrise, sunset }) => {
+const HeaderDetails = ({ lang, sunrise, sunset }) => {
 
     const getTime = (unix) => {
         let date = new Date(unix * 1000)
@@ -18,7 +18,7 @@ const HeaderDetails = ({ sunrise, sunset }) => {
                     src={sunriseIcon}
                     alt=""
                 />
-                <span className='font-weight-600'>Sunrise</span>
+                <span className='font-weight-600'>{lang.sunrise}</span>
                 <span className='font-weight-300'>{getTime(sunrise)}</span>
             </div>
             <div>
@@ -27,7 +27,7 @@ const HeaderDetails = ({ sunrise, sunset }) => {
                     src={sunsetIcon}
                     alt=""
                 />
-                <span className='font-weight-600'>Sunset</span>
+                <span className='font-weight-600'>{lang.sunset}</span>
                 <span className='font-weight-300'>{getTime(sunset)}</span>
             </div>
         </div>

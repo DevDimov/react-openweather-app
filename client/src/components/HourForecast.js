@@ -6,7 +6,7 @@ import ScrollButtonRight from "./ScrollButtonRight"
 import ScrollButtonLeft from "./ScrollButtonLeft";
 import './HourForecast.css'
 
-const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpeedUnit }) => {
+const HourForecast = ({ lang, hourData, activeDayTab, setActiveTab, tempUnit, windSpeedUnit }) => {
 
     const [lastDayIndex] = useState(hourData.length - 1)
 
@@ -21,6 +21,7 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpee
                     hourData[activeDayTab].hourly_data.map((obj) => {
                         return (
                             <HourBlock
+                                lang={lang}
                                 key={obj.time_string}
                                 hourData={obj}
                                 tempUnit={tempUnit}
@@ -32,11 +33,15 @@ const HourForecast = ({ hourData, activeDayTab, setActiveTab, tempUnit, windSpee
                 {
                     lastDayIndex !== activeDayTab ?
                         <DayTabSwitch
+                            lang={lang}
                             activeDayTab={activeDayTab}
                             setActiveTab={setActiveTab}
                             dayTabDate={hourData[activeDayTab].hourly_data[0].date_string}
                             scrollRef={scrollRef}
-                        /> : <HourDataEnd />
+                        /> : 
+                        <HourDataEnd 
+                            lang={lang}
+                        />
                 }
             </div>
             <ScrollButtonLeft scrollRef={scrollRef} />

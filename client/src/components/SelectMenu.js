@@ -11,9 +11,9 @@ export const SelectMenu = ({ label, options, optionsText, selected, forwardRef, 
 
     return (
         <div className={styles.container}>
-            
+
             <label htmlFor={label}>{label}</label>
-            
+
             <select
                 name={label}
                 id={label}
@@ -22,15 +22,16 @@ export const SelectMenu = ({ label, options, optionsText, selected, forwardRef, 
                 onChange={(e) => handleOnChange(e)}
             >
                 <option defaultValue hidden value={selected}>
-                    {optionsText[selected]}
+                    {options.filter(option => option.value === selected)[0].text}
                 </option>
-                
+
                 {
                     options.map((option) => {
                         return (
                             <option
                                 key={option.value}
                                 value={option.value}
+                                hidden={option.value === 'mixed' ? true : false}
                             >
                                 {option.text}
                             </option>

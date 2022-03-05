@@ -1,7 +1,7 @@
 import styles from './DayTabs.module.css'
 import DayTab from "./DayTab"
 
-const DayTabs = ({ dayData, activeDayTab, setActiveTab, tempUnit }) => {
+const DayTabs = ({ lang, dayData, activeDayTab, setActiveTab, tempUnit }) => {
 
     return (
         <div className={styles.container}>
@@ -9,6 +9,7 @@ const DayTabs = ({ dayData, activeDayTab, setActiveTab, tempUnit }) => {
                 dayData.map((data, index) => {
                     return (
                         <DayTab
+                            lang={lang}
                             data={data}
                             selected={activeDayTab === index ? true : false}
                             setActiveTab={setActiveTab}

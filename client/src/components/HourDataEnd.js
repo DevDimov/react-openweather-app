@@ -1,9 +1,11 @@
 import './HourDataEnd.css'
 
-const HourDataEnd = () => {
+const HourDataEnd = ({ lang }) => {
     return (
         <div className="HourDataEnd">
-            <p>No more weather to show</p>
+            <p>
+                {lang.hourDataEnd}
+            </p>
         </div>
     )
 }

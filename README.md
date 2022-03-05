@@ -35,11 +35,13 @@ I built this project for the purpose of learning React, working with API data, a
 
 ## Overview of features
 
-Newly added (Feb 27, 2022)
+Newly added (Mar 5, 2022)
 
-- Two display modes, detailed and compact
 - Header controls specific to each location
+- Two display modes, detailed and compact
 - Settings panel with drop-down menus for applying preferences globally
+- Multilingual support
+- Wind speed conversion to m/s, km/h, or mph
 
 Jan 15, 2022
 

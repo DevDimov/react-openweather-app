@@ -5,7 +5,7 @@ import StatusInfo from "./StatusInfo";
 import infoIcon from "../images/info-icon.svg"
 import { SearchSuggestions } from "./SearchSuggestions";
 
-const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setData }) => {
+const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, searchError, setData }) => {
 
     const [state, setState] = useState({
         userInput: '',
@@ -39,6 +39,7 @@ const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setD
 
     const onKeyDown = (e) => {
         const { activeSuggestion, filteredSuggestions } = state
+
         // User pressed the enter key
         if (e.keyCode === 13) {
             if (filteredSuggestions.length) {
@@ -53,6 +54,7 @@ const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setD
                 search()
             }
         }
+
         // User pressed the up arrow
         else if (e.keyCode === 38) {
             if (activeSuggestion === 0) {
@@ -60,6 +62,7 @@ const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setD
             }
             setState({ ...state, activeSuggestion: activeSuggestion - 1 })
         }
+
         // User pressed the down arrow
         else if (e.keyCode === 40) {
             if (activeSuggestion + 1 === filteredSuggestions.length) {
@@ -86,7 +89,7 @@ const SearchBar = ({ lang, getWeather, locations, suggestions, searchError, setD
                 }
                 else {
                     setSearchStatus(`${lang.search.load} ${state.userInput}`)
-                    const data = await getWeather(userInput)
+                    const data = await getWeather('cityName', userInput, langValue)
                     if (data.hourData) {
                         setData(data)
                     }

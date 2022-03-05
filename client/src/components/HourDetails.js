@@ -7,6 +7,7 @@ const HourDetails = (props) => {
         lang,
         cloudiness,
         collapsed,
+        showDetails,
         description,
         feelsLike,
         tempUnit,
@@ -31,18 +32,17 @@ const HourDetails = (props) => {
 
 
     return (
-        <div
-            className={collapsed ? "HourDetails collapsed" : "HourDetails"}>
+        <div className={showDetails ? "HourDetails" : "HourDetails collapsed"}>
             <p className="font-weight-600">{description}</p>
-            
+
             <p>
                 {lang.feelsLike} <span>{feelsLike}°{tempUnit}</span>
             </p>
-            
+
             <p>
                 {lang.cloudiness} <span>{cloudiness}%</span>
             </p>
-            
+
             <p>
                 {lang.windSpeed} <span>{state.windSpeed} {windSpeedUnit}</span>
             </p>

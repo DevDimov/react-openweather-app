@@ -10,14 +10,20 @@ app.use(express.static(path.join(__dirname, '../client/build'), { extensions: ['
 
 app.get('/api', async (req, res) => {
     try {
-        const location = req.query.q
-        // const units = req.query.units
+        const cityID = req.query.id
+        const cityName = req.query.q
         const lang = req.query.lang
         const apiKey = process.env.API_KEY
         const url = 'http://api.openweathermap.org/data/2.5/forecast'
+
+        let query = ''
+        if (cityID) query = `id=${cityID}`
+        if (cityName) query = `q=${cityName}`
+
         // const url = 'http://api.openweathermap.org/errorURLforDevEnv'
-        const response = await fetch(`${url}?q=${location}&lang=${lang}&appid=${apiKey}`)
+        const response = await fetch(`${url}?${query}&lang=${lang}&units=metric&appid=${apiKey}`)
         const data = await response.json()
+        // console.log(data)
         return res.status(200).json(data)
     } catch (err) {
         // console.log(err.message)

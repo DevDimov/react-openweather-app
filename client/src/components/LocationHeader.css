@@ -20,12 +20,13 @@
 }
 
 #LocationHeader-icon {
-    width: 65px;
+    height: 50px;
     margin: -1em;
 }
 
 .icon-info {
     display: flex;
+    align-items: center;
     z-index: 1;
     pointer-events: none;
 }

@@ -20,7 +20,7 @@ const languages = {
         mixed: "Смесено",
         mph: "Мили в час",
         ms: "Метрa в секунда",
-        nextDayButton: "Вижте времето за",
+        nextDayButton: "Вижте прогнозата за",
         ordinal: {
             1: "-ви",
             2: "-ри",

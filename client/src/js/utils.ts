@@ -29,7 +29,10 @@ export const getHeaderData = function (weatherData: ApiData): HeaderData {
         sunset: weatherData.city.sunset + weatherData.city.timezone,
         icon: '/images/' + weatherData.list[0].weather[0].icon + '@2x.png',
         temp: Math.round(weatherData.list[0].main.temp),
-        weather: weatherData.list[0].weather[0].main
+        weather: {
+            main: weatherData.list[0].weather[0].main,
+            description: weatherData.list[0].weather[0].description
+        }
     }
 }
 
@@ -144,31 +147,3 @@ export const getShortDayName = (num: number): string => {
     }
     return shortDayNames[num]
 }
-
-// export const getLongDayName = (num: number): string => {
-//     const longDayNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-//     if (num < -1 || num > 7) {
-//         return 'Error'
-//     }
-//     if (num === -1) {
-//         return 'Sat'
-//     }
-//     return longDayNames[num]
-// }
-
-// export const getDateOrdinal = (num: number, lang: string): string => {
-//     let ordinal: string = ''
-//     if (num === 1) {
-//         ordinal = 'st'
-//     }
-//     if (num === 2) {
-//         ordinal = 'nd'
-//     }
-//     if (num === 3) {
-//         ordinal = 'rd'
-//     }
-//     if (num > 3) {
-//         ordinal = 'th'
-//     }
-//     return num + ordinal
-// }

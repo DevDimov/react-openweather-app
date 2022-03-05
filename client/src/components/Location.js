@@ -41,7 +41,7 @@ const changeTempUnit = () => {
     let obj = { ...state, tempUnit: newUnit }
     let newSettings = {
         ...settings,
-        useGlobal: false,
+        // useGlobal: false,
         global: { ...settings.global, tempUnit: 'mixed' },
         local: { ...settings.local, [id]: obj }
     }
@@ -60,7 +60,7 @@ const changeView = () => {
     let obj = { ...state, view: newView }
     let newSettings = {
         ...settings,
-        useGlobal: false,
+        // useGlobal: false,
         global: { ...settings.global, view: 'mixed' },
         local: { ...settings.local, [id]: obj }
     }
@@ -84,7 +84,7 @@ return (
                 name={data.headerData.name}
                 country={data.headerData.country}
                 temp={data.headerData.temp}
-                weather={data.headerData.weather}
+                weather={data.headerData.weather.description}
                 tempUnit={state.tempUnit}
                 changeTempUnit={changeTempUnit}
             />

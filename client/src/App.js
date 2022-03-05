@@ -22,7 +22,6 @@ import lastUpdatedIcon from "./images/last-updated-icon.svg"
 const App = () => {
 
     const [settings, setSettings] = useState({
-        useGlobal: true,
         default: defaultSettings,
         global: defaultSettings,
         local: {}
@@ -45,7 +44,7 @@ const App = () => {
 
         const locations = JSON.parse(localStorage.getItem('vd-weatherapp-locations'))
         if (locations) {
-            loadLocations(locations);
+            loadLocations(locations, lastSettings.global.lang);
         }
 
     }, [])
@@ -69,16 +68,16 @@ const App = () => {
 
     useEffect(() => {
         setLang(languages[settings.global.lang])
-        setLastUpdated('')
+        loadLocations(state.locations, settings.global.lang)
     }, [settings.global.lang])
 
-    const loadLocations = async (locations) => {
+    const loadLocations = async (locations, langValue) => {
         if (locations.length > 0) {
             let locationData = {}
             let locationsData = []
             try {
                 for (const location of locations) {
-                    locationData = await getWeather(location.id)
+                    locationData = await getWeather('cityID', location.id, langValue)
                     locationsData.push(locationData)
                 }
                 setState({ data: locationsData, locations: locations })
@@ -89,16 +88,16 @@ const App = () => {
         }
     }
 
-    const getWeather = async (location, lang) => {
+    const getWeather = async (method, location, langValue) => {
         let response = ''
-        if (process.env.NODE_ENV === 'production') {
-            // response = await fetch(`/api?q=${location}&units=${units}`)
-            // response = await fetch(`/api?q=${location}`)
-            response = await fetch(`/api?q=${location}&lang=${lang}`)
+        if (method === 'cityName') {
+            response = await fetch(`/api?q=${location}&lang=${langValue}`)
         }
-        else {
-            response = await fetch('testDataNewYork.json') // For dev only
+        if (method === 'cityID') {
+            response = await fetch(`/api?id=${location}&lang=${langValue}`)
         }
+
+        // response = await fetch('testDataNewYork.json') // For dev only
 
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()
@@ -106,14 +105,12 @@ const App = () => {
                 return processData(data)
             }
             else {
-                // console.log(data)
                 return {
                     status: data.cod,
                     statusText: data.message
                 }
             }
         } else {
-            // console.log(response.status, response.statusText)
             return {
                 status: 500,
                 statusText: lang.serverError
@@ -122,8 +119,8 @@ const App = () => {
     }
 
     const setData = (obj) => {
-        const newData = [...state.data, obj]
-        const newLocations = [...state.locations, { name: obj.headerData.name, id: obj.headerData.id }]
+        const newData = [obj, ...state.data]
+        const newLocations = [{ name: obj.headerData.name, id: obj.headerData.id }, ...state.locations]
         setState({ data: newData, locations: newLocations })
     }
 
@@ -155,6 +152,7 @@ const App = () => {
         <div id='App'>
             <SearchBar
                 lang={lang}
+                langValue={settings.global.lang}
                 locations={state.locations}
                 getWeather={getWeather}
                 searchError={searchError}

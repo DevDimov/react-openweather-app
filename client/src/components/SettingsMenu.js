@@ -22,7 +22,10 @@ const SettingsMenu = ({ lang, showSettings, setShowSettings, settings, setSettin
             view: viewRef.current.value,
             windSpeed: windSpeedRef.current.value
         }
-        setSettings({ ...settings, useGlobal: true, global: newSettings })
+        setSettings({ 
+            ...settings, 
+            // useGlobal: true, 
+            global: newSettings })
         setShowSettings(false)
         // console.log(newSettings)
     }

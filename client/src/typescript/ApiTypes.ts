@@ -64,7 +64,10 @@ export type HeaderData = {
     sunset: number,
     icon: string,
     temp: number,
-    weather: string
+    weather: {
+        main: string,
+        description: string
+    }
 }
 
 export type HourData = {

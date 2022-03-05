@@ -6,6 +6,7 @@ import './HourBlock.css'
 const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
 
     const [state, setState] = useState({})
+    const [showDetails, setShowDetails] = useState(false)
 
     useEffect(() => {
         let newTemp, newFeelsLike
@@ -20,13 +21,11 @@ const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
         setState({ ...state, temp: newTemp, feelsLike: newFeelsLike })
     }, [hourData.temp, hourData.feelsLike, tempUnit])
 
-    const [collapsed, setCollapsed] = useState(true)
-
     return (
         <div className="display-flex">
             <div
                 className="HourBlock"
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => setShowDetails(!showDetails)}
             >
                 <p>{hourData.time_string}</p>
                 <img
@@ -37,7 +36,7 @@ const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
             </div>
             <HourDetails
                 lang={lang}
-                collapsed={collapsed}
+                showDetails={showDetails}
                 cloudiness={hourData.cloudiness}
                 description={hourData.description}
                 feelsLike={state.feelsLike}

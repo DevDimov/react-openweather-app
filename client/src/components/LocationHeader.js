@@ -22,7 +22,7 @@ const LocationHeader = ({ lang, changeTempUnit, icon, name, country, temp, tempU
         <div id='LocationHeader'>
             <div>
                 <h3>{`${name}, ${country}`}</h3>
-                <p>{weather}</p>
+                <p>{weather.charAt(0).toUpperCase() + weather.slice(1)}</p>
             </div>
 
             <div className='right-column'>

@@ -33,7 +33,7 @@ const LocationHeader = ({ lang, changeTempUnit, icon, name, country, temp, tempU
                             src={icon}
                             alt="icon"
                         />
-                        <h3 id='LocationHeader-temp'>{state.temp}°</h3>
+                        <h3>{state.temp}°</h3>
                     </div>
                     <TempUnitSwitch
                         tempUnit={tempUnit}

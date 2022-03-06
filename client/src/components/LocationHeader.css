@@ -15,18 +15,15 @@
     margin-right: 0.4rem;
 }
 
-#LocationHeader-temp {
-    margin-left: 1rem;
-}
-
 #LocationHeader-icon {
-    height: 50px;
-    margin: -1em;
+    height: 55px;
+    margin: -1rem;
 }
 
 .icon-info {
     display: flex;
     align-items: center;
+    column-gap: 1rem;
     z-index: 1;
     pointer-events: none;
 }

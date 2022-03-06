@@ -90,6 +90,8 @@ const App = () => {
 
     const getWeather = async (method, location, langValue) => {
         let response = ''
+        
+        // Uncomment the below if statements for production
         if (method === 'cityName') {
             response = await fetch(`/api?q=${location}&lang=${langValue}`)
         }
@@ -97,7 +99,7 @@ const App = () => {
             response = await fetch(`/api?id=${location}&lang=${langValue}`)
         }
 
-        // response = await fetch('testDataNewYork.json') // For dev only
+        // response = await fetch('testData.json') // For dev only
 
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()

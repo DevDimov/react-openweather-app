@@ -35,7 +35,7 @@ I built this project for the purpose of learning React, working with API data, a
 
 ## Overview of features
 
-Newly added (Mar 5, 2022)
+Newly added (Mar 6, 2022)
 
 - Header controls specific to each location
 - Two display modes, detailed and compact

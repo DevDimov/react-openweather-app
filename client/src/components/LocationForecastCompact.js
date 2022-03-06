@@ -7,7 +7,6 @@ const LocationForecastCompact = ({ hourData, tempUnit }) => {
         <div className={styles.container}>
             {
                 hourData[0].hourly_data.map((obj, index) => {
-                    if (index <= 3) {
                         return (
                             <HourBlockCompact
                                 key={obj.time_string}
@@ -17,7 +16,6 @@ const LocationForecastCompact = ({ hourData, tempUnit }) => {
                                 temp={obj.temp}
                             />
                         )
-                    }
                 })
             }
         </div>

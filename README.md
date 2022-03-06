@@ -63,6 +63,18 @@ Nov 15, 2021
 
 ## Features with examples
 
+### Header controls specific to each location
+
+![Location controls](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/location-controls.gif "Header controls specific to each location")
+
+### Two display modes, detailed and compact
+
+![Display modes](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/view-modes.gif "Two display modes, detailed and compact")
+
+### Settings menu for applying preferences globally
+
+![Settings menu](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/settings-menu.gif "Settings menu for applying preferences globally")
+
 ### Automatic suggestions for capital cities
 
 ![Auto-suggestions](https://raw.githubusercontent.com/DevDimov/react-openweather-app/main/client/public/images/gifs/auto-suggestions.gif "Automatic suggestions for capital cities")

@@ -7,10 +7,10 @@
     padding: 0 1em;
     height: 100%;
     flex: 1 0 auto;
-    max-width: 220px;
+    max-width: 300px;
     transition: all 0.5s ease;
-    overflow-x: hidden;
     line-height: 1.8em;
+    /* overflow-x: auto; */
 }
 
 .collapsed {
@@ -23,5 +23,6 @@
 }
 
 .HourDetails > * {
-    min-width: 185px;
+    white-space: nowrap;
+    /* min-width: 185px; */
 }

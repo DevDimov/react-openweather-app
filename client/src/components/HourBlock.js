@@ -37,7 +37,7 @@ const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
             <HourDetails
                 lang={lang}
                 showDetails={showDetails}
-                cloudiness={hourData.cloudiness}
+                chanceOfRain={hourData.chanceOfRain}
                 description={hourData.description}
                 feelsLike={state.feelsLike}
                 tempUnit={tempUnit}

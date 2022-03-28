@@ -5,8 +5,7 @@ import './HourDetails.css'
 const HourDetails = (props) => {
     const {
         lang,
-        cloudiness,
-        collapsed,
+        chanceOfRain,
         showDetails,
         description,
         feelsLike,
@@ -40,7 +39,7 @@ const HourDetails = (props) => {
             </p>
 
             <p>
-                {lang.cloudiness} <span>{cloudiness}%</span>
+                {lang.chanceOfRain} <span>{chanceOfRain*100}%</span>
             </p>
 
             <p>

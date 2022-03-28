@@ -75,6 +75,7 @@ export type HourData = {
     feelsLike: number,
     description: string,
     icon: string,
+    chanceOfRain: number,
     cloudiness: number,
     windSpeed: number,
     date_string: string,
@@ -106,6 +107,7 @@ export type WeatherData = {
 
 export type Language = {
     celsius: string,
+    chanceOfRain: string,
     cloudiness: string,
     compact: string,
     currently: string,

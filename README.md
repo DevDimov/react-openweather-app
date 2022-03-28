@@ -1,6 +1,6 @@
 # vd-weatherapp
 
-A feature-rich browser app built with React, Node, Express and a little bit of Typescript, with data from OpenWeather API.
+A minimalist feature-rich weather app built with React and Node, serving data from OpenWeatherMap.
 
 ## Table of contents
 

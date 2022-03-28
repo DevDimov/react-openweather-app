@@ -51,6 +51,7 @@ export const getHourData = function (weatherData: ApiData): Forecast[] {
             feelsLike: Math.round(item.main.feels_like),
             description: item.weather[0].description,
             icon: '/images/' + item.weather[0].icon + '@2x.png',
+            chanceOfRain: item.pop,
             cloudiness: item.clouds.all,
             windSpeed: item.wind.speed,
             date_string: item.dt_txt.split(' ')[0],

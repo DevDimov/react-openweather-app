@@ -1,6 +1,7 @@
 const languages = {
     'bg': {
         celsius: "Целзий",
+        chanceOfRain: "Вероятност за дъжд",
         cloudiness: "Облачност",
         compact: "Сбит",
         currently: "В момента",
@@ -73,6 +74,7 @@ const languages = {
     },
     'de': {
         celsius: "Celsius",
+        chanceOfRain: "Wahrscheinlichkeit von Regen",
         cloudiness: "Trübung",
         compact: "Kurz",
         currently: "Zur Zeit",
@@ -145,6 +147,7 @@ const languages = {
     },
     'en': {
         celsius: "Celcius",
+        chanceOfRain: "Chance of rain",
         cloudiness: "Cloudiness",
         compact: "Compact",
         currently: "Currently",

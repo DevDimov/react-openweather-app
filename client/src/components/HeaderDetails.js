@@ -18,8 +18,8 @@ const HeaderDetails = ({ lang, sunrise, sunset }) => {
                     src={sunriseIcon}
                     alt=""
                 />
-                <span className='font-weight-600'>{lang.sunrise}</span>
-                <span className='font-weight-300'>{getTime(sunrise)}</span>
+                <p className='HeaderDetails-event'>{lang.sunrise}</p>
+                <p className='HeaderDetails-time'>{getTime(sunrise)}</p>
             </div>
             <div>
                 <img
@@ -27,8 +27,8 @@ const HeaderDetails = ({ lang, sunrise, sunset }) => {
                     src={sunsetIcon}
                     alt=""
                 />
-                <span className='font-weight-600'>{lang.sunset}</span>
-                <span className='font-weight-300'>{getTime(sunset)}</span>
+                <p className='HeaderDetails-event'>{lang.sunset}</p>
+                <p className='HeaderDetails-time'>{getTime(sunset)}</p>
             </div>
         </div>
     )

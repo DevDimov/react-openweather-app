@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     border-left: 1px solid var(--bg-grey);
-    background-color: var(--light-grey);
+    background-color: white;
     padding: 0 1em;
     height: 100%;
     flex: 1 0 auto;

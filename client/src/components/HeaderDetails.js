@@ -1,14 +1,10 @@
 import './HeaderDetails.css'
 import sunriseIcon from '../images/sunrise-icon.svg'
 import sunsetIcon from '../images/sunset-icon.svg'
+import { getLocationTime } from '../js/utils'
 
 
-const HeaderDetails = ({ lang, sunrise, sunset }) => {
-
-    const getTime = (unix) => {
-        let date = new Date(unix * 1000)
-        return date.toTimeString().slice(0, 5)
-    }
+const HeaderDetails = ({ lang, sunrise, sunset, UTCshift }) => {
 
     return (
         <div className='HeaderDetails'>
@@ -19,7 +15,7 @@ const HeaderDetails = ({ lang, sunrise, sunset }) => {
                     alt=""
                 />
                 <p className='HeaderDetails-event'>{lang.sunrise}</p>
-                <p className='HeaderDetails-time'>{getTime(sunrise)}</p>
+                <p className='HeaderDetails-time'>{getLocationTime(sunrise, UTCshift)}</p>
             </div>
             <div>
                 <img
@@ -28,7 +24,7 @@ const HeaderDetails = ({ lang, sunrise, sunset }) => {
                     alt=""
                 />
                 <p className='HeaderDetails-event'>{lang.sunset}</p>
-                <p className='HeaderDetails-time'>{getTime(sunset)}</p>
+                <p className='HeaderDetails-time'>{getLocationTime(sunset, UTCshift)}</p>
             </div>
         </div>
     )

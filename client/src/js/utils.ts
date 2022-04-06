@@ -21,12 +21,10 @@ export const getHeaderData = function (weatherData: ApiData): HeaderData {
         id: weatherData.city.id,
         name: weatherData.city.name,
         country: weatherData.city.country,
-        // timezone is an offset in seconds, hence divide by 3600
-        timezone: weatherData.city.timezone / 3600,
-        // add the timezone offset in seconds to get the local sunrise and sunset
-        // from the location's timezone not the user's
-        sunrise: weatherData.city.sunrise + weatherData.city.timezone,
-        sunset: weatherData.city.sunset + weatherData.city.timezone,
+        // timezone is an offset from UTC in seconds
+        timezone: weatherData.city.timezone,
+        sunrise: weatherData.city.sunrise,
+        sunset: weatherData.city.sunset,
         icon: '/images/' + weatherData.list[0].weather[0].icon + '@2x.png',
         temp: Math.round(weatherData.list[0].main.temp),
         weather: {
@@ -147,4 +145,12 @@ export const getShortDayName = (num: number): string => {
         return 'Sat'
     }
     return shortDayNames[num]
+}
+
+export const getCurrentTime = () => {
+    return new Date().toTimeString().slice(0, 5)
+}
+
+export const getLocationTime = (unix: number, UTCshift: number) => {
+    return new Date(unix * 1000 + UTCshift * 1000).toUTCString().split(' ')[4].slice(0, 5)
 }

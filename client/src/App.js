@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 
 // Import functions
-// import { getHeaderData, getHourData, getDayData, dataToFahrenheit, dataToCelcius } from './js/utils'
-import { processData } from './js/utils'
+import { processData, getCurrentTime } from './js/utils'
 import capitals from './js/capitals'
 import defaultSettings from './js/settings'
 import languages from './js/languages'
@@ -99,7 +98,7 @@ const App = () => {
         //     response = await fetch(`/api?id=${location}&lang=${langValue}`)
         // }
 
-        response = await fetch('testDataNewYork.json') // For dev only
+        response = await fetch('testDataLeedsApr22.json') // For dev only
 
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()
@@ -143,11 +142,6 @@ const App = () => {
             delete newSettings.local[id]
         }
         setSettings(newSettings)
-    }
-
-    const getCurrentTime = () => {
-        const date = new Date().toISOString()
-        return date.split('T')[1].slice(0, 5)
     }
 
     return (

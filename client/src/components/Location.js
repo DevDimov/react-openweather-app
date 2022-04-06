@@ -93,6 +93,7 @@ const Location = ({ lang, data, settings, setSettings, id, removeLocation }) => 
                         lang={lang}
                         sunrise={data.headerData.sunrise}
                         sunset={data.headerData.sunset}
+                        UTCshift={data.headerData.timezone}
                     />}
                 {state.view === 'detailed' &&
                     <LocationForecast

@@ -91,14 +91,14 @@ const App = () => {
         let response = ''
         
         // Uncomment the below if statements for production
-        // if (method === 'cityName') {
-        //     response = await fetch(`/api?q=${location}&lang=${langValue}`)
-        // }
-        // if (method === 'cityID') {
-        //     response = await fetch(`/api?id=${location}&lang=${langValue}`)
-        // }
+        if (method === 'cityName') {
+            response = await fetch(`/api?q=${location}&lang=${langValue}`)
+        }
+        if (method === 'cityID') {
+            response = await fetch(`/api?id=${location}&lang=${langValue}`)
+        }
 
-        response = await fetch('testDataLeedsApr22.json') // For dev only
+        // response = await fetch('testDataLeedsApr22.json') // For dev only
 
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()

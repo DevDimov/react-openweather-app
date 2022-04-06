@@ -1,13 +1,19 @@
 .container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     justify-content: space-between;
     align-items: center;
     font-weight: 400;
 }
 
+.container label {
+    flex: 0 0 40%;
+}
+
 .selectMenu {
-    width: 50%;
+    flex: 1 0 50%;
     padding: 0.5rem;
     border: 1px solid var(--bg-grey);
     border-radius: 0.5rem;

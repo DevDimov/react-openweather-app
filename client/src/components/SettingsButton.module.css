@@ -5,12 +5,12 @@
     font-family: 'Nunito';
     font-weight: 600;
     font-size: 1rem;
-    border: none;
+    border:  none;
     outline: none;
     background-color: transparent;
 }
 
-button:hover {
+.button:hover {
     cursor: pointer;
 }
 
@@ -24,5 +24,9 @@ button:hover {
 
 .icon:hover {
     cursor: pointer;
+    background-color: var(--grey-hover);
+}
+
+.icon.active {
     background-color: var(--grey-hover);
 }

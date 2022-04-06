@@ -30,85 +30,87 @@ const Location = ({ lang, data, settings, setSettings, id, removeLocation }) => 
         setState(newState)
     }, [settings, id])
 
-const changeTempUnit = () => {
-    let newUnit = ''
-    if (state.tempUnit === 'C') {
-        newUnit = 'F'
-    }
-    if (state.tempUnit === 'F') {
-        newUnit = 'C'
-    }
-    let obj = { ...state, tempUnit: newUnit }
-    let newSettings = {
-        ...settings,
-        // useGlobal: false,
-        global: { ...settings.global, tempUnit: 'mixed' },
-        local: { ...settings.local, [id]: obj }
-    }
-    setSettings(newSettings)
-}
-
-const changeView = () => {
-    let newView = ''
-    if (state.view === 'detailed') {
-        newView = 'compact'
+    const changeTempUnit = () => {
+        let newUnit = ''
+        if (state.tempUnit === 'C') {
+            newUnit = 'F'
+        }
+        if (state.tempUnit === 'F') {
+            newUnit = 'C'
+        }
+        let obj = { ...state, tempUnit: newUnit }
+        let newSettings = {
+            ...settings,
+            // useGlobal: false,
+            global: { ...settings.global, tempUnit: 'mixed' },
+            local: { ...settings.local, [id]: obj }
+        }
+        setSettings(newSettings)
     }
 
-    if (state.view === 'compact') {
-        newView = 'detailed'
-    }
-    let obj = { ...state, view: newView }
-    let newSettings = {
-        ...settings,
-        // useGlobal: false,
-        global: { ...settings.global, view: 'mixed' },
-        local: { ...settings.local, [id]: obj }
-    }
-    setSettings(newSettings)
-}
+    const changeView = () => {
+        let newView = ''
+        if (state.view === 'detailed') {
+            newView = 'compact'
+        }
 
-return (
-    <div className={styles.container}>
-        <div className={styles.location}>
-            <LocationControls
-                tempUnit={state.tempUnit}
-                view={state.view}
-                changeTempUnit={changeTempUnit}
-                changeView={changeView}
-                locationID={id}
-                removeLocation={removeLocation}
-            />
-            <LocationHeader
-                lang={lang}
-                icon={data.headerData.icon}
-                name={data.headerData.name}
-                country={data.headerData.country}
-                temp={data.headerData.temp}
-                weather={data.headerData.weather.description}
-                tempUnit={state.tempUnit}
-                changeTempUnit={changeTempUnit}
-            />
-            {state.view === 'detailed' &&
-                <HeaderDetails
+        if (state.view === 'compact') {
+            newView = 'detailed'
+        }
+        let obj = { ...state, view: newView }
+        let newSettings = {
+            ...settings,
+            // useGlobal: false,
+            global: { ...settings.global, view: 'mixed' },
+            local: { ...settings.local, [id]: obj }
+        }
+        setSettings(newSettings)
+    }
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.location}>
+                <LocationControls
+                    tempUnit={state.tempUnit}
+                    view={state.view}
+                    changeTempUnit={changeTempUnit}
+                    changeView={changeView}
+                    locationID={id}
+                    removeLocation={removeLocation}
+                />
+                <LocationHeader
                     lang={lang}
-                    sunrise={data.headerData.sunrise}
-                    sunset={data.headerData.sunset}
-                />}
-            {state.view === 'detailed' && <LocationForecast
-                lang={lang}
-                hourData={data.hourData}
-                dayData={data.dayData}
-                locationName={data.headerData.name}
-                tempUnit={state.tempUnit}
-                windSpeedUnit={state.windSpeed}
-            />}
-            {state.view === 'compact' && <LocationForecastCompact
-                hourData={data.hourData}
-                tempUnit={state.tempUnit}
-            />}
+                    icon={data.headerData.icon}
+                    name={data.headerData.name}
+                    country={data.headerData.country}
+                    temp={data.headerData.temp}
+                    weather={data.headerData.weather.description}
+                    tempUnit={state.tempUnit}
+                    changeTempUnit={changeTempUnit}
+                />
+                {state.view === 'detailed' &&
+                    <HeaderDetails
+                        lang={lang}
+                        sunrise={data.headerData.sunrise}
+                        sunset={data.headerData.sunset}
+                    />}
+                {state.view === 'detailed' &&
+                    <LocationForecast
+                        lang={lang}
+                        hourData={data.hourData}
+                        dayData={data.dayData}
+                        locationName={data.headerData.name}
+                        tempUnit={state.tempUnit}
+                        windSpeedUnit={state.windSpeed}
+                    />}
+                {state.view === 'compact' &&
+                    <LocationForecastCompact
+                        hourData={data.hourData}
+                        tempUnit={state.tempUnit}
+                    />}
+            </div>
         </div>
-    </div>
-)
+    )
 }
 
 export default Location

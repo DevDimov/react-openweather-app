@@ -7,18 +7,21 @@ const Settings = ({ lang, settings, setSettings }) => {
     const [showSettings, setShowSettings] = useState(false)
 
     return (
-        showSettings ?
-            <SettingsMenu
-                lang={lang}
-                showSettings={setShowSettings}
-                setShowSettings={setShowSettings}
-                settings={settings}
-                setSettings={setSettings}
-            /> :
+        <>
             <SettingsButton
                 lang={lang}
-                showSettings={setShowSettings}
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
             />
+            {showSettings &&
+                <SettingsMenu
+                    lang={lang}
+                    setShowSettings={setShowSettings}
+                    settings={settings}
+                    setSettings={setSettings}
+                />
+            }
+        </>
     )
 }
 

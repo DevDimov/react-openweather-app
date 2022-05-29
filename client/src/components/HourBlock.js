@@ -27,7 +27,7 @@ const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
                 className="HourBlock"
                 onClick={() => setShowDetails(!showDetails)}
             >
-                <p>{hourData.time_string}</p>
+                <p>{hourData.dateString.split(' ')[1].slice(0, 5)}</p>
                 <img
                     className="HourBlock-icon"
                     src={hourData.icon}

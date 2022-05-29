@@ -1,3 +1,4 @@
 build/
 client.env
 client/src/components/obsolete
+public/testData

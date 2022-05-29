@@ -1,4 +1,4 @@
-type ApiTimestamp = {
+export type ApiTimestamp = {
     dt: number,
     main: {
         temp: number,
@@ -78,8 +78,8 @@ export type HourData = {
     chanceOfRain: number,
     cloudiness: number,
     windSpeed: number,
-    date_string: string,
-    time_string: string
+    dateString: string,
+    pod: string,
 }
 
 export type Forecast = {

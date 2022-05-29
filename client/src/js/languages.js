@@ -5,6 +5,10 @@ const languages = {
         cloudiness: "Облачност",
         compact: "Сбит",
         currently: "В момента",
+        dayPart: {
+            "Today": "Днес",
+            "Tonight": "Тази вечер"
+        },
         detailed: "Подробен",
         fahrenheit: "Фаренхайт",
         feelsLike: "Усеща се като",
@@ -78,6 +82,10 @@ const languages = {
         cloudiness: "Trübung",
         compact: "Kurz",
         currently: "Zur Zeit",
+        dayPart: {
+            "Today": "heute",
+            "Tonight": "heute Abend"
+        },
         detailed: "Ausfuehrlich",
         fahrenheit: "Fahrenheit",
         feelsLike: "Fühlt sich an",
@@ -151,6 +159,10 @@ const languages = {
         cloudiness: "Cloudiness",
         compact: "Compact",
         currently: "Currently",
+        dayPart: {
+            "Today": "Today",
+            "Tonight": "Tonight"
+        },
         detailed: "Detailed",
         fahrenheit: "Fahrenheit",
         feelsLike: "Feels like",

@@ -22,7 +22,7 @@ const HourForecast = ({ lang, hourData, activeDayTab, setActiveTab, tempUnit, wi
                         return (
                             <HourBlock
                                 lang={lang}
-                                key={obj.time_string}
+                                key={obj.dateString.split(' ')[1].slice(0, 5)}
                                 hourData={obj}
                                 tempUnit={tempUnit}
                                 windSpeedUnit={windSpeedUnit}
@@ -36,10 +36,10 @@ const HourForecast = ({ lang, hourData, activeDayTab, setActiveTab, tempUnit, wi
                             lang={lang}
                             activeDayTab={activeDayTab}
                             setActiveTab={setActiveTab}
-                            dayTabDate={hourData[activeDayTab].hourly_data[0].date_string}
+                            dayTabDate={hourData[activeDayTab].hourly_data.at(-1).dateString}
                             scrollRef={scrollRef}
-                        /> : 
-                        <HourDataEnd 
+                        /> :
+                        <HourDataEnd
                             lang={lang}
                         />
                 }

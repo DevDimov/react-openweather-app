@@ -15,7 +15,7 @@ const DayTabSwitch = ({ lang, activeDayTab, setActiveTab, scrollRef, dayTabDate 
 
     const getNextDayName = (dateString: string) => {
         let d = new Date(dateString)
-        d.setDate(d.getDate() + 1)
+        // d.setDate(d.getDate() + 1)
         const longDayName = lang.longDays[d.getDay()]
         let key = d.getDate()
         let dateOrdinal = lang.ordinal[key as keyof Ordinal]

@@ -9,7 +9,7 @@ const DayTabs = ({ lang, dayData, activeDayTab, setActiveTab, tempUnit }) => {
                 dayData.map((data, index) => {
                     return (
                         <DayTab
-                            lang={lang}
+                            dayTabName={index === 0 ? lang.dayPart[data.dayName] : lang.shortDays[data.dayIndex]}
                             data={data}
                             selected={activeDayTab === index ? true : false}
                             setActiveTab={setActiveTab}

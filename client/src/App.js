@@ -98,7 +98,7 @@ const App = () => {
             response = await fetch(`/api?id=${location}&lang=${langValue}`)
         }
 
-        // response = await fetch('testDataLeedsApr22.json') // For dev only
+        // response = await fetch('./testData/data.json') // For dev only
 
         if (response.status >= 200 && response.status <= 299) {
             const data = await response.json()

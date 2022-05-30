@@ -1,4 +1,4 @@
-# vd-weatherapp
+# Weather App with React, Node and OpenWeatherMap
 
 A minimalist feature-rich weather app built with React and Node, serving data from OpenWeatherMap.
 

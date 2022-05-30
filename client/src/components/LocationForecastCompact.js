@@ -9,9 +9,9 @@ const LocationForecastCompact = ({ hourData, tempUnit }) => {
                 hourData[0].hourly_data.map((obj, index) => {
                         return (
                             <HourBlockCompact
-                                key={obj.time_string}
+                                key={obj.dateString.split(' ')[1].slice(0, 5)}
                                 icon={obj.icon}
-                                time={obj.time_string}
+                                time={obj.dateString.split(' ')[1].slice(0, 5)}
                                 tempUnit={tempUnit}
                                 temp={obj.temp}
                             />

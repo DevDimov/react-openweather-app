@@ -1,4 +1,4 @@
-.container {
+.DayTabs-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -8,6 +8,6 @@
     scrollbar-width: none; /* Firefox */
 }
 
-.container::-webkit-scrollbar {
+.DayTabs-wrapper::-webkit-scrollbar {
     display: none;
 }

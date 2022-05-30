@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { toFahrenheit } from '../js/utils'
+import { toFahrenheit, capitaliseFirstLetter } from '../js/utils'
 import TempUnitSwitch from "./TempUnitSwitch"
 import './LocationHeader.css'
 
@@ -9,12 +9,8 @@ const LocationHeader = ({ lang, changeTempUnit, icon, name, country, temp, tempU
 
     useEffect(() => {
         let newTemp
-        if (tempUnit === 'C') {
-            newTemp = temp
-        }
-        if (tempUnit === 'F') {
-            newTemp = toFahrenheit(temp)
-        }
+        if (tempUnit === 'C') newTemp = temp
+        if (tempUnit === 'F') newTemp = toFahrenheit(temp)
         setState({ ...state, temp: newTemp })
     }, [temp, tempUnit])
 
@@ -22,7 +18,7 @@ const LocationHeader = ({ lang, changeTempUnit, icon, name, country, temp, tempU
         <div id='LocationHeader'>
             <div>
                 <h3>{`${name}, ${country}`}</h3>
-                <p>{weather.charAt(0).toUpperCase() + weather.slice(1)}</p>
+                <p>{capitaliseFirstLetter(weather)}</p>
             </div>
 
             <div className='right-column'>

@@ -79,7 +79,6 @@ export type HourData = {
     cloudiness: number,
     windSpeed: number,
     dateString: string,
-    pod: string,
 }
 
 export type Forecast = {

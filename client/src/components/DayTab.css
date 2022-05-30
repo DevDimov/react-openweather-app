@@ -1,4 +1,4 @@
-.button {
+.DayTab {
     font-family: 'Nunito', sans-serif;
     position: relative;
     display: flex;
@@ -15,15 +15,15 @@
     transition: background-color 0.4s ease;
 }
 
-.button:last-child {
+.DayTab:last-child {
     border-right-width: 0;
 }
 
-.button:hover {
+.DayTab:hover {
     background-color: var(--light-grey);
 }
 
-.button.selected::before {
+.DayTab--selected::before {
     content: "";
     display: block;
     position: absolute;
@@ -33,7 +33,18 @@
     background: var(--fill-highlight);
 }
 
-.icon {
+.DayTab__name {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.DayTab__icon {
     width: 50px;
+    display: inline;
     margin: -0.4rem 0rem -0.4rem -0.4rem;
+}
+
+.DayTab__temp {
+    font-weight: 400;
+    display: inline;
 }

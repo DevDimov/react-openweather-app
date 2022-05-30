@@ -1,10 +1,10 @@
-import styles from './DayTabs.module.css'
 import DayTab from "./DayTab"
+import './DayTabs.css'
 
 const DayTabs = ({ lang, dayData, activeDayTab, setActiveTab, tempUnit }) => {
 
     return (
-        <div className={styles.container}>
+        <div className="DayTabs-wrapper">
             {
                 dayData.map((data, index) => {
                     return (

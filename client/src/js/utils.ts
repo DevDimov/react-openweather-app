@@ -38,15 +38,13 @@ const extractHourData = (item: ApiTimestamp): HourData => {
     const hourData = {
         temp: Math.round(item.main.temp),
         feelsLike: Math.round(item.main.feels_like),
-        description: item.weather[0].description,
+        description: capitaliseFirstLetter(item.weather[0].description),
         icon: '/images/' + item.weather[0].icon + '@2x.png',
         chanceOfRain: item.pop,
         cloudiness: item.clouds.all,
         windSpeed: item.wind.speed,
         dateString: item.dt_txt,
-        pod: item.sys.pod,
     }
-    hourData.description = hourData.description.charAt(0).toUpperCase() + hourData.description.slice(1)
     return hourData
 }
 
@@ -168,4 +166,8 @@ export const getCurrentTime = () => {
 
 export const getLocationTime = (unix: number, UTCshift: number) => {
     return new Date(unix * 1000 + UTCshift * 1000).toUTCString().split(' ')[4].slice(0, 5)
+}
+
+export const capitaliseFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
 }

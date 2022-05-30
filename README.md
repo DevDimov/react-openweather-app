@@ -1,6 +1,6 @@
-# Weather App with React, Node and OpenWeatherMap
+# Weather App with React, Node and OpenWeather
 
-A minimalist feature-rich weather app built with React and Node, serving data from OpenWeatherMap.
+A minimalist feature-rich weather app built with React and Node, serving data from OpenWeather.
 
 ## Table of contents
 

@@ -23,10 +23,8 @@ app.get('/api', async (req, res) => {
         // const url = 'http://api.openweathermap.org/errorURLforDevEnv'
         const response = await fetch(`${url}?${query}&lang=${lang}&units=metric&appid=${apiKey}`)
         const data = await response.json()
-        // console.log(data)
         return res.status(200).json(data)
     } catch (err) {
-        // console.log(err.message)
         return res.status(500).json(err.message)
     }
 })

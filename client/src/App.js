@@ -88,35 +88,35 @@ const App = () => {
     }
 
     const getWeather = async (method, location, langValue) => {
-        let response = ''
-        
+        let url = ''
+        // url = './testData/data.json' // For dev only
+
         // Uncomment the below if statements for production
-        if (method === 'cityName') {
-            response = await fetch(`/api?q=${location}&lang=${langValue}`)
-        }
-        if (method === 'cityID') {
-            response = await fetch(`/api?id=${location}&lang=${langValue}`)
-        }
+        if (method === 'cityName') url = `/api?q=${location}&lang=${langValue}`
+        if (method === 'cityID') url = `/api?id=${location}&lang=${langValue}`
 
-        // response = await fetch('./testData/data.json') // For dev only
-
-        if (response.status >= 200 && response.status <= 299) {
-            const data = await response.json()
-            if (data.cnt > 0) {
-                return processData(data)
-            }
-            else {
-                return {
-                    status: data.cod,
-                    statusText: data.message
+        return fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.cnt > 0) {
+                    console.log('Success:', data)
+                    return processData(data)
                 }
-            }
-        } else {
-            return {
-                status: 500,
-                statusText: lang.serverError
-            }
-        }
+                else {
+                    console.log('Insufficient results:')
+                    return {
+                        status: data.cod,
+                        statusText: data.message
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                return {
+                    status: 500,
+                    statusText: lang.serverError
+                }
+            })
     }
 
     const setData = (obj) => {

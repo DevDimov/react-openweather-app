@@ -2,13 +2,25 @@ import styles from './LocationControls.module.css'
 
 const LocationControls = ({ tempUnit, view, changeTempUnit, changeView, locationID, removeLocation }) => {
 
+    const handleTempUnitChange = () => {
+        changeTempUnit()
+    }
+
+    const handleViewChange = () => {
+        changeView()
+    }
+
+    const handleRemoveLocation = () => {
+        removeLocation(locationID)
+    }
+
     return (
         <div className={styles.locationControls}>
 
             <button
                 name="temp-switch"
                 className={styles.button}
-                onClick={() => changeTempUnit()}
+                onClick={handleTempUnitChange}
             >
                 <img
                     className={tempUnit === 'F' ? styles.tempUnitF : styles.tempUnitC}
@@ -19,7 +31,7 @@ const LocationControls = ({ tempUnit, view, changeTempUnit, changeView, location
             <button
                 name="change-view"
                 className={styles.button}
-                onClick={() => changeView()}
+                onClick={handleViewChange}
             >
                 <img
                     className={view === 'compact' ? styles.compressButton : styles.expandButton}
@@ -29,7 +41,7 @@ const LocationControls = ({ tempUnit, view, changeTempUnit, changeView, location
             <button
                 name="remove-location"
                 className={styles.button}
-                onClick={() => removeLocation(locationID)}
+                onClick={handleRemoveLocation}
             >
                 <img
                     className={styles.removeButton}

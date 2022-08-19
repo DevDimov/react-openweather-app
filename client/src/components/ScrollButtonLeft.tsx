@@ -8,12 +8,12 @@ type ScrollLeftButtonProps = {
 
 const ScrollButtonLeft = ({ scrollRef }: ScrollLeftButtonProps) => {
 
-    const scroll = (shift: number) => {
+    const handleClick = (shift: number) => {
         scrollRef.current.scrollLeft += shift
     }
 
     return (
-        <button className="scroll-button-left" onClick={() => scroll(-100)}>
+        <button className="scroll-button-left" onClick={() => handleClick(-100)}>
             <img className="chevron-left" src={chevron} alt="chevron" />
         </button>
     )

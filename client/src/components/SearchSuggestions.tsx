@@ -17,7 +17,7 @@ type SearchSuggestionsProps = {
 
 export const SearchSuggestions = ({ filteredSuggestions, activeSuggestion, setState, inputRef }: SearchSuggestionsProps) => {
 
-    const handleOnClick = (e: MouseEvent) => {
+    const handleClick = (e: MouseEvent) => {
         setState({
             userInput: e.currentTarget.innerHTML,
             filteredSuggestions: [],
@@ -39,7 +39,7 @@ export const SearchSuggestions = ({ filteredSuggestions, activeSuggestion, setSt
                         <li
                             className={className}
                             key={suggestion}
-                            onClick={handleOnClick}
+                            onClick={handleClick}
                         >
                             {suggestion}
                         </li>

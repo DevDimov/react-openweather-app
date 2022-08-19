@@ -2,7 +2,7 @@ import styles from './SelectMenu.module.css'
 
 export const SelectMenu = ({ label, options, optionsText, selected, forwardRef, setUpdateDisabled }) => {
 
-    const handleOnChange = (e) => {
+    const handleChange = (e) => {
         let selectedOption = e.target.value
         if (selectedOption !== selected) {
             setUpdateDisabled(false)
@@ -19,7 +19,7 @@ export const SelectMenu = ({ label, options, optionsText, selected, forwardRef, 
                 id={label}
                 ref={forwardRef}
                 className={styles.selectMenu}
-                onChange={(e) => handleOnChange(e)}
+                onChange={(e) => handleChange(e)}
             >
                 <option defaultValue hidden value={selected}>
                     {options.filter(option => option.value === selected)[0].text}

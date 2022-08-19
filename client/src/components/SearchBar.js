@@ -25,7 +25,7 @@ const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, search
         setSearchStatus(searchError)
     }, [searchError])
 
-    const onChange = (e) => {
+    const handleChange = (e) => {
         const userInput = e.currentTarget.value;
         let re = new RegExp(userInput, 'i');
         let matches = suggestions.filter((city) => (city.search(re) > -1))
@@ -37,7 +37,7 @@ const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, search
         })
     }
 
-    const onKeyDown = (e) => {
+    const handleKeyDown = (e) => {
         const { activeSuggestion, filteredSuggestions } = state
 
         // User pressed the enter key
@@ -51,7 +51,7 @@ const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, search
                 })
             }
             else {
-                search()
+                handleSearch()
             }
         }
 
@@ -72,7 +72,7 @@ const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, search
         }
     }
 
-    const search = async () => {
+    const handleSearch = async () => {
         const userInput = state.userInput.trim()
         if (userInput.length < 3) {
             setSearchStatus(lang.search.invalidInput)
@@ -110,12 +110,12 @@ const SearchBar = ({ lang, langValue, getWeather, locations, suggestions, search
                     placeholder={lang.search.placeholder}
                     className="SearchBar-input"
                     maxLength="40"
-                    onChange={onChange}
-                    onKeyDown={onKeyDown}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                     value={state.userInput}
                 >
                 </input>
-                <button className="SearchBar-button" onClick={search}>
+                <button className="SearchBar-button" onClick={handleSearch}>
                     <img
                         className="SearchBar-icon"
                         src={searchIcon}

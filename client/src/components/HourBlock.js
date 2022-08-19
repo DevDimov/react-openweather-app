@@ -21,11 +21,15 @@ const HourBlock = ({ lang, hourData, tempUnit, windSpeedUnit }) => {
         setState({ ...state, temp: newTemp, feelsLike: newFeelsLike })
     }, [hourData.temp, hourData.feelsLike, tempUnit])
 
+    const handleClick = () => {
+        setShowDetails(!showDetails)
+    }
+
     return (
         <div className="display-flex">
             <div
                 className="HourBlock"
-                onClick={() => setShowDetails(!showDetails)}
+                onClick={handleClick}
             >
                 <p>{hourData.dateString.split(' ')[1].slice(0, 5)}</p>
                 <img

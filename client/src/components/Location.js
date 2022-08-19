@@ -41,7 +41,6 @@ const Location = ({ lang, data, settings, setSettings, id, removeLocation }) => 
         let obj = { ...state, tempUnit: newUnit }
         let newSettings = {
             ...settings,
-            // useGlobal: false,
             global: { ...settings.global, tempUnit: 'mixed' },
             local: { ...settings.local, [id]: obj }
         }
@@ -60,7 +59,6 @@ const Location = ({ lang, data, settings, setSettings, id, removeLocation }) => 
         let obj = { ...state, view: newView }
         let newSettings = {
             ...settings,
-            // useGlobal: false,
             global: { ...settings.global, view: 'mixed' },
             local: { ...settings.local, [id]: obj }
         }

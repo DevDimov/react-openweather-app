@@ -1,5 +1,4 @@
 import { MutableRefObject } from "react"
-// import { getLongDayName, getDateOrdinal } from '../js/utils'
 import { Language, Ordinal } from "../typescript/ApiTypes"
 import './DayTabSwitch.css'
 
@@ -15,14 +14,13 @@ const DayTabSwitch = ({ lang, activeDayTab, setActiveTab, scrollRef, dayTabDate 
 
     const getNextDayName = (dateString: string) => {
         let d = new Date(dateString)
-        // d.setDate(d.getDate() + 1)
         const longDayName = lang.longDays[d.getDay()]
         let key = d.getDate()
         let dateOrdinal = lang.ordinal[key as keyof Ordinal]
         return longDayName + " " + key + dateOrdinal
     }
 
-    const handleOnClick = () => {
+    const handleClick = () => {
         setActiveTab(activeDayTab + 1)
         scrollRef.current.scrollLeft = 0
     }
@@ -30,7 +28,7 @@ const DayTabSwitch = ({ lang, activeDayTab, setActiveTab, scrollRef, dayTabDate 
     return (
         <div
             className="DayTabSwitch"
-            onClick={handleOnClick}>
+            onClick={handleClick}>
             <p>{lang.nextDayButton}</p>
             <p className="font-weight-600">{getNextDayName(dayTabDate)}</p>
         </div>

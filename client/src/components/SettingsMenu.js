@@ -15,7 +15,7 @@ const SettingsMenu = ({ lang, setShowSettings, settings, setSettings }) => {
     const viewRef = useRef()
     const windSpeedRef = useRef()
 
-    const handleOnClick = () => {
+    const handleClick = () => {
         let newSettings = {
             lang: langRef.current.value,
             tempUnit: tempUnitRef.current.value,
@@ -24,11 +24,9 @@ const SettingsMenu = ({ lang, setShowSettings, settings, setSettings }) => {
         }
         setSettings({
             ...settings,
-            // useGlobal: true, 
             global: newSettings
         })
         setShowSettings(false)
-        // console.log(newSettings)
     }
 
     return (
@@ -98,7 +96,7 @@ const SettingsMenu = ({ lang, setShowSettings, settings, setSettings }) => {
                     <button
                         disabled={updateDisabled}
                         className={styles.updateButton}
-                        onClick={() => handleOnClick()}
+                        onClick={handleClick}
                     >
                         {lang.update}
                     </button>
